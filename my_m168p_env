@@ -1,0 +1,28 @@
+# +----------------------------- setup the my personal env ----------------------------+
+# |                                    my_m168p_env                                    |
+# +------------------------------------------------------------------------------------+
+
+. ./env_avr_dev_latest
+
+# common controller defines
+export MCU=atmega168p
+export F_CPU=1000000
+export BAUD=9600
+
+#
+# my programmer -> a old stk500 on usb<->serial adapter
+#                  export PROGRAMMER_ARGS=" -P /dev/ttyUSB0"
+#               -> a old stk500 direkt conected 
+#                  export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+#
+export PROGRAMMER=avrdude
+export PROGRAMMER_HW=stk500
+export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+
+#
+# export project specific definitions 
+#
+export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
+#echo $PROJECT_CONTROLLER
+
+echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

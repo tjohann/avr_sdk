@@ -31,7 +31,8 @@ typedef enum serial_op_mode {
 	ASYNC_NORMAL = 0x01,
 	ASYNC_DOUBLE,
 	SYNC_MASTER,  // no double in sync -> U2Xn=0
-	SYNC_SLAVE  
+	SYNC_SLAVE,
+	MASTER_SPI    // TODO: Check that
 } serial_op_mode_t;
 
 
@@ -40,6 +41,29 @@ typedef enum serial_enable_rxtx {
 	ENA_TX,
 	ENA_ALL
 } serial_enable_rxtx_t;
+
+
+/*
+ * -> macros for setting operation mode of usart 
+ */
+#define SERIAL_SET_ASYNC_MODE()			\
+	{					\
+		UCSR0C &= ~(1 << UMSEL00);	\
+		UCSR0C &= ~(1 << UMSEL01);	\
+	}
+
+#define SERIAL_SET_SYNC_MODE()			\
+	{					\
+		UCSR0C &= ~(1 << UMSEL00);	\
+		UCSR0C = (1 << UMSEL01);	\
+	}
+
+// TODO: Check that 
+#define SERIAL_SET_MASTER_SPI_MODE()		\
+	{					\
+		UCSR0C = (1 << UMSEL00);	\
+		UCSR0C = (1 << UMSEL01);	\
+	}
 
 
 /*

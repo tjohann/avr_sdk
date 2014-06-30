@@ -96,24 +96,29 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	// set needed values in 
 	switch (op_mode) {
 	case ASYNC_NORMAL:
+		SERIAL_SET_ASYNC_MODE();	
 		SERIAL_DIS_DOUBLE_SPEED();
 		break;
 	case ASYNC_DOUBLE:
+		SERIAL_SET_ASYNC_MODE();	
 		SERIAL_ENA_DOUBLE_SPEED();
 		break;
 	case SYNC_MASTER:
-
+		SERIAL_SET_SYNC_MODE();	
 		/*
 		 * -> TODO: fill me ...
 		 */
-
 		break;
 	case SYNC_SLAVE:
-
+		SERIAL_SET_SYNC_MODE();	
 		/*
 		 * -> TODO: fill me ...
 		 */
-
+		break;
+	case MASTER_SPI:
+		/*
+		 * -> TODO: fill me ...
+		 */
 		break;
 	default:
 		// ASYNC_NORMAL

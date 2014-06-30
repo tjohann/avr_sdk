@@ -1,10 +1,12 @@
-+--------------------------- setup my AVR dev environment --------------------------+
-|                                  README FIRST                                     |
-+-----------------------------------------------------------------------------------+
+avr_sdk ... a simple sdk with libs and tools for using with 8 bit controller
+==========================
+
+Setup AVR dev environment
+--------------------------
 
 This is a short introduction for using my avr_sdk.
 
-Files:
+* Files: *
 - AUTHORS ...
 - bin ... some usefull bin (x86_64)
 - Changelog ...
@@ -28,11 +30,10 @@ Files:
 - src ... sources for avr specific libs and tools
 - TODO ...
 
-General usage:
-Create an controller specific file like my_m168p_env ... source it and try to build content
+* General usage: *
+- Create an controller specific file like my_m168p_env ... source it and try to build content
 of ~/avr_sdk/src$ ... 
 
-->
 ...~/avr_sdk$ . ./my_m168p_env 
 Setup env for target atmega168p with 1000000Hz and 9600baud
 ...:~/avr_sdk$ cd src
@@ -42,8 +43,8 @@ libavrcyclon  libavrhelper  libavrserial  makefile  template
 .... A lot of output ...
 Check for errors ... there shouldn't be any 
 
-HOTWO use it:
--> Check the template for a general overview and/or check the lib*s 
+*HOTWO use it: *
+Check the template for a general overview and/or check the lib*s 
 
 
 Pls report errors to thorsten.johannvorderbrueggen@t-online.de with subject [AVR_SDK_ERRORS] ...

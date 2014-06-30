@@ -30,7 +30,8 @@
 typedef enum serial_op_mode {
 	ASYNC_NORMAL = 0x01,
 	ASYNC_DOUBLE,
-	SYNC_MASTER  // no double in sync
+	SYNC_MASTER,  // no double in sync -> U2Xn=0
+	SYNC_SLAVE  
 } serial_op_mode_t;
 
 

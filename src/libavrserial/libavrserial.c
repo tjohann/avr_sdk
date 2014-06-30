@@ -22,7 +22,7 @@ serial_setup_async_normal_mode(serial_frame_type_t frame_type)
 }
 
 /*
- * -> setup USART0 for async mode at normal speed ... U2Xn=0
+ * -> setup USART0 for async mode at double speed ... U2Xn=1
  *
  * contraints: enable rx and tx
  */
@@ -35,7 +35,7 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type)
 }
 
 /*
- * -> setup USART0 for async mode at double speed ... U2Xn=1
+ * -> setup USART0 for sync master mode
  *
  * contraints: enable rx and tx
  */
@@ -47,6 +47,19 @@ serial_setup_sync_master(serial_frame_type_t frame_type)
 			   ENA_ALL);
 }
 
+
+/*
+ * -> setup USART0 for sync slave mode
+ *
+ * contraints: enable rx and tx
+ */
+void 
+serial_setup_sync_slave(serial_frame_type_t frame_type)
+{
+       	serial_setup_usart(SYNC_SLAVE,
+			   frame_type,
+			   ENA_ALL);
+}
 
 
 
@@ -85,7 +98,13 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		UCSR0A &= ~(1 << U2X0); // disable U2Xn
 		break;
 	case SYNC_MASTER:
-		// no usage for U2Xn
+
+		/*
+		 * -> TODO: fill me ...
+		 */
+
+		break;
+	case SYNC_SLAVE:
 
 		/*
 		 * -> TODO: fill me ...

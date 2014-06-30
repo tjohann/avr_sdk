@@ -25,6 +25,7 @@
 /*
  * -> my avr_sdk libs 
  */
+#include <avr_compile_macros.h>
 #include <libavrhelper.h>
 #include <libavrserial.h>
 #include <libavrcyclon.h>

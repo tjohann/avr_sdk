@@ -76,6 +76,12 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type);
 void 
 serial_setup_sync_master(serial_frame_type_t frame_type);
 
+/*
+ * -> setup USART0 for sync slave mode
+ */
+void 
+serial_setup_sync_slave(serial_frame_type_t frame_type);
+
 
 /*
  * ****** functions for reading from USART *******

@@ -23,7 +23,7 @@
 #define _LIBAVRSERIAL_PRIV_H_
 
 #include <libavrhelper.h>
-#include <libavrserial.h>
+#include "libavrserial.h"
 #include <avr/io.h>
 #include <util/setbaud.h>
 

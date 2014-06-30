@@ -5,8 +5,7 @@ all::
 	@echo " "
 	@echo "--> Building $(AVR_LIBS) "
 	@echo " "
-	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) $@); done
-	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) install); done
+	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) $@ && $(MAKE) install); done
 	@echo " "
 	@echo "--> Building $(MODULES) "
 	@echo " "

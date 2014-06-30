@@ -19,36 +19,30 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _LIBAVRSERIAL_PRIV_H_
-#define _LIBAVRSERIAL_PRIV_H_
-
-#include <libavrhelper.h>
-#include <libavrserial.h>
-#include <avr/io.h>
-#include <util/setbaud.h>
-
-typedef enum serial_op_mode {
-	ASYNC_NORMAL = 0x01,
-	ASYNC_DOUBLE,
-	SYNC_MASTER,  // no double in sync -> U2Xn=0
-	SYNC_SLAVE  
-} serial_op_mode_t;
-
-
-typedef enum serial_enable_rxtx {
-	ENA_RX = 0x01,
-	ENA_TX,
-	ENA_ALL
-} serial_enable_rxtx_t;
+#ifndef _AVR_COMPILE_MACROS_H_
+#define _AVR_COMPILE_MACROS_H_   
 
 
 /*
- * -> init USART
+ * first check the essential macros/defines
  */
-void 
-serial_setup_usart(serial_op_mode_t op_mode,
-		   serial_frame_type_t frame_type,
-		   serial_enable_rxtx_t ena_rxtx);
+#ifndef F_CPU
+#  error "Freq of CPU not defined!"
+#endif
+
+
+/*
+ * check macros and define reasonable defaults 
+ */
+#ifndef BAUD              
+#define BAUD  9600   
+#  warning "Baud rate not defined, use 9600"
+#endif
+
+#ifndef CONTROLLER_FAMILY   
+#define CONTROLLER_FAMILY  AVR  
+#  warning "Controller family not defined, use AVR"
+#endif
 
 
 #endif

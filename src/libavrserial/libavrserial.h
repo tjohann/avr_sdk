@@ -22,6 +22,7 @@
 #ifndef _LIBAVRSERIAL_H_
 #define _LIBAVRSERIAL_H_
 
+#include <avr_compile_macros.h>
 #include <libavrhelper.h>
 
 #ifndef BAUD              

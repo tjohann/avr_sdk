@@ -75,6 +75,11 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		   serial_frame_type_t frame_type,
 		   serial_enable_rxtx_t ena_rxtx) 
 {
+
+/*
+ * SERIAL SETUP FOR AVR
+ */
+#if CONTROLLER_FAMILY == AVR
 	/*
 	 * For baudmode see:
 	 *
@@ -114,7 +119,6 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	default:
 		// ASYNC_NORMAL
 		UCSR0A &= ~(1 << U2X0); // disable U2Xn
-
 	}
 
 	// enable or disable RX/TX 
@@ -134,6 +138,14 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		// enable TX and RX
 		UCSR0B = (1 << TXEN0) | (1 << RXEN0);
 	}
+#endif
+
+/*
+ * SERIAL SETUP FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == ARM
+	// ARM stuff
+#endif
 
 }
 

@@ -43,6 +43,134 @@ typedef enum serial_enable_rxtx {
 
 
 /*
+ * -> macros for setting a correct frame type 
+ */
+#define SERIAL_SET_5_DATA_BITS()		\
+	{					\
+		UCSR0C &= ~(1 << UCSZ00);	\
+		UCSR0C &= ~(1 << UCSZ01);	\
+		UCSR0B &= ~(1 << UCSZ02);	\
+	}
+
+#define SERIAL_SET_6_DATA_BITS()		\
+	{					\
+		UCSR0C = (1 << UCSZ00);		\
+		UCSR0C &= ~(1 << UCSZ01);	\
+		UCSR0B &= ~(1 << UCSZ02);	\
+	}
+
+#define SERIAL_SET_7_DATA_BITS()		\
+	{					\
+		UCSR0C &= ~(1 << UCSZ00);	\
+		UCSR0C = (1 << UCSZ01);		\
+		UCSR0B &= ~(1 << UCSZ02);	\
+	}
+
+#define SERIAL_SET_8_DATA_BITS()		\
+	{					\
+		UCSR0C = (1 << UCSZ00);		\
+		UCSR0C = (1 << UCSZ01);		\
+		UCSR0B &= ~(1 << UCSZ02);	\
+	}
+
+#define SERIAL_SET_9_DATA_BITS()		\
+	{					\
+		UCSR0C = (1 << UCSZ00);	        \
+		UCSR0C = (1 << UCSZ01);	 	\
+		UCSR0B = (1 << UCSZ02);	        \
+	}
+
+#define SERIAL_SET_1_STOP_BIT()			\
+	{					\
+		UCSR0C &= ~(1 << USBS0);	\
+	}
+
+#define SERIAL_SET_2_STOP_BITS()		\
+	{					\
+		UCSR0C = (1 << USBS0);		\
+	}
+
+#define SERIAL_SET_NO_PARITY()			\
+	{					\
+		UCSR0C &= ~(1 << UPM00);	\
+		UCSR0C &= ~(1 << UPM01);	\
+	}
+
+#define SERIAL_SET_ODD_PARITY()			\
+	{					\
+		UCSR0C = (1 << UPM00);		\
+		UCSR0C = (1 << UPM01);		\
+	}
+
+#define SERIAL_SET_EVEN_PARITY()		\
+	{					\
+		UCSR0C &= ~(1 << UPM00);	\
+		UCSR0C = (1 << UPM01);		\
+	}
+
+
+/*
+ * -> macros for enable/disable U2X0
+ */
+#define SERIAL_ENA_DOUBLE_SPEED()		\
+	{					\
+		UCSR0A = (1 << U2X0);		\
+	}
+
+#define SERIAL_DIS_DOUBLE_SPEED()		\
+	{					\
+		UCSR0A &= ~(1 << U2X0);		\
+	}
+
+
+/*
+ * -> macros for enable/disable TX/RX
+ */
+#define SERIAL_ENA_TX()				\
+	{					\
+		UCSR0B = (1 << TXEN0);		\
+	}
+
+#define SERIAL_DIS_TX()				\
+	{					\
+		UCSR0B &= ~(1 << TXEN0);	\
+	}
+
+#define SERIAL_ENA_RX()				\
+	{					\
+		UCSR0B = (1 << RXEN0);		\
+	}
+
+#define SERIAL_DIS_RX()				\
+	{					\
+		UCSR0B &= ~(1 << RXEN0);	\
+	}
+
+#define SERIAL_ENA_RXTX()			\
+	{					\
+		UCSR0B = (1 << TXEN0);		\
+		UCSR0B = (1 << RXEN0);		\
+	}
+
+#define SERIAL_DIS_RXTX()			\
+	{					\
+	        UCSR0B &= ~(1 << TXEN0);	\
+		UCSR0B &= ~(1 << RXEN0);	\
+	}
+
+#define SERIAL_ENA_ALL()			\
+	{					\
+		UCSR0B = (1 << TXEN0);		\
+		UCSR0B = (1 << RXEN0);		\
+	}
+
+#define SERIAL_DIS_ALL()			\
+	{					\
+	        UCSR0B &= ~(1 << TXEN0);	\
+		UCSR0B &= ~(1 << RXEN0);	\
+	}
+
+/*
  * -> init USART
  */
 void 

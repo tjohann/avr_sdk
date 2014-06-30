@@ -96,11 +96,10 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	// set needed values in 
 	switch (op_mode) {
 	case ASYNC_NORMAL:
-		UCSR0A &= ~(1 << U2X0); // disable U2Xn
-
+		SERIAL_DIS_DOUBLE_SPEED();
 		break;
 	case ASYNC_DOUBLE:
-		UCSR0A &= ~(1 << U2X0); // disable U2Xn
+		SERIAL_ENA_DOUBLE_SPEED();
 		break;
 	case SYNC_MASTER:
 
@@ -118,34 +117,48 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		break;
 	default:
 		// ASYNC_NORMAL
-		UCSR0A &= ~(1 << U2X0); // disable U2Xn
+		SERIAL_DIS_DOUBLE_SPEED();
 	}
+
+	switch (frame_type) {
+	case DATA_8_STOP_1_NO_PARITY:
+		SERIAL_SET_8_DATA_BITS();
+		SERIAL_SET_1_STOP_BIT();
+		SERIAL_SET_NO_PARITY();
+		break;
+	default:
+		// DATA_8_STOP_1_NO_PARITY
+		SERIAL_SET_8_DATA_BITS();
+		SERIAL_SET_1_STOP_BIT();
+		SERIAL_SET_NO_PARITY();
+	}
+
 
 	// enable or disable RX/TX 
 	switch (ena_rxtx) {
 	case ENA_ALL:
-		UCSR0B = (1 << TXEN0) | (1 << RXEN0);
+		SERIAL_ENA_ALL();
 		break;
 	case ENA_RX:
-		UCSR0B = (1 << RXEN0);
-		UCSR0B &= ~(1 << TXEN0);
+		SERIAL_DIS_TX();
+		SERIAL_ENA_RX();
 		break;
 	case ENA_TX:
-		UCSR0B = (1 << TXEN0);
-		UCSR0B &= ~(1 << RXEN0);
+		SERIAL_DIS_RX();
+		SERIAL_ENA_TX();	
 		break;
 	default:
 		// enable TX and RX
-		UCSR0B = (1 << TXEN0) | (1 << RXEN0);
+		SERIAL_ENA_ALL();
 	}
-#endif
+#endif  // AVR
 
 /*
  * SERIAL SETUP FOR ARM-CORTEX-M3
  */
 #if CONTROLLER_FAMILY == ARM
-	// ARM stuff
-#endif
+	// fill me
+#endif  // ARM
 
 }
 

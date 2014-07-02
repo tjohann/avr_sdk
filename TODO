@@ -1,3 +1,4 @@
 # TODO 
 
-2013-06-20 -> Jvb, add menu item only for unzipping 
+2014-07-02 -> tjohann, libavrserial
+	      check and implement operation mode for SYNC_MASTER, SYNC_SLAVE and MASTER_SPI

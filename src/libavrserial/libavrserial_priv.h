@@ -194,6 +194,7 @@ typedef enum serial_enable_rxtx {
 		UCSR0B &= ~(1 << RXEN0);	\
 	}
 
+
 /*
  * -> init USART
  */

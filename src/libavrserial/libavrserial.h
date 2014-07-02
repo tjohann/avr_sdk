@@ -88,10 +88,21 @@ serial_setup_sync_slave(serial_frame_type_t frame_type);
  * ****** functions for reading from USART *******
  */
 
+/*
+ * -> receive data (polling)
+ */
+unsigned short 
+serial_receive_data(); 
 
 /*
  * ****** functions for writing from USART *******
  */
+
+/*
+ * -> send data (polling)
+ */
+void 
+serial_send_data(unsigned short data); 
 
 
 #endif

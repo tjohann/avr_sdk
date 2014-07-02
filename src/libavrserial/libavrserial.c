@@ -168,3 +168,74 @@ serial_setup_usart(serial_op_mode_t op_mode,
 }
 
 
+/*
+ * -> send data (polling)
+ */
+void 
+serial_send_data(unsigned short data) 
+{
+	unsigned char send_data = 0x00;
+
+/*
+ * SEND_DATA FOR AVR
+ */
+#if CONTROLLER_FAMILY == AVR
+	/*
+	 * Check if UDRE0 (Data Register Empty) is set, 
+	 * otherwise wait ... and wait ... 
+	 *
+	 * Note: 9 bit mode uses TXB8n for the 9. bit
+	 */
+	while (!(UCSR0A & (1 << UDRE0)))
+		;
+
+	if ((UCSR0B >> UCSZ02) & 1) { // 9 bit mode
+		if (data & 0x0100)
+			UCSR0B |= (1 << TXB80);
+		else 
+			UCSR0B &= ~(1 << TXB80);
+        } 
+		
+	send_data = (0xFF) & data;
+	UDR0 = send_data;         
+	
+#endif  // AVR
+
+/*
+ * SEND_DATA FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == ARM
+	// fill me
+#endif  // ARM
+
+}
+
+
+/*
+ * -> receive data (polling)
+ */
+unsigned short 
+serial_receive_data(void) 
+{
+	unsigned short data = 0x0000;
+
+/*
+ * RECEIVE_DATA FOR AVR
+ */
+#if CONTROLLER_FAMILY == AVR
+	// fill me
+#endif  // AVR
+
+
+
+
+/*
+ * RECEIVE_DATA FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == ARM
+	// fill me
+#endif  // ARM
+
+	return data;
+}
+

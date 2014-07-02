@@ -2,6 +2,16 @@
 # |                                    my_m168p_env                                    |
 # +------------------------------------------------------------------------------------+
 
+#
+# for adding to .bashrc 
+#
+## setup the avr environment 
+#if [ -f ~/avr_sdk/my_m168p_env ]; then
+#    cd avr_sdk
+#    . ~/avr_sdk/my_m168p_env 
+#    cd -
+#fi
+
 . ./env_avr_dev_latest
 
 # common controller defines

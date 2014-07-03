@@ -36,6 +36,28 @@
 
 
 /*
+ * serial specific error codes
+ */
+typedef enum serial_errors {
+	SERIAL_RCV_ERROR = 0x01,
+	SERIAL_SEND_ERROR,
+	SERIAL_UNKNOWN
+} serial_errors_t;
+
+
+/*
+ * serial errno stuff
+ *
+ * Note: of course not reentrant 
+ *       SERIAL_ERROR is the general switch
+ *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
+ */
+#ifndef SERIAL_ERROR 
+# warning "No special serial error indication!"
+#endif
+
+
+/*
  * HOWTO: configuration of the USART0 
  *
  * -> function serial_setup_asyn_normal_mode for normal mode ...
@@ -49,7 +71,6 @@
 typedef enum serial_frame_type {
         DATA_8_STOP_1_NO_PARITY = 0x01
 } serial_frame_type_t;
-
 
 /*
  * ****** functions for init/setup of USART ******

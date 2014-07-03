@@ -197,7 +197,7 @@ serial_send_data(unsigned short data)
         } 
 		
 	send_data = (0xFF) & data;
-	UDR0 = send_data;         
+	UDR0 = send_data;   // will change state of send fifo       
 	
 #endif  // AVR
 
@@ -217,13 +217,54 @@ serial_send_data(unsigned short data)
 unsigned short 
 serial_receive_data(void) 
 {
-	unsigned short data = 0x0000;
+	unsigned short received_data = 0x0000;
+	unsigned char data = 0x00, ninth_bit = 0x00; 
+	unsigned char state_bits = 0x00, state = 0x00;
 
 /*
  * RECEIVE_DATA FOR AVR
  */
 #if CONTROLLER_FAMILY == AVR
-	// fill me
+	/*
+	 * Check if RXC0 (Receive Complete Flag) is set, 
+	 * otherwise wait ... and wait ... 
+	 *
+	 * Note: 9 bit mode uses RXB8n for the 9. bit
+	 */
+	while (!(UCSR0A & (1 << RXC0)))
+		;
+
+	/*
+	 * addtional state bits 
+	 *
+	 * -> FEn Frame Error
+	 * -> DORn Data OverRun
+	 * -> UPEn USART Paraty Error
+	 */
+	state_bits = (1 << FE0) | (1 << DOR0) | (1 << UPE0);
+
+	/*
+	 * Note: the order is important 
+	 */
+	state = UCSR0A;
+	ninth_bit = (UCSR0B >> RXB80) & 1;
+	data = UDR0; // will change state of receive fifo
+
+	if (state & state_bits) {
+#if SERIAL_ERROR == ON	 
+		// error HANDLING
+
+		// set error to SERIAL_RCV_ERROR
+#endif		
+		received_data = 0x00;
+	} else {
+		
+		// set error to MY_OK
+		received_data = (ninth_bit << 8) | data;
+	}
+       
+
+
 #endif  // AVR
 
 
@@ -236,6 +277,6 @@ serial_receive_data(void)
 	// fill me
 #endif  // ARM
 
-	return data;
+	return received_data;
 }
 

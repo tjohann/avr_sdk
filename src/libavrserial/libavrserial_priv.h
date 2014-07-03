@@ -44,6 +44,23 @@ typedef enum serial_enable_rxtx {
 
 
 /*
+ * serial errno stuff
+ *
+ * Note: of course not reentrant 
+ *       SERIAL_ERROR is the general switch
+ *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
+ */
+#ifdef SERIAL_ERROR 
+#ifndef SERIAL_ERRNO
+#define SERIAL_ERRNO
+unsigned char serial_errno = MY_OK;
+#endif
+#else
+# warning "No special serial error indication!"
+#endif
+
+
+/*
  * -> macros for setting operation mode of usart 
  */
 #define SERIAL_SET_ASYNC_MODE()			\

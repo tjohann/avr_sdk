@@ -64,7 +64,7 @@ __attribute__((OS_main)) main(void)
 	
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
-		// 
+		error_indication();
 
 	/*
 	 * -> usage of dummy functions

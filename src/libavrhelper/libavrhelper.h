@@ -22,7 +22,11 @@
 #ifndef _LIBAVRHELPER_H_
 #define _LIBAVRHELPER_H_
 
-
+/*
+ * include some usefull header by default
+ */
+#include <avr/io.h>
+#include <stdlib.h>
 
 /*
  * common defines

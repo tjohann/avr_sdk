@@ -23,9 +23,29 @@
 
 /*
  * common defines
+ * 
+ * -> DELAYTIME ... the normal blink time
+ * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
+ *
+ * -> STATE_UNKNOWN ... state of template is unknown 
+ * -> STATE_OK ... everthing is up and running
+ * -> STATE_ERROR ... an error occured
+ * -> STATE_INIT_DONE ... init finished
+ * -> STATE_SERIAL_INIT_DONE ... init of serial finished -> used serial 
+ *                               in error_indication 
  */
 #define DELAYTIME 1000
 #define DELAYTIME_ON_ERROR 100
+
+// Note: incrising values ... do not change
+#define STATE_UNKNOWN 0x00
+#define STATE_OK 0x01
+#define STATE_ERROR 0x02
+#define STATE_SERIAL_INIT_DONE 0x03
+#define STATE_INIT_DONE 0x04
+
+// my common state info
+unsigned char state_of_template = STATE_UNKNOWN;
 
 
 /*
@@ -38,18 +58,25 @@ __attribute__((noinline)) init_template(void)
 	SET_BIT(LED_DDR, LED_PIN);            
 }
 
+
 /*
- * -> let the led blink on errors
+ * -> let the led blink on errors or send error_string via serial
  */
 void
-error_indication(void) 
+error_indication(const unsigned char *error_string,
+		 const unsigned char size) 
 {
-	while (1) {
-		SET_BIT(LED_PORT, LED_PIN);
-		_delay_ms(DELAYTIME_ON_ERROR);
-       
-		CLEAR_BIT(LED_PORT, LED_PIN);
-		_delay_ms(DELAYTIME_ON_ERROR);
+	if (state_of_template >= STATE_SERIAL_INIT_DONE) {
+		serial_send_string(error_string, size); 
+		
+	} else {
+		while (1) {
+			SET_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME_ON_ERROR);
+			
+			CLEAR_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME_ON_ERROR);
+		}
 	}
 }
 
@@ -59,12 +86,19 @@ error_indication(void)
 int 
 __attribute__((OS_main)) main(void) 
 {
+	const unsigned char greeting_string[] = "hello machine ... i'm an atmega168(pa)";
+	const unsigned char error_string[] = "an error occured ... pls check";
 
-	init_template();
-	
+	// init serial and let the led blink with DELAYTIME_ON_ERROR ms
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
-		error_indication();
+		error_indication(error_string, sizeof(error_string));
+	
+	// init serial done ... send greetings to peer
+	serial_send_string(greeting_string, sizeof(greeting_string));
+
+	// infrastructure is ready to use ... so my init is the next step 
+	init_template();
 
 	/*
 	 * -> usage of dummy functions

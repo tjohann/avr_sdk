@@ -26,6 +26,7 @@
 #include "libavrserial.h"
 #include <avr/io.h>
 #include <util/setbaud.h>
+#include <stdlib.h>
 
 typedef enum serial_op_mode {
 	ASYNC_NORMAL = 0x01,
@@ -59,6 +60,10 @@ unsigned char serial_errno = MY_OK;
 # warning "No special serial error indication!"
 #endif
 
+/*
+ * error string 
+ */
+unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 /*
  * -> macros for setting operation mode of usart 

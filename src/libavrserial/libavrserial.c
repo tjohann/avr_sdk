@@ -9,7 +9,6 @@
 #include "libavrserial_priv.h"
 
 
-
 /*
  * -> setup USART0 for async mode at normal speed ... U2Xn=0
  */
@@ -175,7 +174,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
  * -> send data (polling)
  */
 void 
-serial_send_data(unsigned short data) 
+serial_send_data(const unsigned short data) 
 {
 	unsigned char send_data = 0x00;
 
@@ -211,6 +210,74 @@ serial_send_data(unsigned short data)
 	// fill me
 #endif  // ARM
 
+}
+
+/*
+ * -> send byte (polling)
+ */
+void 
+serial_send_byte(const unsigned char byte,
+		 serial_send_mode_t mode)
+{
+/*
+ * SEND_DATA FOR AVR
+ */
+#if CONTROLLER_FAMILY == AVR
+	/*
+	 * Check if UDRE0 (Data Register Empty) is set, 
+	 * otherwise wait ... and wait ... 
+	 */
+	while (!(UCSR0A & (1 << UDRE0)))
+		;
+
+	switch (mode)
+	{
+	case SERIAL_SEND_NORMAL:
+		UDR0 = byte;   // will change state of send fifo       
+		break;
+	case SERIAL_SEND_ASCII:
+		// first char
+		UDR0 = 0x30 + (byte / 100);
+		while (!(UCSR0A & (1 << UDRE0)))
+			;
+		// second char
+		UDR0 = 0x30 + ((byte / 10) % 10);
+		while (!(UCSR0A & (1 << UDRE0)))
+			;
+		// third char
+		UDR0 = 0x30 + (byte % 10);
+		break;
+	default:
+		// SERIAL_SEND_ASCII
+#if SERIAL_ERROR == ON	 
+		serial_errno = SERIAL_RCV_DEFAULT;
+#endif
+		UDR0 = byte;        
+	}
+
+#endif  // AVR
+
+/*
+ * SEND_DATA FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == ARM
+	// fill me
+#endif  // ARM
+
+}
+
+
+/*
+ * -> send string (polling)
+ */
+void 
+serial_send_string(const unsigned char *data_string, 
+		   const unsigned char size) 
+{
+	unsigned char i = 0;
+
+	for(i = 0; i <= size; i++)
+		serial_send_byte(data_string[i], SERIAL_SEND_NORMAL);
 }
 
 
@@ -259,11 +326,10 @@ serial_receive_data(void)
 #endif		
 		received_data = 0x00;
 	} else {		
-		
-		received_data = (ninth_bit << 8) | data;
 #if SERIAL_ERROR == ON	 
 		serial_errno = MY_OK;
 #endif
+		received_data = (ninth_bit << 8) | data;
 	}
 #endif  // AVR
 
@@ -276,5 +342,78 @@ serial_receive_data(void)
 #endif  // ARM
 
 	return received_data;
+}
+
+
+/*
+ * -> receive byte (polling)
+ */
+unsigned char 
+serial_receive_byte(void) 
+{
+	unsigned char data = 0x00;
+	unsigned char state_bits = 0x00, state = 0x00;
+
+/*
+ * RECEIVE_DATA FOR AVR
+ */
+#if CONTROLLER_FAMILY == AVR
+	/*
+	 * Check if RXC0 (Receive Complete Flag) is set, 
+	 * otherwise wait ... and wait ... 
+	 */
+	while (!(UCSR0A & (1 << RXC0)))
+		;
+
+	/*
+	 * check addtional state bits -> see serial_receive_data for more info
+	 */
+	state_bits = (1 << FE0) | (1 << DOR0) | (1 << UPE0);
+	state = UCSR0A;
+	if (state & state_bits) {
+#if SERIAL_ERROR == ON	 
+		serial_errno = SERIAL_RCV_ERROR;
+#endif		
+		data = 0x00;
+	} else {		
+#if SERIAL_ERROR == ON	 
+		serial_errno = MY_OK;
+#endif
+		data = UDR0; // will change state of receive fifo
+	}
+#endif  // AVR
+
+
+/*
+ * RECEIVE_DATA FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == ARM
+	// fill me
+#endif  // ARM
+
+	return data;
+}
+
+
+
+/*
+ * -> receive string (polling)
+ *
+ *  serial_errno: SERIAL_RCV_ERROR
+ */
+unsigned char *
+serial_receive_string(unsigned char size)
+{
+	unsigned char *data = NULL;
+
+	data = malloc(size);
+	if (data == NULL) {
+#if SERIAL_ERROR == ON	 
+		serial_errno = SERIAL_RCV_ERROR;
+#endif
+		data = serial_error_string;
+	}
+
+	return data;
 }
 

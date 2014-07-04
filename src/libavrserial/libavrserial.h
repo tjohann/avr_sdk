@@ -42,6 +42,8 @@ typedef enum serial_errors {
 	SERIAL_RCV_ERROR = 0x01,
 	SERIAL_SEND_ERROR,
 	SERIAL_INIT_DEFAULT,            // init values set to MY default
+	SERIAL_RCV_DEFAULT,
+	SERIAL_SEND_DEFAULT,
 	SERIAL_UNKNOWN
 } serial_errors_t;
 
@@ -62,9 +64,11 @@ typedef enum serial_errors {
  * Note: of course not reentrant 
  *       SERIAL_ERROR is the general switch
  *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
+ *       unsigned char * serial_error_string = "SERIAL_ERROR" for a common error string
  */
-#ifndef SERIAL_ERROR 
-# warning "No special serial error indication!"
+#ifndef SERIAL_ERROR  
+#define SERIAL_ERROR OFF  
+#  warning "SERIAL_ERROR not defined, use OFF"
 #endif
 
 
@@ -83,8 +87,18 @@ typedef enum serial_frame_type {
         DATA_8_STOP_1_NO_PARITY = 0x01
 } serial_frame_type_t;
 
+
 /*
- * ****** functions for init/setup of USART ******
+ * -> available modes for serial_send_byte function
+ */
+typedef enum serial_send_mode {
+	SERIAL_SEND_NORMAL = 0x01,
+	SERIAL_SEND_ASCII
+} serial_send_mode_t;
+
+
+/*
+ * ----------- functions for init/setup of USART -----------
  */
 
 /*
@@ -96,7 +110,6 @@ typedef enum serial_frame_type {
 void 
 serial_setup_async_normal_mode(serial_frame_type_t frame_type);
 
-
 /*
  * -> setup USART0 for async mode at double speed ... U2Xn=1
  *
@@ -106,7 +119,6 @@ serial_setup_async_normal_mode(serial_frame_type_t frame_type);
 void 
 serial_setup_async_double_speed(serial_frame_type_t frame_type);
 
-
 /*
  * -> setup USART0 for sync master mode
  *
@@ -115,7 +127,6 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type);
  */
 void 
 serial_setup_sync_master(serial_frame_type_t frame_type);
-
 
 /*
  * -> setup USART0 for sync slave mode
@@ -128,29 +139,69 @@ serial_setup_sync_slave(serial_frame_type_t frame_type);
 
 
 /*
- * ****** functions for reading from USART *******
+ * ----------- functions for reading from USART -----------
  */
 
 /*
  * -> receive data (polling)
  *
- *  serial_errno: SERIAL_RCV_ERROR
+ * contrains: check for 9 databits
+ * serial_errno: SERIAL_RCV_ERROR
  */
 unsigned short 
 serial_receive_data(); 
 
+/*
+ * -> receive byte (polling)
+ *
+ *  serial_errno: SERIAL_RCV_ERROR
+ */
+unsigned char 
+serial_receive_byte(); 
 
 /*
- * ****** functions for writing from USART *******
+ * -> receive string (polling)
+ *
+ *  serial_errno: SERIAL_RCV_ERROR
+ */
+unsigned char *
+serial_receive_string(const unsigned char size);
+
+
+/*
+ * ----------- functions for writing from USART -----------
  */
 
 /*
  * -> send data (polling)
  *
- *  serial_errno: no usage 
+ * contrains: check for 9 databits
+ * serial_errno: no usage 
  */
 void 
-serial_send_data(unsigned short data); 
+serial_send_data(const unsigned short data); 
 
+/*
+ * -> send byte (polling)
+ *
+ * note: if you set mode to ASCII it will send the corresponding 
+ *       ASCII char instead of the value 
+ *       example: 0x01 in SERIAL_SEND_NORMAL and
+ *                0x01 + 0x30 in SERIAL_SEND_ASCII
+ * serial_errno: SERIAL_RCV_DEFAULT
+ */
+void 
+serial_send_byte(const unsigned char byte,
+		 serial_send_mode_t mode); 
+
+/*
+ * -> send string (polling)
+ *
+ * contrains: only bytes ... no 9. bit handling
+ * serial_errno: no usage 
+ */
+void 
+serial_send_string(const unsigned char *data_string, 
+		   const unsigned char size); 
 
 #endif

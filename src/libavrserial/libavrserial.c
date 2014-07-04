@@ -23,8 +23,6 @@ serial_setup_async_normal_mode(serial_frame_type_t frame_type)
 
 /*
  * -> setup USART0 for async mode at double speed ... U2Xn=1
- *
- * contraints: enable rx and tx
  */
 void 
 serial_setup_async_double_speed(serial_frame_type_t frame_type)
@@ -36,8 +34,6 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type)
 
 /*
  * -> setup USART0 for sync master mode
- *
- * contraints: enable rx and tx
  */
 void 
 serial_setup_sync_master(serial_frame_type_t frame_type)
@@ -50,8 +46,6 @@ serial_setup_sync_master(serial_frame_type_t frame_type)
 
 /*
  * -> setup USART0 for sync slave mode
- *
- * contraints: enable rx and tx
  */
 void 
 serial_setup_sync_slave(serial_frame_type_t frame_type)
@@ -123,6 +117,9 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	default:
 		// ASYNC_NORMAL
 		SERIAL_DIS_DOUBLE_SPEED();
+#if SERIAL_ERROR == ON	
+		serial_errno = SERIAL_INIT_DEFAULT;
+#endif
 	}
 
 	switch (frame_type) {
@@ -136,6 +133,9 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		SERIAL_SET_8_DATA_BITS();
 		SERIAL_SET_1_STOP_BIT();
 		SERIAL_SET_NO_PARITY();
+#if SERIAL_ERROR == ON	
+		serial_errno = SERIAL_INIT_DEFAULT;
+#endif
 	}
 
 
@@ -155,6 +155,9 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	default:
 		// enable TX and RX
 		SERIAL_ENA_ALL();
+#if SERIAL_ERROR == ON	
+		serial_errno = SERIAL_INIT_DEFAULT;
+#endif
 	}
 #endif  // AVR
 
@@ -252,22 +255,17 @@ serial_receive_data(void)
 
 	if (state & state_bits) {
 #if SERIAL_ERROR == ON	 
-		// error HANDLING
-
-		// set error to SERIAL_RCV_ERROR
+		serial_errno = SERIAL_RCV_ERROR;
 #endif		
 		received_data = 0x00;
-	} else {
+	} else {		
 		
-		// set error to MY_OK
 		received_data = (ninth_bit << 8) | data;
+#if SERIAL_ERROR == ON	 
+		serial_errno = MY_OK;
+#endif
 	}
-       
-
-
 #endif  // AVR
-
-
 
 
 /*

@@ -24,7 +24,8 @@
 /*
  * common defines
  */
-#define DELAYTIME 200
+#define DELAYTIME 1000
+#define DELAYTIME_ON_ERROR 100
 
 
 /*
@@ -37,6 +38,20 @@ __attribute__((noinline)) init_template(void)
 	SET_BIT(LED_DDR, LED_PIN);            
 }
 
+/*
+ * -> let the led blink on errors
+ */
+void
+error_indication(void) 
+{
+	while (1) {
+		SET_BIT(LED_PORT, LED_PIN);
+		_delay_ms(DELAYTIME_ON_ERROR);
+       
+		CLEAR_BIT(LED_PORT, LED_PIN);
+		_delay_ms(DELAYTIME_ON_ERROR);
+	}
+}
 
 /*
  * set LED on PB0 and clears it after DELAYTIME
@@ -48,7 +63,8 @@ __attribute__((OS_main)) main(void)
 	init_template();
 	
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
-
+	if (serial_errno != MY_OK)
+		// 
 
 	/*
 	 * -> usage of dummy functions

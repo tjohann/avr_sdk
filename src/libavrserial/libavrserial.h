@@ -41,12 +41,23 @@
 typedef enum serial_errors {
 	SERIAL_RCV_ERROR = 0x01,
 	SERIAL_SEND_ERROR,
+	SERIAL_INIT_DEFAULT,            // init values set to MY default
 	SERIAL_UNKNOWN
 } serial_errors_t;
 
 
 /*
  * serial errno stuff
+ *
+ * HOTWO: use serial_errno
+ * -> a global variabl is defined and set to default by 
+ *    this lib -> unsigned char serial_errno = MY_OK;
+ * -> in YOUR header file add the folling declaration
+ *    extern unsigned char serial_errno; 
+ * -> if something goes wrong, then the functions set serial_errno to 
+ *    an value of serial_errors_t 
+ * -> if everthing works fine, then serial_errno is set to MY_OK (see libavrhelper.h)
+ * -> for an example see template.* in src/template
  *
  * Note: of course not reentrant 
  *       SERIAL_ERROR is the general switch
@@ -80,26 +91,37 @@ typedef enum serial_frame_type {
  * -> setup USART0 for async mode at normal speed ... U2Xn=0
  *
  * contraints: enable rx and tx
+ * serial_errno: SERIAL_INIT_DEFAULT
  */
 void 
 serial_setup_async_normal_mode(serial_frame_type_t frame_type);
+
 
 /*
  * -> setup USART0 for async mode at double speed ... U2Xn=1
  *
  * contraints: enable rx and tx
+ * serial_errno: SERIAL_INIT_DEFAULT
  */
 void 
 serial_setup_async_double_speed(serial_frame_type_t frame_type);
 
+
 /*
  * -> setup USART0 for sync master mode
+ *
+ * contraints: enable rx and tx
+ * serial_errno: SERIAL_INIT_DEFAULT
  */
 void 
 serial_setup_sync_master(serial_frame_type_t frame_type);
 
+
 /*
  * -> setup USART0 for sync slave mode
+ * 
+ * contraints: enable rx and tx
+ * serial_errno: SERIAL_INIT_DEFAULT
  */
 void 
 serial_setup_sync_slave(serial_frame_type_t frame_type);
@@ -111,9 +133,12 @@ serial_setup_sync_slave(serial_frame_type_t frame_type);
 
 /*
  * -> receive data (polling)
+ *
+ *  serial_errno: SERIAL_RCV_ERROR
  */
 unsigned short 
 serial_receive_data(); 
+
 
 /*
  * ****** functions for writing from USART *******
@@ -121,6 +146,8 @@ serial_receive_data();
 
 /*
  * -> send data (polling)
+ *
+ *  serial_errno: no usage 
  */
 void 
 serial_send_data(unsigned short data); 

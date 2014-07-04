@@ -32,6 +32,11 @@
 
 
 /*
+ * -> use serial_errno
+ */
+extern unsigned char serial_errno;
+
+/*
  * common defines
  */
 #define LED_PIN PB0

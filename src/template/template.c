@@ -86,7 +86,7 @@ error_indication(const unsigned char *error_string,
 int 
 __attribute__((OS_main)) main(void) 
 {
-	const unsigned char greeting_string[] = "hello machine ... i'm an atmega168(pa)";
+	const unsigned char greeting_string[] = "hello machine ... i'm an atmega168(pa)\n\r";
 	const unsigned char error_string[] = "an error occured ... pls check";
 
 	// init serial and let the led blink with DELAYTIME_ON_ERROR ms

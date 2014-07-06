@@ -76,15 +76,15 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_SET_SYNC_MODE()			\
 	{					\
-		UCSR0C &= ~(1 << UMSEL00);	\
-		UCSR0C = (1 << UMSEL01);	\
+		UCSR0C |= (1 << UMSEL00);	\
+		UCSR0C &= ~(1 << UMSEL01);	\
 	}
 
 // TODO: Check that 
 #define SERIAL_SET_MASTER_SPI_MODE()		\
 	{					\
-		UCSR0C = (1 << UMSEL00);	\
-		UCSR0C = (1 << UMSEL01);	\
+		UCSR0C |= (1 << UMSEL00);	\
+		UCSR0C |= (1 << UMSEL01);	\
 	}
 
 
@@ -100,7 +100,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_SET_6_DATA_BITS()		\
 	{					\
-		UCSR0C = (1 << UCSZ00);		\
+		UCSR0C |= (1 << UCSZ00);	\
 		UCSR0C &= ~(1 << UCSZ01);	\
 		UCSR0B &= ~(1 << UCSZ02);	\
 	}
@@ -108,22 +108,22 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 #define SERIAL_SET_7_DATA_BITS()		\
 	{					\
 		UCSR0C &= ~(1 << UCSZ00);	\
-		UCSR0C = (1 << UCSZ01);		\
+		UCSR0C |= (1 << UCSZ01);	\
 		UCSR0B &= ~(1 << UCSZ02);	\
 	}
 
 #define SERIAL_SET_8_DATA_BITS()		\
 	{					\
-		UCSR0C = (1 << UCSZ00);		\
-		UCSR0C = (1 << UCSZ01);		\
+		UCSR0C |= (1 << UCSZ00);	\
+		UCSR0C |= (1 << UCSZ01);	\
 		UCSR0B &= ~(1 << UCSZ02);	\
 	}
 
 #define SERIAL_SET_9_DATA_BITS()		\
 	{					\
-		UCSR0C = (1 << UCSZ00);	        \
-		UCSR0C = (1 << UCSZ01);	 	\
-		UCSR0B = (1 << UCSZ02);	        \
+		UCSR0C |= (1 << UCSZ00);        \
+		UCSR0C |= (1 << UCSZ01); 	\
+		UCSR0B |= (1 << UCSZ02);	\
 	}
 
 #define SERIAL_SET_1_STOP_BIT()			\
@@ -133,7 +133,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_SET_2_STOP_BITS()		\
 	{					\
-		UCSR0C = (1 << USBS0);		\
+		UCSR0C |= (1 << USBS0);		\
 	}
 
 #define SERIAL_SET_NO_PARITY()			\
@@ -144,14 +144,14 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_SET_ODD_PARITY()			\
 	{					\
-		UCSR0C = (1 << UPM00);		\
-		UCSR0C = (1 << UPM01);		\
+		UCSR0C |= (1 << UPM00);		\
+		UCSR0C |= (1 << UPM01);		\
 	}
 
 #define SERIAL_SET_EVEN_PARITY()		\
 	{					\
 		UCSR0C &= ~(1 << UPM00);	\
-		UCSR0C = (1 << UPM01);		\
+		UCSR0C |= (1 << UPM01);		\
 	}
 
 
@@ -160,7 +160,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
  */
 #define SERIAL_ENA_DOUBLE_SPEED()		\
 	{					\
-		UCSR0A = (1 << U2X0);		\
+		UCSR0A |= (1 << U2X0);		\
 	}
 
 #define SERIAL_DIS_DOUBLE_SPEED()		\
@@ -174,7 +174,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
  */
 #define SERIAL_ENA_TX()				\
 	{					\
-		UCSR0B = (1 << TXEN0);		\
+		UCSR0B |= (1 << TXEN0);		\
 	}
 
 #define SERIAL_DIS_TX()				\
@@ -184,7 +184,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_ENA_RX()				\
 	{					\
-		UCSR0B = (1 << RXEN0);		\
+		UCSR0B |= (1 << RXEN0);		\
 	}
 
 #define SERIAL_DIS_RX()				\
@@ -194,8 +194,8 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_ENA_RXTX()			\
 	{					\
-		UCSR0B = (1 << TXEN0);		\
-		UCSR0B = (1 << RXEN0);		\
+		UCSR0B |= (1 << TXEN0);		\
+		UCSR0B |= (1 << RXEN0);		\
 	}
 
 #define SERIAL_DIS_RXTX()			\
@@ -206,8 +206,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 #define SERIAL_ENA_ALL()			\
 	{					\
-		UCSR0B = (1 << TXEN0);		\
-		UCSR0B = (1 << RXEN0);		\
+		UCSR0B = (1 << TXEN0) | (1 << RXEN0);	\
 	}
 
 #define SERIAL_DIS_ALL()			\

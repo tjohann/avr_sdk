@@ -87,10 +87,14 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	UBRR0H = UBRRH_VALUE;                       
 	UBRR0L = UBRRL_VALUE;	
 
-	// set needed values in 
 	switch (op_mode) {
 	case ASYNC_NORMAL:
 		SERIAL_SET_ASYNC_MODE();
+/*
+ * Note: i am not shure if the USE_2X handles it correct ... but 
+ *       it seems to work ... 
+ */
+ 
 #if USE_2X
 		SERIAL_ENA_DOUBLE_SPEED();
 #else
@@ -130,7 +134,6 @@ serial_setup_usart(serial_op_mode_t op_mode,
 #endif
 	}
 
-	// enable or disable RX/TX 
 	switch (ena_rxtx) {
 	case ENA_ALL:
 		SERIAL_ENA_ALL();
@@ -286,7 +289,8 @@ serial_send_string(const unsigned char *data_string,
 {
 	unsigned char i = 0;
 
-	for(i = 0; i <= size; i++)
+	// dont send nil 
+	for(i = 0; i < (size - 1); i++)
 		serial_send_byte(data_string[i], SERIAL_SEND_NORMAL);
 }
 

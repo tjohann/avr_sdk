@@ -34,3 +34,10 @@ install:: all
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
 
+flash::
+	@echo "+-----------------------------------------------+"
+	@echo "|                                               |"
+	@echo "|            Flashing template                  |"
+	@echo "|                                               |"
+	@echo "+-----------------------------------------------+"
+	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done

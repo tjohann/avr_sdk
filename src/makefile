@@ -1,4 +1,5 @@
 MODULES = template 
+FLASH = template
 AVR_LIBS = libavrhelper libavrserial libavrcyclon
 
 all::
@@ -21,3 +22,9 @@ install::
 	@echo "--> Install $(AVR_LIBS) "
 	@echo " "
 	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) $@); done
+
+flash::
+	@echo " "
+	@echo "--> Flashing $(FLASH) "
+	@echo " "
+	for dir in $(FLASH); do (cd $$dir && $(MAKE) $@); done

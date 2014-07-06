@@ -86,8 +86,11 @@ error_indication(const unsigned char *error_string,
 int 
 __attribute__((OS_main)) main(void) 
 {
-	const unsigned char greeting_string[] = "hello machine ... i'm an atmega168(pa)\n\r";
-	const unsigned char error_string[] = "an error occured ... pls check";
+	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)\n\r";
+	const unsigned char error_string[] = "an error occured ... pls check\n\r";
+
+	unsigned char *string = NULL;
+	unsigned char byte = 0x31;
 
 	// init serial and let the led blink with DELAYTIME_ON_ERROR ms
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
@@ -96,6 +99,19 @@ __attribute__((OS_main)) main(void)
 	
 	// init serial done ... send greetings to peer
 	serial_send_string(greeting_string, sizeof(greeting_string));
+
+	// get an char from peer and send it as ascii 
+	byte = serial_receive_byte();
+	serial_send_byte(byte, SERIAL_SEND_ASCII);	
+
+	/*
+	 * Note: untested functions of libavrserial are below ...
+	 *       tested are above this comment
+	 * Date: 06.07.2014
+	 */
+
+	//string = serial_receive_string(4);
+	//serial_send_string(string, 2);
 
 	// infrastructure is ready to use ... so my init is the next step 
 	init_template();

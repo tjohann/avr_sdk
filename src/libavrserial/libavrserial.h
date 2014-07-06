@@ -65,6 +65,15 @@ typedef enum serial_errors {
  *       SERIAL_ERROR is the general switch
  *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
  *       unsigned char * serial_error_string = "SERIAL_ERROR" for a common error string
+ * 
+ * Hint: its only tested in small range of possible clock and baud rates ... so
+ *       i am not shure if everthing works fine! 
+ *
+ * Tested with:    MCU=atmega168p 
+ *                 F_CPU=1000000 
+ *                 BAUD=9600
+ *                 8 databits / 1 stop bit / no parity
+ *                -----------------
  */
 #ifndef SERIAL_ERROR  
 #define SERIAL_ERROR OFF  
@@ -90,6 +99,10 @@ typedef enum serial_frame_type {
 
 /*
  * -> available modes for serial_send_byte function
+ *
+ * Note: example ... input 1
+ *                   SERIAL_SEND_NORMAL -> send an 1
+ *                   SERIAL_SEND_ASCCII -> send 049
  */
 typedef enum serial_send_mode {
 	SERIAL_SEND_NORMAL = 0x01,

@@ -17,30 +17,31 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-#ifndef _LIBAVRCYCLON_H_
-#define _LIBAVRCYCLON_H_
 
-#include <avr_compile_macros.h>
+#ifndef _LIBAVRCYCLON_PRIV_H_
+#define _LIBAVRCYCLON_PRIV_H_
+
 #include <libavrhelper.h>
+#include "libavrcyclon.h"
+#include <avr/io.h>
 
 
-
-/*
- * -> do some init stuff 
- */
-void
-cyclon_setup_port(void);
+#ifndef CYCLON_PORT
+#  error "CYCLON_PORT not defined!"
+#endif
 
 
-/*
- * -> cyclon eye function like knight rider or whatever you like
- *
- * Note: if count == 0 -> endless mode
- *       delay_time in ms -> example: 100 -> 100ms 
- */
-void
-cyclon_run(unsigned char count,
-	   unsigned char delay_time);
+//#if CYCLON_PORT==PORTB
+//#define CYCLON_DDR=DDRA 
+//#elif  CYCLON_PORT==PORTB
+//#define CYCLON_DDR=DDRB
+//#elif  CYCLON_PORT==PORTC
+//#define CYCLON_DDR=DDRC
+//#elif  CYCLON_PORT==PORTD
+//#define CYCLON_DDR=DDRD
+//#else
+//#  error "CYCLON_PORT not valid!"
+//#endif
 
 
 

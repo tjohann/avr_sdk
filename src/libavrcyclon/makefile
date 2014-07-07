@@ -23,14 +23,14 @@ HEADER = libavrcyclon.h
 #
 CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL -DBAUD=$(BAUD) 
 OPT_FLAGS = -Os
-COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY)
+COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY) -DCYCLON_PORT=$(CYCLON_PORT)
 
 #
 # ---------  BUILD all in a single step ----------
 #
 all: $(TARGET).a $(TARGET).lst
 
-$(TARGET).a: $(TARGET).c $(TARGET).h
+$(TARGET).a: $(TARGET).c $(TARGET).h $(TARGET)_priv.h
 	@echo "|| "	
 	@echo "|| -->   building $(TARGET).a of $(SRC) for target $(MCU)"
 	@echo "|| "

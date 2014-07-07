@@ -120,7 +120,7 @@ __attribute__((OS_main)) main(void)
 	 * -> usage of dummy functions
 	 */
 	helper_dummy();
-	cyclon_dummy();
+	//cyclon_dummy();
 
 	while (1) {
 		

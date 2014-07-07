@@ -11,3 +11,8 @@ CONTROLLER_FAMILY = AVR
 # -> ON  (use it)
 # -> OFF (no i can do it better)
 SERIAL_ERROR = ON
+
+# led port for cylcon
+# -> PORTA
+# -> ...
+CYCLON_PORT = PORTB

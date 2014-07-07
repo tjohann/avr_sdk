@@ -19,16 +19,26 @@
 */
 
 #include "libavrcyclon.h"
-
+#include "libavrcyclon_priv.h"
 
 
 /*
- * -> dummy function
+ * -> do some init stuff 
  */
-void 
-cyclon_dummy(void)
+void
+cyclon_setup_port(void)
 {
 
-	helper_dummy();
+         // do something
+
+}
+
+/*
+ * -> cyclon eye function like knight rider or whatever you like
+ */
+void
+cyclon_run(unsigned char count, 
+	   unsigned char delay_time)
+{
 	// do something
 }

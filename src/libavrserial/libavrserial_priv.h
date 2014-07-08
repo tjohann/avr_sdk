@@ -28,6 +28,16 @@
 #include <util/setbaud.h>
 #include <stdlib.h>
 
+
+/*
+ * check baud rate
+ */
+#ifndef BAUD
+#define BAUD  9600UL
+#  warning "Baud rate not defined, use 9600"
+#endif
+
+
 typedef enum serial_op_mode {
 	ASYNC_NORMAL = 0x01,
 	ASYNC_DOUBLE,

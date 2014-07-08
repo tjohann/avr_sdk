@@ -21,7 +21,7 @@ HEADER = libavrhelper.h
 #
 # common CFLAGS in $(AVR_HOME)/include/defines.mk
 #
-CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL -DBAUD=$(BAUD) 
+CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL
 OPT_FLAGS = -Os
 COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY)
 

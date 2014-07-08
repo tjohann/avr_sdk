@@ -25,10 +25,6 @@
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
 
-#ifndef BAUD              
-#define BAUD  9600   // my default value
-#  warning "Baud rate not defined use 9600"
-#endif
 
 #ifndef F_CPU
 #  error "Freq of CPU not defined!"
@@ -89,7 +85,7 @@ typedef enum serial_errors {
  *    enabled via U2xn=1
  * -> serial_setup_sync_master for sync master mode
  *
- * Note: baudrate via #define BAUD 9600 if not via -DBAUD=115200
+ * Note: baudrate via #define BAUD 9600UL if not via -DBAUD=9600UL
  *       frame mode (example: 8 databit, 1 stop bit, no parity) via serial_frame_type_t
  */
 typedef enum serial_frame_type {

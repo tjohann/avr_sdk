@@ -34,11 +34,6 @@
 /*
  * check macros and define reasonable defaults 
  */
-#ifndef BAUD
-#define BAUD  9600
-#  warning "Baud rate not defined, use 9600"
-#endif
-
 #ifndef CONTROLLER_FAMILY
 #define CONTROLLER_FAMILY  __AVR__
 #  warning "Controller family not defined, use __AVR__"

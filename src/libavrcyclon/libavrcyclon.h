@@ -24,6 +24,9 @@
 #include <libavrhelper.h>
 
 
+#ifndef F_CPU
+#  error "Freq of CPU not defined!"
+#endif
 
 /*
  * -> do some init stuff 

@@ -17,12 +17,8 @@ INSTALL_ETC = $(AVR_HOME)/etc
 INSTALL_SHARE = $(AVR_HOME)/share
 
 # common cflags
-CFLAGS = -ffunction-sections -fdata-sections
+CFLAGS = -ffunction-sections -fdata-sections 
 LDFLAGS = -Wl,--relax,--gc-sections -Wl,-Map,$(TARGET).map
-
-# for backup -> http://www.tty1.net/blog/2008/avr-gcc-optimisations_en.html
-#CFLAGS += -MMD -MP -MF"core.d" -MT"core.d" -c
-#CFLAGS = -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums 
 
 # common stuff
 #WARN = -Wall -Wstrict-prototypes

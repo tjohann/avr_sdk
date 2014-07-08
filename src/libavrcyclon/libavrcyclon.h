@@ -39,8 +39,8 @@ cyclon_setup_port(void);
  *       delay_time in ms -> example: 100 -> 100ms 
  */
 void
-cyclon_run(unsigned char count,
-	   unsigned char delay_time);
+cyclon_run(const unsigned short count,
+	   double delay_time);
 
 
 

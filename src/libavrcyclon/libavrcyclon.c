@@ -35,8 +35,27 @@ cyclon_setup_port(void)
  * -> cyclon eye function like knight rider or whatever you like
  */
 void
-cyclon_run(unsigned char count, 
-	   unsigned char delay_time)
+cyclon_run(const unsigned short count, 
+	   double delay_time)
 {
-	// do something
+	unsigned char i = 0x00;
+	unsigned short act_count = 0x00;
+
+	do {
+		while (i < 7) {
+			LEDS_PORT = (1 << i);                
+			_delay_ms(delay_time);                              
+			i++;                              
+		}
+		
+		while (i > 0) {
+			LEDS_PORT = (1 << i);                
+			_delay_ms(delay_time);                                  
+			i--;        
+		}
+		
+		if (count != 0)
+			act_count++;
+		
+	} while (act_count != count);
 }

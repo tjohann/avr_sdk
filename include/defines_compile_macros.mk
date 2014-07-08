@@ -3,16 +3,18 @@
 # Note: also edit avr_compile_macros.h if needed
 
 # which controller do i use?
-# -> AVR
-# -> ARM (cortex-m3)
-CONTROLLER_FAMILY = AVR
+# -> __AVR__
+# -> __ARM__ (cortex-m3)
+CONTROLLER_FAMILY = __AVR__
 
 # use serial_errno to indicate serial specific erros
 # -> ON  (use it)
 # -> OFF (no i can do it better)
-SERIAL_ERROR = ON
+SERIAL_ERROR = __ON__
 
-# led port for cylcon
-# -> PORTA
-# -> ...
-CYCLON_PORT = PORTB
+# led port for cylcon eyes
+# -> __PORT_A__
+# -> __PORT_B__
+# -> __PORT_C__
+# -> __PORT_D__
+CYCLON_PORT = __PORT_B__

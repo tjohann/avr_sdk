@@ -28,9 +28,7 @@
 void
 cyclon_setup_port(void)
 {
-
-         // do something
-
+	LEDS_DDR = 0xFF;
 }
 
 /*

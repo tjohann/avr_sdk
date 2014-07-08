@@ -72,7 +72,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 /*
  * SERIAL SETUP FOR AVR
  */
-#if CONTROLLER_FAMILY==AVR
+#if CONTROLLER_FAMILY == __AVR__
 
         /*
 	 * For baudmode see:
@@ -129,7 +129,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	default:
 		// ASYNC_NORMAL
 		SERIAL_DIS_DOUBLE_SPEED();
-#if SERIAL_ERROR==ON	
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_INIT_DEFAULT;
 #endif
 	}
@@ -149,7 +149,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	default:
 		// enable TX and RX
 		SERIAL_ENA_ALL();
-#if SERIAL_ERROR==ON	
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_INIT_DEFAULT;
 #endif
 	}
@@ -165,7 +165,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		SERIAL_SET_8_DATA_BITS();
 		SERIAL_SET_1_STOP_BIT();
 		SERIAL_SET_NO_PARITY();
-#if SERIAL_ERROR==ON	
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_INIT_DEFAULT;
 #endif
 	}
@@ -176,7 +176,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 /*
  * SERIAL SETUP FOR ARM-CORTEX-M3
  */
-#if CONTROLLER_FAMILY==ARM
+#if CONTROLLER_FAMILY == __ARM__
 	// fill me
 #endif  // ARM
 
@@ -194,7 +194,7 @@ serial_send_data(const unsigned short data)
 /*
  * SEND_DATA FOR AVR
  */
-#if CONTROLLER_FAMILY==AVR
+#if CONTROLLER_FAMILY == __AVR__
 	/*
 	 * Check if UDRE0 (Data Register Empty) is set, 
 	 * otherwise wait ... and wait ... 
@@ -219,7 +219,7 @@ serial_send_data(const unsigned short data)
 /*
  * SEND_DATA FOR ARM-CORTEX-M3
  */
-#if CONTROLLER_FAMILY==ARM
+#if CONTROLLER_FAMILY == __ARM__
 	// fill me
 #endif  // ARM
 
@@ -235,7 +235,7 @@ serial_send_byte(const unsigned char byte,
 /*
  * SEND_DATA FOR AVR
  */
-#if CONTROLLER_FAMILY==AVR
+#if CONTROLLER_FAMILY == __AVR__
 	/*
 	 * Check if UDRE0 (Data Register Empty) is set, 
 	 * otherwise wait ... and wait ... 
@@ -262,7 +262,7 @@ serial_send_byte(const unsigned char byte,
 		break;
 	default:
 		// SERIAL_SEND_ASCII
-#if SERIAL_ERROR == ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_DEFAULT;
 #endif
 		UDR0 = byte;        
@@ -273,7 +273,7 @@ serial_send_byte(const unsigned char byte,
 /*
  * SEND_DATA FOR ARM-CORTEX-M3
  */
-#if CONTROLLER_FAMILY==ARM
+#if CONTROLLER_FAMILY == __ARM__
 	// fill me
 #endif  // ARM
 
@@ -308,7 +308,7 @@ serial_receive_data(void)
 /*
  * RECEIVE_DATA FOR AVR
  */
-#if CONTROLLER_FAMILY==AVR
+#if CONTROLLER_FAMILY == __AVR__
 	/*
 	 * Check if RXC0 (Receive Complete Flag) is set, 
 	 * otherwise wait ... and wait ... 
@@ -335,12 +335,12 @@ serial_receive_data(void)
 	data = UDR0; // will change state of receive fifo
 
 	if (state & state_bits) {
-#if SERIAL_ERROR==ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_ERROR;
 #endif		
 		received_data = 0x00;
 	} else {		
-#if SERIAL_ERROR==ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = MY_OK;
 #endif
 		received_data = (ninth_bit << 8) | data;
@@ -351,7 +351,7 @@ serial_receive_data(void)
 /*
  * RECEIVE_DATA FOR ARM-CORTEX-M3
  */
-#if CONTROLLER_FAMILY==ARM
+#if CONTROLLER_FAMILY == __ARM__
 	// fill me
 #endif  // ARM
 
@@ -371,7 +371,7 @@ serial_receive_byte(void)
 /*
  * RECEIVE_DATA FOR AVR
  */
-#if CONTROLLER_FAMILY==AVR
+#if CONTROLLER_FAMILY == __AVR__
 	/*
 	 * Check if RXC0 (Receive Complete Flag) is set, 
 	 * otherwise wait ... and wait ... 
@@ -385,12 +385,12 @@ serial_receive_byte(void)
 	state_bits = (1 << FE0) | (1 << DOR0) | (1 << UPE0);
 	state = UCSR0A;
 	if (state & state_bits) {
-#if SERIAL_ERROR==ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_ERROR;
 #endif		
 		data = 0x00;
 	} else {		
-#if SERIAL_ERROR==ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = MY_OK;
 #endif
 		data = UDR0; // will change state of receive fifo
@@ -401,7 +401,7 @@ serial_receive_byte(void)
 /*
  * RECEIVE_DATA FOR ARM-CORTEX-M3
  */
-#if CONTROLLER_FAMILY==ARM
+#if CONTROLLER_FAMILY == __ARM__
 	// fill me
 #endif  // ARM
 
@@ -422,7 +422,7 @@ serial_receive_string(unsigned char size)
 
 	data = malloc(size);
 	if (data == NULL) {
-#if SERIAL_ERROR==ON	 
+#if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_ERROR;
 #endif
 		data = serial_error_string;

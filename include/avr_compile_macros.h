@@ -34,14 +34,34 @@
 /*
  * check macros and define reasonable defaults 
  */
-#ifndef BAUD              
-#define BAUD  9600   
+#ifndef BAUD
+#define BAUD  9600
 #  warning "Baud rate not defined, use 9600"
 #endif
 
-#ifndef CONTROLLER_FAMILY   
-#define CONTROLLER_FAMILY  AVR  
-#  warning "Controller family not defined, use AVR"
+#ifndef CONTROLLER_FAMILY
+#define CONTROLLER_FAMILY  __AVR__
+#  warning "Controller family not defined, use __AVR__"
+#endif
+
+
+/*
+ * defines for port definitions -> see libavrcyclon 
+ */
+#ifndef __PORT_A__
+#define __PORT_A__ 1
+#endif
+
+#ifndef __PORT_B__
+#define __PORT_B__ 2
+#endif
+
+#ifndef __PORT_C__
+#define __PORT_C__ 3
+#endif
+
+#ifndef __PORT_D__
+#define __PORT_D__ 4
 #endif
 
 

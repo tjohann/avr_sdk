@@ -24,6 +24,7 @@
 #include <libavrhelper.h>
 #include "libavrcyclon.h"
 #include <avr/io.h>
+#include <util/delay.h> 
 
 
 #ifndef CYCLON_PORT
@@ -31,18 +32,25 @@
 #endif
 
 
-//#if CYCLON_PORT==PORTB
-//#define CYCLON_DDR=DDRA 
-//#elif  CYCLON_PORT==PORTB
-//#define CYCLON_DDR=DDRB
-//#elif  CYCLON_PORT==PORTC
-//#define CYCLON_DDR=DDRC
-//#elif  CYCLON_PORT==PORTD
-//#define CYCLON_DDR=DDRD
-//#else
-//#  error "CYCLON_PORT not valid!"
-//#endif
-
+#if CYCLON_PORT == __PORT_A__
+#define LEDS_PORT PORTA
+#ifdef DDRA
+#define LEDS_DDR DDRA
+#else
+# warning "DDRA not available"
+#endif
+#elif CYCLON_PORT == __PORT_B__
+#define LEDS_PORT PORTB
+#define LEDS_DDR DDRB
+#elif CYCLON_PORT == __PORT_C__
+#define LEDS_PORT PORTC
+#define LEDS_DDR DDRC
+#elif CYCLON_PORT == __PORT_D__
+#define LEDS_PORT PORTD
+#define LEDS_DDR DDRD
+#else
+# error "CYCLON_PORT not valid"
+#endif
 
 
 #endif

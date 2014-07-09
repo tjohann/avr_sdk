@@ -43,8 +43,20 @@ cyclon_setup_port(void);
  */
 void
 cyclon_run(const unsigned short count,
+	   unsigned char starting_led,
 	   double delay_time);
 
+
+/*
+ * -> cyclon double eye function like knight rider
+ *
+ * Note: led 0 + 7
+ *       led 1 + 6
+ *       ...
+ */
+void
+cyclon_double_run(const unsigned short count, 
+		  double delay_time);
 
 
 #endif

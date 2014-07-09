@@ -32,14 +32,18 @@ cyclon_setup_port(void)
 }
 
 /*
- * -> cyclon eye function like knight rider or whatever you like
+ * -> cyclon eye function like knight rider
  */
 void
 cyclon_run(const unsigned short count, 
+	   unsigned char starting_led,
 	   double delay_time)
 {
 	uint8_t i = 0;
 	uint16_t act_count = 0;
+
+	if (starting_led < 8)
+		i = starting_led;
 
 	do {
 		while (i < 7) {
@@ -56,6 +60,56 @@ cyclon_run(const unsigned short count,
 		
 		if (count != 0)
 			act_count++;
+		else
+			act_count = 1;
+
+		if (act_count == count) {
+			LEDS_PORT = (1 << 0);
+			_delay_ms(delay_time);
+			LEDS_PORT = 0x00;
+		}
 		
+	} while (act_count != count);
+}
+
+
+/*
+ * -> cyclon double eye function like knight rider
+ *
+ * Note: led 0 + 7
+ *       led 1 + 6
+ *       ...
+ */
+void
+cyclon_double_run(const unsigned short count, 
+		  double delay_time)
+{
+	uint8_t i = 0;
+	uint16_t act_count = 0;
+
+	do {
+		while (i < 3) {
+			LEDS_PORT = (1 << i) | (1 << (7 - i));
+			_delay_ms(delay_time);
+			i++;
+		}   
+
+		while (i > 0) {
+			LEDS_PORT = (1 << i) | (1 << (7 - i));
+			_delay_ms(delay_time);
+			i--;
+		}   
+		
+		if (count != 0)
+			act_count++;
+		else
+			act_count = 1;
+
+		if (act_count == count) {
+			LEDS_PORT = (1 << 0) | (1 << 7);
+			_delay_ms(delay_time);
+			LEDS_PORT = 0x00;
+		}
+
 	} while (act_count != count);
 }

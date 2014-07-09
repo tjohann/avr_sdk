@@ -91,8 +91,9 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	case ASYNC_NORMAL:
 		SERIAL_SET_ASYNC_MODE();
 /*
- * Note: i am not shure if the USE_2X handles it correct ... but 
- *       it seems to work ... 
+ * Note: USE_2X handles the need of double speed or not (util_setbaud helper)
+ *       see http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/Der_UART for
+ *       more informations (sry only in german)
  */
  
 #if USE_2X

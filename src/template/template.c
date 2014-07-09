@@ -130,7 +130,14 @@ __attribute__((OS_main)) main(void)
 	 * setup cyclon eyes ....
 	 */
 	cyclon_setup_port();
-	cyclon_run(10, 100);
+	cyclon_run(5, 0, 200);
+	_delay_ms(2 * DELAYTIME);
+	cyclon_double_run(5, 200);
+	_delay_ms(2 * DELAYTIME);
+	cyclon_run(5, 7, 200);
+
+	// wait some time 
+	_delay_ms(5 * DELAYTIME);
 
 	while (1) {
 		

@@ -38,20 +38,20 @@ void
 cyclon_run(const unsigned short count, 
 	   double delay_time)
 {
-	unsigned char i = 0x00;
-	unsigned short act_count = 0x00;
+	uint8_t i = 0;
+	uint16_t act_count = 0;
 
 	do {
 		while (i < 7) {
-			LEDS_PORT = (1 << i);                
-			_delay_ms(delay_time);                              
-			i++;                              
+			LEDS_PORT = (1 << i);
+			_delay_ms(delay_time);
+			i++;
 		}
 		
 		while (i > 0) {
-			LEDS_PORT = (1 << i);                
-			_delay_ms(delay_time);                                  
-			i--;        
+			LEDS_PORT = (1 << i);
+			_delay_ms(delay_time);
+			i--;
 		}
 		
 		if (count != 0)

@@ -21,7 +21,7 @@
 
 #include <avr/io.h>
 
-//#define __DELAY_BACKWARD_COMPATIBLE__
+#define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 
 /*
@@ -38,8 +38,11 @@
  */
 extern unsigned char serial_errno;
 
+
 /*
- * common defines
+ * special pins for blinking ...
+ *
+ * Note: you could also use __PORT_B__ ... see libcyclon
  */
 #define LED_PIN PB0
 #define LED_DDR DDRB

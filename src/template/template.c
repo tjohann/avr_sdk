@@ -98,6 +98,7 @@ __attribute__((OS_main)) main(void)
 		error_indication(error_string, sizeof(error_string));
 	
 	// init serial done ... send greetings to peer
+	state_of_template = STATE_SERIAL_INIT_DONE;
 	serial_send_string(greeting_string, sizeof(greeting_string));
 
 	// get an char from peer and send it as ascii 
@@ -112,6 +113,10 @@ __attribute__((OS_main)) main(void)
 
 	//string = serial_receive_string(4);
 	//serial_send_string(string, 2);
+	
+	/*
+	 * END of untested stuff
+	 */
 
 	// infrastructure is ready to use ... so my init is the next step 
 	init_template();
@@ -120,7 +125,12 @@ __attribute__((OS_main)) main(void)
 	 * -> usage of dummy functions
 	 */
 	helper_dummy();
-	//cyclon_dummy();
+
+	/*
+	 * setup cyclon eyes ....
+	 */
+	cyclon_setup_port();
+	cyclon_run(10, 100);
 
 	while (1) {
 		

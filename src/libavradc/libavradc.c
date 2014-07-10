@@ -1,5 +1,6 @@
 /*
-  libavrcyclon - simple knight rider lib for small microcontroller (8 bit) 
+  libavradc - simple library as a handle of adc stuff for small
+              microcontroller (8 bit) 
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -18,41 +19,37 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _LIBAVRCYCLON_PRIV_H_
-#define _LIBAVRCYCLON_PRIV_H_
-
-#include <libavrhelper.h>
-#include "libavrcyclon.h"
-#include <avr/io.h>
-
-#define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h> 
+#include "libavradc.h"
+#include "libavradc_priv.h"
 
 
-#ifndef CYCLON_PORT
-#  error "CYCLON_PORT not defined!"
+/*
+ * -> setup adc 
+ */
+void 
+adc_setup_adc(void) 
+{
+
+/*
+ * ADC SETUP FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	
+	// do something
+
+#if ADC_ERROR == __ON__
+	adc_errno = ADC_INIT_DEFAULT;
 #endif
+	
+#endif  // AVR
 
 
-#if CYCLON_PORT == __PORT_A__
-#define LEDS_PORT PORTA
-#ifdef DDRA
-#define LEDS_DDR DDRA
-#else
-# warning "DDRA not available"
-#endif
-#elif CYCLON_PORT == __PORT_B__
-#define LEDS_PORT PORTB
-#define LEDS_DDR DDRB
-#elif CYCLON_PORT == __PORT_C__
-#define LEDS_PORT PORTC
-#define LEDS_DDR DDRC
-#elif CYCLON_PORT == __PORT_D__
-#define LEDS_PORT PORTD
-#define LEDS_DDR DDRD
-#else
-# error "CYCLON_PORT not valid"
-#endif
+/*
+ * ADC SETUP FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
 
+}
 
-#endif

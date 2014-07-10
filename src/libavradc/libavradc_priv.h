@@ -1,5 +1,6 @@
 /*
-  libavrcyclon - simple knight rider lib for small microcontroller (8 bit) 
+  libavradc - simple library as a handle of adc stuff for small
+              microcontroller (8 bit) 
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -18,41 +19,41 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _LIBAVRCYCLON_PRIV_H_
-#define _LIBAVRCYCLON_PRIV_H_
+#ifndef _LIBAVRADC_PRIV_H_
+#define _LIBAVRADC_PRIV_H_
 
 #include <libavrhelper.h>
-#include "libavrcyclon.h"
+#include "libavradc.h"
 #include <avr/io.h>
-
-#define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h> 
+#include <stdlib.h>
 
 
-#ifndef CYCLON_PORT
-#  error "CYCLON_PORT not defined!"
+/*
+ * serial errno stuff
+ *
+ * Note: of course not reentrant 
+ *       ADC_ERROR is the general switch
+ *       ADC_ERRNO for adc_errno which holds adc_error_t values 
+ */
+#ifdef ADC_ERROR 
+#ifndef ADC_ERRNO
+#define ADC_ERRNO
+unsigned char adc_errno = MY_OK;
 #endif
-
-
-#if CYCLON_PORT == __PORT_A__
-#define LEDS_PORT PORTA
-#ifdef DDRA
-#define LEDS_DDR DDRA
 #else
-# warning "DDRA not available"
+# warning "No special serial error indication!"
 #endif
-#elif CYCLON_PORT == __PORT_B__
-#define LEDS_PORT PORTB
-#define LEDS_DDR DDRB
-#elif CYCLON_PORT == __PORT_C__
-#define LEDS_PORT PORTC
-#define LEDS_DDR DDRC
-#elif CYCLON_PORT == __PORT_D__
-#define LEDS_PORT PORTD
-#define LEDS_DDR DDRD
-#else
-# error "CYCLON_PORT not valid"
-#endif
+
+/*
+ * error string 
+ */
+unsigned char *adc_error_string = (unsigned char *) "ADC_ERROR";
+
+/*
+ * -> macros for setting ....
+ */
+
+
 
 
 #endif

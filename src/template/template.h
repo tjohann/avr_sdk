@@ -30,6 +30,7 @@
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
 #include <libavrserial.h>
+#include <libavradc.h>
 #include <libavrcyclon.h>
 
 
@@ -37,6 +38,13 @@
  * -> use serial_errno
  */
 extern unsigned char serial_errno;
+
+
+/*
+ * -> use adc_errno
+ */
+extern unsigned char adc_errno;
+
 
 
 /*

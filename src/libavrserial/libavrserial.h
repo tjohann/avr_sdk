@@ -37,7 +37,7 @@
 typedef enum serial_errors {
 	SERIAL_RCV_ERROR = 0x01,
 	SERIAL_SEND_ERROR,
-	SERIAL_INIT_DEFAULT,            // init values set to MY default
+	SERIAL_INIT_DEFAULT,            
 	SERIAL_RCV_DEFAULT,
 	SERIAL_SEND_DEFAULT,
 	SERIAL_UNKNOWN
@@ -48,9 +48,9 @@ typedef enum serial_errors {
  * serial errno stuff
  *
  * HOTWO: use serial_errno
- * -> a global variabl is defined and set to default by 
+ * -> a global variable is defined and set to default by 
  *    this lib -> unsigned char serial_errno = MY_OK;
- * -> in YOUR header file add the folling declaration
+ * -> in YOUR header file add the follwing declaration
  *    extern unsigned char serial_errno; 
  * -> if something goes wrong, then the functions set serial_errno to 
  *    an value of serial_errors_t 

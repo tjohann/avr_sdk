@@ -7,10 +7,18 @@
 # -> __ARM__ (cortex-m3)
 CONTROLLER_FAMILY = __AVR__
 
+
+# use adc_errno to indicate serial specific erros
+# -> ON  (use it)
+# -> OFF (no i can do it better)
+ADC_ERROR = __ON__
+
+
 # use serial_errno to indicate serial specific erros
 # -> ON  (use it)
 # -> OFF (no i can do it better)
 SERIAL_ERROR = __ON__
+
 
 # led port for cylcon eyes
 # -> __PORT_A__

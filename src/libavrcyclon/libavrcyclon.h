@@ -1,5 +1,5 @@
 /*
-  libavrcyclon -simple knight rider lib for small microcontroller (8 bit) 
+  libavrcyclon - simple knight rider lib for small microcontroller (8 bit) 
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

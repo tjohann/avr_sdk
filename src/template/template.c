@@ -92,6 +92,19 @@ __attribute__((OS_main)) main(void)
 	unsigned char *string = NULL;
 	unsigned char byte = 0x31;
 
+	/*
+	 * ---------- cyclon stuff ----------
+	 */
+
+
+	/*
+	 * ---------- helper stuff ----------
+	 */
+	helper_dummy();
+
+	/*
+	 * ---------- serial stuff ----------
+	 */
 	// init serial and let the led blink with DELAYTIME_ON_ERROR ms
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
@@ -110,24 +123,23 @@ __attribute__((OS_main)) main(void)
 	 *       tested are above this comment
 	 * Date: 06.07.2014
 	 */
-
 	//string = serial_receive_string(4);
-	//serial_send_string(string, 2);
-	
-	/*
-	 * END of untested stuff
-	 */
+	//serial_send_string(string, 2);	
+	// -->  END of untested serial stuff
 
+	/*
+	 * ---------- adc stuff ----------
+	 */
+	adc_setup_adc();
+
+	/*
+	 * ---------- init template stuff ----------
+	 */
 	// infrastructure is ready to use ... so my init is the next step 
 	init_template();
 
-	/*
-	 * -> usage of dummy functions
-	 */
-	helper_dummy();
-
-	/*
-	 * setup cyclon eyes ....
+        /*
+	 * ---------- cyclon stuff ----------
 	 */
 	cyclon_setup_port();
 	cyclon_run(5, 0, 200);
@@ -136,7 +148,10 @@ __attribute__((OS_main)) main(void)
 	_delay_ms(2 * DELAYTIME);
 	cyclon_run(5, 7, 200);
 
-	// wait some time 
+
+        /*
+	 * ---------- main stuff below ----------
+	 */
 	_delay_ms(5 * DELAYTIME);
 
 	while (1) {

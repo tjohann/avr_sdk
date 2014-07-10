@@ -3,7 +3,7 @@ main = none
 #include include/defines.mk
 
 MODULES = src
-MODULES_ADDITIONAL = docs include lib man bin etc
+MODULES_ADDITIONAL = include lib man bin etc docs schematics
 
 all::
 	@echo "+-----------------------------------------------+"

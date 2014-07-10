@@ -1,6 +1,6 @@
 /*
   template - simple template for using my avr_sdk and libs for small 
-             microcontroller (8 bit) 
+             microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

@@ -1,6 +1,6 @@
 # common compiler switches to active/deactivate code fragments
 #
-# Note: also edit avr_compile_macros.h if needed
+# Note: also edit avr/arm_compile_macros.h if needed
 
 # which controller do i use?
 # -> __AVR__

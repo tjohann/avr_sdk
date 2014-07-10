@@ -1,6 +1,6 @@
 /*
-  libavradc - simple library as a handle of adc stuff for small
-              microcontroller (8 bit) 
+  libavradc/libarmadc - simple library as a handle of adc stuff for small
+                        microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

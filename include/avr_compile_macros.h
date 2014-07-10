@@ -1,6 +1,5 @@
 /*
-  libavrserial - simple library as a handle for serial communication for small
-                 microcontroller (8 bit) 
+  avr/arm_compile_macros - some common compile macros for avr/arm usage
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

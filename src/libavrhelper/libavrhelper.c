@@ -1,6 +1,6 @@
 /*
-  libavrhelper - simple lib with common helper functions/macros for small
-                 microcontroller (8 bit) 
+  libavrhelper/libarmhelper - simple lib with common helper functions/macros for small
+                              microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

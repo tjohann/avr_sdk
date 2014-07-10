@@ -1,5 +1,6 @@
 /*
-  libavrcyclon - simple knight rider lib for small microcontroller (8 bit) 
+  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr) 
+                              or cortex-m3(arm) devices 
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

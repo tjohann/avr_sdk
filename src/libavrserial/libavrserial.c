@@ -1,6 +1,6 @@
 /*
-  libavrserial - simple library as a handle for serial communication for small
-                 microcontroller (8 bit) 
+  libavrserial/libarmserial - simple library as a handle for serial communication for 
+                              small microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 

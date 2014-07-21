@@ -27,19 +27,40 @@
  * -> setup adc 
  */
 void 
-adc_setup_adc(void) 
+adc_setup_adc(unsigned char adc_channel) 
 {
 
 /*
  * ADC SETUP FOR AVR
  */
 #if CONTROLLER_FAMILY == __AVR__
-	
-	// do something
 
+	/*
+	 * TODO: macros for all bit settings
+	 */
+
+	switch (adc_channel){
+	case ADC_CH0:
+		ADMUX |= (1 << REFS0);
+		ADCSRA |= (1 << ADPS2);
+		ADCSRA |= (1 << ADEN);
+			break;
+	case ADC_CH1:
+
+		/*
+		 * fill me
+		 */
+
+		break;
+	default: 
+		// ADC_CH0
+		ADMUX |= (1 << REFS0);  
+		ADCSRA |= (1 << ADPS2);
+		ADCSRA |= (1 << ADEN);
 #if ADC_ERROR == __ON__
 	adc_errno = ADC_INIT_DEFAULT;
 #endif
+		};                  
 	
 #endif  // AVR
 

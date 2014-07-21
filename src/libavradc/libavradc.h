@@ -39,6 +39,14 @@ typedef enum adc_errors {
 	ADC_UNKNOWN
 } adc_errors_t;
 
+/*
+ * enum for adc channel 
+ */
+typedef enum adc_channels {
+	ADC_CH0 = 0x00, 
+	ADC_CH1
+} adc_channels_t; 
+
 
 /*
  * adc errno stuff
@@ -77,7 +85,7 @@ typedef enum adc_errors {
  * -> setup adc 
  */
 void 
-adc_setup_adc(void);
+adc_setup_adc(unsigned char adc_channel);
 
 
 

@@ -118,19 +118,21 @@ __attribute__((OS_main)) main(void)
 	byte = serial_receive_byte();
 	serial_send_byte(byte, SERIAL_SEND_ASCII);	
 
-	/*
-	 * Note: untested functions of libavrserial are below ...
-	 *       tested are above this comment
-	 * Date: 06.07.2014
-	 */
-	//string = serial_receive_string(4);
-	//serial_send_string(string, 2);	
+
 	// -->  END of untested serial stuff
 
 	/*
 	 * ---------- adc stuff ----------
 	 */
-	adc_setup_adc();
+	adc_setup_adc(ADC_CH0);
+	// only temporary for learning
+	ADCSRA |= (1 << ADSC);
+	loop_until_bit_is_clear(ADCSRA, ADSC);
+	uint16_t adcValue;
+	adcValue = ADC;
+	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
+	
+
 
 	/*
 	 * ---------- init template stuff ----------

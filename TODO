@@ -1,4 +1,7 @@
 # TODO 
 
+2014-07-22 -> tjohann, include/defines.mk
+	      move fuse bit definitions in controller specific file
+
 2014-07-02 -> tjohann, libavrserial
 	      check and implement operation mode for SYNC_MASTER, SYNC_SLAVE and MASTER_SPI

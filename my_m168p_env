@@ -35,4 +35,9 @@ export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
 #echo $PROJECT_CONTROLLER
 
+#
+# use __LCD__ or __SERIAL__
+#
+export COMMUNICATION_PATH=__LCD__
+
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

@@ -1,6 +1,6 @@
 /*
-  template - simple template for using my avr_sdk and libs for small 
-             microcontroller(avr) and cortex-m3(arm) devices
+  libavrlcd/libarmlcd - simple library as a handle of lcd stuff for small
+                        microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -19,52 +19,41 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <avr/io.h>
+#ifndef _LIBAVRLCD_PRIV_H_
+#define _LIBAVRLCD_PRIV_H_
 
-#define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h>
+#include <libavrhelper.h>
+#include "libavrlcd.h"
+#include <avr/io.h>
+#include <stdlib.h>
+
 
 /*
- * -> my avr_sdk libs 
+ * lcd errno stuff
+ *
+ * Note: of course not reentrant 
+ *       LCD_ERROR is the general switch
+ *       LCD_ERRNO for adc_errno which holds lcd_error_t values 
  */
-#include <avr_compile_macros.h>
-#include <libavrhelper.h>
-#include <libavrserial.h>
-#include <libavradc.h>
-#include <libavrlcd.h>
-#include <libavrcyclon.h>
-
-
-// make shure that COMMUNICATION_PATH is available
-#ifndef COMMUNICATION_PATH
-#error "COMMUNICATION_PATH not defined"
+#ifdef LCD_ERROR 
+#ifndef LCD_ERRNO
+#define LCD_ERRNO
+unsigned char lcd_errno = MY_OK;
+#endif
+#else
+# warning "No special lcd error indication!"
 #endif
 
 /*
- * -> use serial_errno
+ * error string 
  */
-extern unsigned char serial_errno;
-
+unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 
 /*
- * -> use adc_errno
+ * -> macros for setting ....
  */
-extern unsigned char adc_errno;
 
 
-/*
- * -> use lcd_errno
- */
-extern unsigned char lcd_errno;
 
 
-/*
- * special pins for blinking ...
- *
- * Note: you could also use __PORT_B__ ... see libcyclon
- */
-#define LED_PIN PB0
-#define LED_DDR DDRB
-#define LED_PORT PORTB
-
-
+#endif

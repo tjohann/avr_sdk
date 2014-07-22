@@ -59,4 +59,15 @@
 #endif
 
 
+/*
+ * defines for COMMUNICATION_PATH -> see template and my_m168p_env ...
+ */
+#ifndef __SERIAL__
+#define __SERIAL__ 1
+#endif
+
+#ifndef __LCD__
+#define __LCD__ 2
+#endif
+
 #endif

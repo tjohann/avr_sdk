@@ -1,6 +1,6 @@
 /*
-  template - simple template for using my avr_sdk and libs for small 
-             microcontroller(avr) and cortex-m3(arm) devices
+  libavrlcd/libarmlcd - simple library as a handle of lcd stuff for small
+                        microcontroller(avr) and cortex-m3(arm) devices
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -19,52 +19,39 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <avr/io.h>
+#include "libavrlcd.h"
+#include "libavrlcd_priv.h"
 
-#define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h>
 
 /*
- * -> my avr_sdk libs 
+ * -> setup lcd
  */
-#include <avr_compile_macros.h>
-#include <libavrhelper.h>
-#include <libavrserial.h>
-#include <libavradc.h>
-#include <libavrlcd.h>
-#include <libavrcyclon.h>
+void 
+lcd_setup_display(void) 
+{
 
+/*
+ * LCD SETUP FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
 
-// make shure that COMMUNICATION_PATH is available
-#ifndef COMMUNICATION_PATH
-#error "COMMUNICATION_PATH not defined"
+	/*
+	 * TODO: fill me
+	 */
+
+#if LCD_ERROR == __ON__
+	lcd_errno = LCD_INIT_DEFAULT;
 #endif
-
-/*
- * -> use serial_errno
- */
-extern unsigned char serial_errno;
+	
+#endif  // AVR
 
 
 /*
- * -> use adc_errno
+ * ADC SETUP FOR ARM-CORTEX-M3
  */
-extern unsigned char adc_errno;
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
 
-
-/*
- * -> use lcd_errno
- */
-extern unsigned char lcd_errno;
-
-
-/*
- * special pins for blinking ...
- *
- * Note: you could also use __PORT_B__ ... see libcyclon
- */
-#define LED_PIN PB0
-#define LED_DDR DDRB
-#define LED_PORT PORTB
-
+}
 

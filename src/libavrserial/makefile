@@ -55,8 +55,3 @@ install: $(TARGET).a
 clean:
 	rm -rf *~ *.a *.i *.s *.elf *.hex *.bin *.srec *.obj *.o *.eeprom *.lst *.map core.d
 
-
-
-
-
-

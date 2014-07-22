@@ -1,22 +1,22 @@
 # +----------------------------- setup the my personal env ----------------------------+
-# |                                    my_m168p_env                                    |
+# |                                    my_m32_env                                      |
 # +------------------------------------------------------------------------------------+
 
 #
 # for adding to .bashrc 
 #
 ## setup the avr environment 
-#if [ -f ~/avr_sdk/my_m168p_env ]; then
+#if [ -f ~/avr_sdk/my_m32_env ]; then
 #    cd ~/avr_sdk
-#    . ~/avr_sdk/my_m168p_env 
+#    . ~/avr_sdk/my_m32_env 
 #    cd -
 #fi
 
 . ./env_avr_dev_latest
 
 # common controller defines
-export MCU=atmega168p
-export F_CPU=1000000
+export MCU=atmega32
+export F_CPU=16000000
 export BAUD=9600
 
 #
@@ -32,12 +32,12 @@ export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 #
 # export project specific definitions 
 #
-export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
+export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m32.mk"
 #echo $PROJECT_CONTROLLER
 
 #
 # use __LCD__ or __SERIAL__
 #
-export COMMUNICATION_PATH=__SERIAL__
+export COMMUNICATION_PATH=__LCD__
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

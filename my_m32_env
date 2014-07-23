@@ -63,6 +63,10 @@ export COMMUNICATION_PATH=__LCD__
 # -> __PORT_B__
 # -> __PORT_C__
 # -> __PORT_D__
-export LCD_COMMON_PORT=__PORT_A__
+#
+# Note: the definition of which pin of lcd is connected to 
+#       which controller pin is done in include/avr_compile_macros.h
+#
+export LCD_COMMON_PORT=__PORT_C__
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

@@ -36,8 +36,34 @@ export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
 #echo $PROJECT_CONTROLLER
 
 #
+# want to use SERIAL? 
+#
+export USE_SERIAL=__YES__
+
+#
+# want to use LCD? 
+#
+export USE_LCD=__NO__
+
+#
 # use __LCD__ or __SERIAL__
 #
 export COMMUNICATION_PATH=__SERIAL__
+
+#
+# want to use CYCLON? 
+#
+# Note: dont forget to define CYCLON_PORT
+#
+export USE_CYCLON=__YES__
+
+#
+# led port for cylcon eyes
+#
+# -> __PORT_A__
+# -> __PORT_B__
+# -> __PORT_C__
+# -> __PORT_D__
+export CYCLON_PORT=__PORT_B__
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

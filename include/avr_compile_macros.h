@@ -38,6 +38,16 @@
 #  warning "Controller family not defined, use __AVR__"
 #endif
 
+/*
+ * define YES and NO 
+ */
+#ifndef __YES__
+#define __YES__ 1
+#endif
+
+#ifndef __NO__
+#define __NO__ 0
+#endif
 
 /*
  * defines for port definitions -> see libavrcyclon 

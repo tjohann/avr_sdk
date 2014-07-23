@@ -138,7 +138,10 @@ __attribute__((OS_main)) main(void)
 	loop_until_bit_is_clear(ADCSRA, ADSC);
 	uint16_t adcValue;
 	adcValue = ADC;
+
+#if USE_SERIAL == __YES__
 	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
+#endif
 	
 
 	/*

@@ -32,12 +32,61 @@ lcd_setup_display(void)
 
 /*
  * LCD SETUP FOR AVR
+ *
+ * Note: heavily inspired by 
+ *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
  */
 #if CONTROLLER_FAMILY == __AVR__
 
-	/*
-	 * TODO: fill me
-	 */
+// verwendete Pins auf Ausgang schalten
+	uint8_t pins = (0x0F << LCD_DB) |           // 4 Datenleitungen
+		(1<<LCD_RS) |                // R/S Leitung
+		(1<<LCD_EN);                 // Enable Leitung
+	//LCD_DDR |= pins;
+	
+	// initial alle Ausgänge auf Null
+	//LCD_PORT &= ~pins;
+	
+	_delay_ms(LCD_BOOTUP_TIME);
+	
+	// Soft-Reset muss 3mal hintereinander gesendet werden zur Initialisierung
+	//lcd_out( LCD_SOFT_RESET );
+	//_delay_ms( LCD_SOFT_RESET_MS1 );
+	
+	//lcd_enable();
+	//_delay_ms( LCD_SOFT_RESET_MS2 );
+	
+	//lcd_enable();
+	//_delay_ms( LCD_SOFT_RESET_MS3 );
+	
+	// 4-bit Modus aktivieren 
+	//lcd_out( LCD_SET_FUNCTION |
+	//	 LCD_FUNCTION_4BIT );
+	//_delay_ms( LCD_SET_4BITMODE_MS );
+	
+	// 4-bit Modus / 2 Zeilen / 5x7
+	//lcd_command( LCD_SET_FUNCTION |
+	//	     LCD_FUNCTION_4BIT |
+	//	     LCD_FUNCTION_2LINE |
+	//	     LCD_FUNCTION_5X7 );
+	
+	// Display ein / Cursor aus / Blinken aus
+	//lcd_command( LCD_SET_DISPLAY |
+	//	     LCD_DISPLAY_ON |
+	//	     LCD_CURSOR_OFF |
+	//	     LCD_BLINKING_OFF); 
+	
+	// Cursor inkrement / kein Scrollen
+	//lcd_command( LCD_SET_ENTRY |
+	//	     LCD_ENTRY_INCREASE |
+	//	     LCD_ENTRY_NOSHIFT );
+	
+	//lcd_clear();
+	
+
+
+
+
 
 #if LCD_ERROR == __ON__
 	lcd_errno = LCD_INIT_DEFAULT;

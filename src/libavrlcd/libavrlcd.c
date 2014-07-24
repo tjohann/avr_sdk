@@ -29,6 +29,7 @@
 void 
 lcd_setup_display(void) 
 {
+	unsigned char pins = 0x00;
 
 /*
  * LCD SETUP FOR AVR
@@ -37,17 +38,14 @@ lcd_setup_display(void)
  *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
  */
 #if CONTROLLER_FAMILY == __AVR__
-
-// verwendete Pins auf Ausgang schalten
-	uint8_t pins = (0x0F << LCD_DB) |           // 4 Datenleitungen
-		(1<<LCD_RS) |                // R/S Leitung
-		(1<<LCD_EN);                 // Enable Leitung
-	//LCD_DDR |= pins;
+        // which pins are used?
+	pins = (0x0F << LCD_DB_FIRST_PIN) | (1<<LCD_RS_PIN) | (1<<LCD_EN_PIN);
+	LCD_DDR |= pins;
 	
-	// initial alle Ausgänge auf Null
-	//LCD_PORT &= ~pins;
+	// clear all pins 
+	LCD_PORT &= ~pins;
 	
-	_delay_ms(LCD_BOOTUP_TIME);
+	_delay_ms(LCD_BOOTUP_TIME);  // TODO: check that
 	
 	// Soft-Reset muss 3mal hintereinander gesendet werden zur Initialisierung
 	//lcd_out( LCD_SOFT_RESET );

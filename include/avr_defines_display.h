@@ -27,8 +27,63 @@
  */
 #if USE_LCD == __YES__
 
+
+/*
+ * LCD pining 
+ * Note: see datasheet and/or
+ *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
+ */
+#if LCD_COMMON_PORT == __PORT_A__
+#define LCD_PORT PORTA
+#ifdef DDRA
+#define LCD_DDR DDRA
 #else
+# error "DDRA not available"
+#endif
+#define LCD_DB_FIRST_PIN PA0
+#define LCD_RS_PIN PA4
+#define LCD_EN_PIN PA5
+
+#elif LCD_COMMON_PORT == __PORT_B__
+#define LCD_PORT PORTB
+#define LCD_DDR DDRB
+#define LCD_DB_FIRST_PIN PB0
+#define LCD_RS_PIN PB4
+#define LCD_EN_PIN PB5
+
+#elif LCD_COMMON_PORT == __PORT_C__
+#define LCD_PORT PORTC
+#define LCD_DDR DDRC
+#define LCD_DB_FIRST_PIN PC0
+#define LCD_RS_PIN PC4
+#define LCD_EN_PIN PC5
+
+#elif LCD_COMMON_PORT == __PORT_D__
+#define LCD_PORT PORTD
+#define LCD_DDR DDRD
+#define LCD_DB_FIRST_PIN PD0
+#define LCD_RS_PIN PD4
+#define LCD_EN_PIN PD5
+
+#else
+# error "LCD_COMMON_PORT not valid"
+#endif
+
+
+#else // USE_LCD == __YES__
 # warning "USE_DISPLAY == __NO__ -> do nothing"
 #endif
+
+
+/*
+ * LCD timing 
+ *
+ * Note: see datasheet and/or
+ *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
+ */
+#define LCD_BOOTUP_TIME 15
+
+
+
 
 #endif

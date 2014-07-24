@@ -32,56 +32,6 @@
 
 
 /*
- * LCD pining 
- * Note: see datasheet and/or
- *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
- */
-//  LCD DB4-DB7 <-->  PORTD Bit PD0-PD3
-//#define LCD_PORT      PORTD
-//#define LCD_DDR       DDRD
-#define LCD_DB        PD0
-//  LCD RS      <-->  PORTD Bit PD4     (RS: 1=Data, 0=Command)
-#define LCD_RS        PD4
-//  LCD EN      <-->  PORTD Bit PD5     (EN: 1-Impuls für Daten)
-#define LCD_EN        PD5
-
-
-#if USE_LCD == __YES__
-#if LCD_COMMON_PORT == __PORT_A__
-#define LCD_PORT PORTA
-#ifdef DDRA
-#define LCD_DDR DDRA
-#else
-# warning "DDRA not available"
-#endif
-#elif LCD_COMMON_PORT == __PORT_B__
-#define LCD_PORT PORTB
-#define LCD_DDR DDRB
-#elif LCD_COMMON_PORT == __PORT_C__
-#define LCD_PORT PORTC
-#define LCD_DDR DDRC
-#elif LCD_COMMON_PORT == __PORT_D__
-#define LCD_PORT PORTD
-#define LCD_DDR DDRD
-#else
-# error "LCD_COMMON_PORT not valid"
-#endif
-#else
-# warning "USE_LCD == __NO__ -> use default values to satisfy build"
-#define LCD_PORT PORTC
-#define LCD_DDR DDRC
-#endif
-
-/*
- * LCD timing 
- *
- * Note: see datasheet and/or
- *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
- */
-#define LCD_BOOTUP_TIME 15
-
-
-/*
  * lcd errno stuff
  *
  * Note: of course not reentrant 

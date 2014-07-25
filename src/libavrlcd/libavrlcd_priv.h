@@ -30,6 +30,7 @@
 #define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 
+#include <avr_defines_display.h>
 
 /*
  * lcd errno stuff

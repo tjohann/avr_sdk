@@ -23,8 +23,6 @@
 #define _LIBAVRLCD_H_
 
 #include <avr_compile_macros.h>
-#include <libavrhelper.h>
-#include <avr_defines_display.h>
 
 
 #ifndef F_CPU

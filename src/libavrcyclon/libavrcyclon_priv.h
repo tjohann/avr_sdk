@@ -50,10 +50,6 @@
 #else
 # error "CYCLON_PORT not valid"
 #endif
-#else
-# warning "USE_CYCLON == __NO__ -> use default values to satisfy build"
-#define LEDS_PORT PORTD
-#define LEDS_DDR DDRD
 #endif
 
 

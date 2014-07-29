@@ -30,7 +30,7 @@
 
 
 /*
- * -> setup lcd
+ * -> setup lcd (HD44780 or compatible)
  */
 void 
 lcd_setup_display(void) 
@@ -41,11 +41,64 @@ lcd_setup_display(void)
  */
 #if CONTROLLER_FAMILY == __AVR__
 
+	/*
+	 * usefull state after power on
+	 *
+	 * -> D0-D7 low
+	 * -> EN high 
+	 * -> RS low (commands)
+	 * -> RW low (write)
+	 */
+
+	// setup db port
 	LCD_DDR |= 0xFF;	
 	LCD_PORT &= ~0xFF;
 	
-	_delay_ms(LCD_BOOTUP_TIME);  // TODO: check that
+	/*
+	 * setup ctrl pins
+	 *
+	 * Notes: - RS <-> register select <-> 0 command bytes, 1 character bytes
+	 *        - EN <-> enable <-> transfer bytes on high to low transistion (write)
+	 *                        <-> transfer bytes on a low to high transition (read)
+	 *                            bytes are then available until a new low to high
+	 *                            transistion
+	 *        - RW <-> read/write <-> 0 write bytes to lcd, 1 read bytes from display
+	 */
+	LCD_CTRL_DDR |= (1 << LCD_RS_PIN) || (1 << LCD_EN_PIN);
+	LCD_CTRL_PORT &= ~(1 << LCD_RS_PIN);
+	LCD_CTRL_PORT |= (1 << LCD_EN_PIN);
 	
+	_delay_ms(LCD_BOOTUP_TIME);  // 10ms
+	
+	/*
+	 * - 8 bit mode
+	 * - 2 lines (or more)
+	 * - 5x7 fonts
+	 */
+	LCD_PORT = 0x38;
+	LCD_PRESS_EN_BUTTON();
+
+	/*
+	 * - display on
+	 * - blinking cursor with
+	 * - underline
+	 */
+	LCD_PORT = 0x0F;
+	LCD_PRESS_EN_BUTTON();
+
+	/*
+	 * - clear display
+	 */
+	LCD_PORT = 0x01;
+       	LCD_PRESS_EN_BUTTON();
+	
+	/*
+	 * - cursor auto increment
+	 */
+	LCD_PORT = 0x06;
+	LCD_PRESS_EN_BUTTON();
+
+
 
 
 #if LCD_ERROR == __ON__

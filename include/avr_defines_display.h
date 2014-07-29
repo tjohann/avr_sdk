@@ -45,8 +45,12 @@
 # error "LCD_COMMON_PORT not valid"
 #endif
 
+// ctrl pins
 #define LCD_RS_PIN PC2
 #define LCD_EN_PIN PC3
+#define LCD_CTRL_PORT PORTC
+#define LCD_CTRL_DDR DDRC
+
 
 #else // USE_LCD == __YES__
 # warning "USE_DISPLAY == __NO__ -> do nothing"
@@ -56,6 +60,7 @@
 /*
  * LCD timing 
  */
-#define LCD_BOOTUP_TIME 15
+#define LCD_BOOTUP_TIME 10
+#define LCD_ENABLE_PAUSE 20
 
 

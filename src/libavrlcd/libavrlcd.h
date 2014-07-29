@@ -31,6 +31,18 @@
 
 
 /*
+ * LCD pinnig 
+ *
+ * Note: - only 8 bit mode 
+ *       - RS <-> PC2
+ *       - EN <-> PC3
+ *       - RW <-> t.b.d.
+ *
+ *       see $(AVR_HOME)/include/avr_defines_display.h for more info
+ */
+
+
+/*
  * lcd specific error codes
  */
 typedef enum lcd_errors {

@@ -24,6 +24,11 @@
 
 
 /*
+ * if you want to use SERIAL ... otherwise no code to to link
+ */
+#if USE_SERIAL == __YES__
+
+/*
  * -> setup USART0 for async mode at normal speed ... U2Xn=0
  */
 void 
@@ -68,11 +73,6 @@ serial_setup_sync_slave(serial_frame_type_t frame_type)
 			   ENA_ALL);
 }
 
-
-/*
- * if you want to use SERIAL ... otherwise only skeletons 
- */
-#if USE_SERIAL == __YES__
 
 /*
  * ************** private functions **************

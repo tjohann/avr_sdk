@@ -46,6 +46,11 @@ export USE_SERIAL=__YES__
 export USE_LCD=__NO__
 
 #
+# want to use ADC? 
+#
+export USE_ADC=__YES__
+
+#
 # use __LCD__ or __SERIAL__
 #
 export COMMUNICATION_PATH=__SERIAL__

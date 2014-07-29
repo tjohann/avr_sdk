@@ -114,6 +114,8 @@ __attribute__((OS_main)) main(void)
 	 *
 	 * Note: dont use serial & lcd -> PIN conflict 
 	 */
+#if USE_SERIAL == __YES__
+
 #if COMMUNICATION_PATH == __SERIAL__
 	// init serial and let the led blink with DELAYTIME_ON_ERROR ms
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
@@ -127,11 +129,14 @@ __attribute__((OS_main)) main(void)
 	// get an char from peer and send it as ascii 
 	byte = serial_receive_byte();
 	serial_send_byte(byte, SERIAL_SEND_ASCII);	
+#endif // COMMUNICATION_PATH 
+
 #endif
 
 	/*
 	 * ---------- adc stuff ----------
 	 */
+#if USE_ADC == __YES__
 	adc_setup_adc(ADC_CH0);
 	// only temporary for learning
 	ADCSRA |= (1 << ADSC);
@@ -142,13 +147,16 @@ __attribute__((OS_main)) main(void)
 #if USE_SERIAL == __YES__
 	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
 #endif
-	
+
+#endif	
 
 	/*
 	 * ---------- lcd stuff ----------
 	 *
 	 * Note: dont use serial & lcd -> PIN conflict 
 	 */
+#if USE_LCD == __YES__
+
 #if COMMUNICATION_PATH == __LCD__
 	lcd_setup_display();
 	if (lcd_errno != MY_OK)
@@ -157,7 +165,9 @@ __attribute__((OS_main)) main(void)
 	// init lcd done ... send greetings to peer
 	state_of_template |= STATE_LCD_INIT_DONE;
 	//lcd_set_string(greeting_string, sizeof(greeting_string));
-#endif      
+#endif // COMMUNICATION_PATH      
+
+#endif
 
 	/*
 	 * ---------- init template stuff ----------
@@ -168,13 +178,14 @@ __attribute__((OS_main)) main(void)
         /*
 	 * ---------- cyclon stuff ----------
 	 */
+#if USE_CYCLON == __YES__
 	cyclon_setup_port();
 	cyclon_run(5, 0, 200);
 	_delay_ms(2 * DELAYTIME);
 	cyclon_double_run(5, 200);
 	_delay_ms(2 * DELAYTIME);
 	cyclon_run(5, 7, 200);
-
+#endif
 
         /*
 	 * ---------- main stuff below ----------

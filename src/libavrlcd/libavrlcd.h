@@ -90,4 +90,27 @@ lcd_setup_display(void);
 
 
 
+/*
+ * ----------- functions to send commands to the LCD ---------
+ */
+
+/*
+ * -> send a command to the lcd
+ */
+void 
+lcd_send_command(unsigned char cmd);
+
+
+
+/*
+ * ----------- functions to send character to the LCD --------
+ */
+
+/*
+ * -> send a character to the lcd
+ */
+void 
+lcd_send_character(unsigned char cmd);
+
+
 #endif

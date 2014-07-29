@@ -117,6 +117,67 @@ lcd_setup_display(void)
 
 }
 
+
+
+/*
+ * ----------- functions to send commands to the LCD ---------
+ */
+
+/*
+ * -> send a command to the lcd
+ */
+void 
+lcd_send_command(unsigned char cmd) 
+{
+
+/*
+ * SEND COMMAND FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	// fill_me
+#endif
+	
+
+/*
+ * SEND COMMAND FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
+
+
+/*
+ * ----------- functions to send character to the LCD --------
+ */
+
+/*
+ * -> send a character to the lcd
+ */
+void 
+lcd_send_character(unsigned char cmd) 
+{
+
+/*
+ * SEND CHARACTER FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	// fill_me
+#endif
+	
+
+/*
+ * SEND CHARACTER FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
+
 #else
 # warning "USE_LCD == __NO__ -> dont try to use the functions "
 #endif

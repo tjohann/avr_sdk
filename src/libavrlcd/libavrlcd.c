@@ -29,7 +29,7 @@
 void 
 lcd_setup_display(void) 
 {
-	unsigned char pins = 0x00;
+	unsigned char lcd_port = 0x00;
 
 /*
  * LCD SETUP FOR AVR
@@ -39,11 +39,11 @@ lcd_setup_display(void)
  */
 #if CONTROLLER_FAMILY == __AVR__
         // which pins are used?
-	pins = (0x0F << LCD_DB_FIRST_PIN) | (1<<LCD_RS_PIN) | (1<<LCD_EN_PIN);
-	LCD_DDR |= pins;
+	lcd_port = (0x0F << LCD_DB_FIRST_PIN) | (1<<LCD_RS_PIN) | (1<<LCD_EN_PIN);
+	LCD_DDR |= lcd_port;
 	
 	// clear all pins 
-	LCD_PORT &= ~pins;
+	LCD_PORT &= ~lcd_port;
 	
 	_delay_ms(LCD_BOOTUP_TIME);  // TODO: check that
 	

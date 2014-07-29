@@ -30,40 +30,47 @@
 
 /*
  * LCD pining 
+ *
  * Note: see datasheet and/or
  *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
+ *
+ *       the pinning below is only a proposal for ATMega32
  */
 #if LCD_COMMON_PORT == __PORT_A__
 #define LCD_PORT PORTA
+// only adc0 and adc 1 available
 #ifdef DDRA
 #define LCD_DDR DDRA
 #else
 # error "DDRA not available"
 #endif
-#define LCD_DB_FIRST_PIN PA0
-#define LCD_RS_PIN PA4
-#define LCD_EN_PIN PA5
+#define LCD_DB_FIRST_PIN PA4
+#define LCD_RS_PIN PA2
+#define LCD_EN_PIN PA3
 
 #elif LCD_COMMON_PORT == __PORT_B__
+// no sck -> use bs170 to disconnect if you program
 #define LCD_PORT PORTB
 #define LCD_DDR DDRB
 #define LCD_DB_FIRST_PIN PB0
 #define LCD_RS_PIN PB4
-#define LCD_EN_PIN PB5
+#define LCD_EN_PIN PB7
 
 #elif LCD_COMMON_PORT == __PORT_C__
+// my prefered port
 #define LCD_PORT PORTC
 #define LCD_DDR DDRC
-#define LCD_DB_FIRST_PIN PC0
-#define LCD_RS_PIN PC4
-#define LCD_EN_PIN PC5
+#define LCD_DB_FIRST_PIN PC4
+#define LCD_RS_PIN PC2
+#define LCD_EN_PIN PC3
 
 #elif LCD_COMMON_PORT == __PORT_D__
+// no rx/tx 
 #define LCD_PORT PORTD
 #define LCD_DDR DDRD
-#define LCD_DB_FIRST_PIN PD0
-#define LCD_RS_PIN PD4
-#define LCD_EN_PIN PD5
+#define LCD_DB_FIRST_PIN PD4
+#define LCD_RS_PIN PD0
+#define LCD_EN_PIN PD1
 
 #else
 # error "LCD_COMMON_PORT not valid"
@@ -77,9 +84,6 @@
 
 /*
  * LCD timing 
- *
- * Note: see datasheet and/or
- *       http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/LCD-Ansteuerung
  */
 #define LCD_BOOTUP_TIME 15
 

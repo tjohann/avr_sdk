@@ -1,11 +1,17 @@
 # common defines for m32
 
 # atmege32 defaults 
+LFUSE_DEF = 0xee
+HFUSE_DEF = 0x99
+
+# atmege32 project specific 
 LFUSE = 0xee
 HFUSE = 0x99
-# preserve eeprom across flashing 
-EFUSE = 0x00
 
 # default fuses 
-FUSE_DEFAULT = -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+FUSE_DEFAULT = -U lfuse:w:$(LFUSE_DEF):m -U hfuse:w:$(HFUSE_DEF):m 
 
+#
+# Note: 
+#       set also FUSE_STRING in project makefile
+#

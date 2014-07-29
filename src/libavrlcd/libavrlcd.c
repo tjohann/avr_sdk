@@ -98,12 +98,8 @@ lcd_setup_display(void)
 	LCD_PORT = 0x06;
 	LCD_PRESS_EN_BUTTON();
 
-
-
-
-#if LCD_ERROR == __ON__
-	lcd_errno = LCD_INIT_DEFAULT;
-#endif
+	// enable character mode -> default 
+	LCD_CTRL_PORT |= (1 << LCD_RS_PIN);
 	
 #endif  // AVR
 

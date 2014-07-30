@@ -79,8 +79,8 @@ lcd_setup_display(void)
 	 *        7. clear/set RS
 	 */
 	LCD_CTRL_DDR |= (1 << LCD_RS_PIN) | (1 << LCD_EN_PIN);
-	LCD_CTRL_PORT &= ~((1 << LCD_RS_PIN) | (1 << LCD_EN_PIN));
-	
+	LCD_CTRL_PORT &= ~( (1 << LCD_RS_PIN) | (1 << LCD_EN_PIN) );
+
 	_delay_ms(LCD_BOOTUP_TIME);  // 100ms
 
 	/*
@@ -103,24 +103,28 @@ lcd_setup_display(void)
 	 */
 	LCD_PORT = 0x38;
 	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);
 
 	/*
 	 * - display on/off control instruction 
 	 */
 	LCD_PORT = 0x08;
 	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);
 	
 	/*
 	 * - clear display
 	 */
 	LCD_PORT = 0x01;
        	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);
 
 	/*
 	 * - cursor auto increment
 	 */
 	LCD_PORT = 0x06;
 	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);
 
 	// ------ init done ------
 
@@ -133,6 +137,7 @@ lcd_setup_display(void)
 	 */
 	LCD_PORT = 0x0F;
 	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);
 
 	// enable character mode -> default 
 	LCD_CTRL_PORT |= (1 << LCD_RS_PIN);
@@ -165,11 +170,6 @@ lcd_reset_lcd()
 
 	/*
 	 * reset the lcd with special case ot the function set
-	 *
-	 * Note: - normally the hd44780 has a reset sequence which init the
-	 *         controller after power on, but the power unit must 
-	 *         behave in a special way 
-	 *       - also the lcd must get an reset if the controller get an reset
 	 */
 
 	LCD_PORT = 0x30;
@@ -184,9 +184,7 @@ lcd_reset_lcd()
 	LCD_PUSH_EN_BUTTON();
 	_delay_us(LCD_INIT_SHORT); // normal < 200us 
 
-	/*
-	 * now the hd44780 is ready to receive the first normal function set
-	 */
+	// now the hd44780 is ready to receive the first normal function set
 
 #endif
 	

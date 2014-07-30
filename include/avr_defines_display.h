@@ -57,12 +57,4 @@
 #endif
 
 
-/*
- * LCD timing 
- */
-#define LCD_BOOTUP_TIME 100
-#define LCD_ENABLE_PAUSE 100
-#define LCD_INIT_LONG 5
-#define LCD_INIT_SHORT 200
-
 

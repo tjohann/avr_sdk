@@ -53,6 +53,16 @@ unsigned char lcd_errno = MY_OK;
  */
 unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 
+
+/*
+ * LCD timing 
+ */
+#define LCD_BOOTUP_TIME 100
+#define LCD_ENABLE_PAUSE 100
+#define LCD_INIT_LONG 5
+#define LCD_INIT_SHORT 200
+
+
 /*
  * -> macros for setting ....
  */

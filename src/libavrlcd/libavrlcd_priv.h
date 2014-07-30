@@ -56,11 +56,25 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 /*
  * -> macros for setting ....
  */
-#define LCD_PRESS_EN_BUTTON() {			\
-	LCD_CTRL_PORT &= ~(1 << LCD_EN_PIN);	\
-	_delay_us(LCD_ENABLE_PAUSE);		\
-	LCD_CTRL_PORT |= (1 << LCD_EN_PIN);	\
-}
+#define LCD_PUSH_EN_BUTTON() {				\
+		LCD_CTRL_PORT |= (1 << LCD_EN_PIN);	\
+		_delay_us(LCD_ENABLE_PAUSE);		\
+		LCD_CTRL_PORT &= ~(1 << LCD_EN_PIN);	\
+		_delay_us(LCD_ENABLE_PAUSE);		\
+	}
+
+
+/*
+ * ----------- functions for init/setup of the LCD -----------
+ */
+
+
+/*
+ * -> reset lcd  
+ */
+void
+lcd_reset_lcd(void);
+
 
 
 #endif

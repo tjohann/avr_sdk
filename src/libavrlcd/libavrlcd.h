@@ -83,12 +83,28 @@ typedef enum lcd_errors {
  */
 
 /*
- * -> setup lcd
+ * -> setup lcd 
+ *
+ * Note: includes call lcd_reset_lcd()
+ *       =====
+ *       Config: - 8 bit mode
+ *               - 2 logical lines 
+ *               - 5x7 fonts
+ *               - blinking cursor with
+ *               - underline
+ *               - cursor auto increment
  */
 void 
 lcd_setup_display(void);
 
 
+/*
+ * -> reset lcd  
+ *
+ * Note: see lcd_setup_display for init values
+ */
+void
+lcd_reset_lcd(void);
 
 /*
  * ----------- functions to send commands to the LCD ---------

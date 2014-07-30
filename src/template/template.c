@@ -194,11 +194,11 @@ __attribute__((OS_main)) main(void)
 
 	while (1) {
 		
-		// send string led on
+		// led on
 		SET_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
 		
-		// send string led off
+		// led off
 		CLEAR_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
 		

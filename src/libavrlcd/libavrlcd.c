@@ -51,52 +51,88 @@ lcd_setup_display(void)
 	 */
 
 	// setup db port
-	LCD_DDR |= 0xFF;	
+	LCD_DDR = 0xFF;	
 	LCD_PORT &= ~0xFF;
 	
 	/*
 	 * setup ctrl pins
 	 *
-	 * Notes: - RS <-> register select <-> 0 command bytes, 1 character bytes
+	 * Notes: Pinning
+	 *        - RS <-> register select <-> 0 command bytes, 1 character bytes
 	 *        - EN <-> enable <-> transfer bytes on high to low transistion (write)
 	 *                        <-> transfer bytes on a low to high transition (read)
 	 *                            bytes are then available until a new low to high
 	 *                            transistion
 	 *        - RW <-> read/write <-> 0 write bytes to lcd, 1 read bytes from display
+	 *        =====
+	 *        Order/Timing
+	 *        - EN should be 0 as default 
+	 *        - EN periode > 1us (0-1-0-1) ... pulse width < 0,5us
+	 *        - RS and RW could be set/clear together
+	 *        1. set/clear RS
+	 *        2. set/clear RW
+	 *           - >140ns
+	 *        3. EN 0->1
+	 *        4. set DB
+	 *        5. EN 1->0
+	 *        6. clear/set RW
+	 *        7. clear/set RS
 	 */
-	LCD_CTRL_DDR |= (1 << LCD_RS_PIN) || (1 << LCD_EN_PIN);
-	LCD_CTRL_PORT &= ~(1 << LCD_RS_PIN);
-	LCD_CTRL_PORT |= (1 << LCD_EN_PIN);
+	LCD_CTRL_DDR |= (1 << LCD_RS_PIN) | (1 << LCD_EN_PIN);
+	LCD_CTRL_PORT &= ~((1 << LCD_RS_PIN) | (1 << LCD_EN_PIN));
 	
-	_delay_ms(LCD_BOOTUP_TIME);  // 10ms
+	_delay_ms(LCD_BOOTUP_TIME);  // 100ms
+
+	/*
+	 * reset the lcd with special case ot the function set
+	 *
+	 * Note: - normally the hd44780 has a reset sequence which init the
+	 *         controller after power on, but the power unit must 
+	 *         behave in a special way 
+	 *       - also the lcd must get an reset if the controller get an reset
+	 *       =====
+	 *       - the order of the function sets is a must
+	 *       - the same for most the values (only change 0x38 if needed) 
+	 */
+	lcd_reset_lcd();
 	
 	/*
 	 * - 8 bit mode
-	 * - 2 lines (or more)
+	 * - 2 logical lines 
 	 * - 5x7 fonts
 	 */
 	LCD_PORT = 0x38;
-	LCD_PRESS_EN_BUTTON();
+	LCD_PUSH_EN_BUTTON();
 
 	/*
+	 * - display on/off control instruction 
+	 */
+	LCD_PORT = 0x08;
+	LCD_PUSH_EN_BUTTON();
+	
+	/*
+	 * - clear display
+	 */
+	LCD_PORT = 0x01;
+       	LCD_PUSH_EN_BUTTON();
+
+	/*
+	 * - cursor auto increment
+	 */
+	LCD_PORT = 0x06;
+	LCD_PUSH_EN_BUTTON();
+
+	// ------ init done ------
+
+	/*
+	 * custom values:
+	 *
 	 * - display on
 	 * - blinking cursor with
 	 * - underline
 	 */
 	LCD_PORT = 0x0F;
-	LCD_PRESS_EN_BUTTON();
-
-	/*
-	 * - clear display
-	 */
-	LCD_PORT = 0x01;
-       	LCD_PRESS_EN_BUTTON();
-	
-	/*
-	 * - cursor auto increment
-	 */
-	LCD_PORT = 0x06;
-	LCD_PRESS_EN_BUTTON();
+	LCD_PUSH_EN_BUTTON();
 
 	// enable character mode -> default 
 	LCD_CTRL_PORT |= (1 << LCD_RS_PIN);
@@ -112,6 +148,58 @@ lcd_setup_display(void)
 #endif  // ARM
 
 }
+
+
+
+/*
+ * ->  reset lcd  
+ */
+void 
+lcd_reset_lcd() 
+{
+
+/*
+ * RESET LCD FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+
+	/*
+	 * reset the lcd with special case ot the function set
+	 *
+	 * Note: - normally the hd44780 has a reset sequence which init the
+	 *         controller after power on, but the power unit must 
+	 *         behave in a special way 
+	 *       - also the lcd must get an reset if the controller get an reset
+	 */
+
+	LCD_PORT = 0x30;
+	LCD_PUSH_EN_BUTTON();
+	_delay_ms(LCD_INIT_LONG);  // the first takes quite long -> around 4 ms
+
+	LCD_PORT = 0x30;
+	LCD_PUSH_EN_BUTTON();
+	_delay_us(LCD_INIT_SHORT); // normal < 200us
+
+	LCD_PORT = 0x30;
+	LCD_PUSH_EN_BUTTON();
+	_delay_us(LCD_INIT_SHORT); // normal < 200us 
+
+	/*
+	 * now the hd44780 is ready to receive the first normal function set
+	 */
+
+#endif
+	
+
+/*
+ * RESET LCD FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
 
 
 

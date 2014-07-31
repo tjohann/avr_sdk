@@ -90,12 +90,17 @@ error_indication(const unsigned char *error_string)
 int 
 __attribute__((OS_main)) main(void) 
 {
+	
+#if COMMUNICATION_PATH == __SERIAL__
 	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)\n\r";
 	const unsigned char error_string[] = "an error occured ... pls check\n\r";
-
-#if COMMUNICATION_PATH == __SERIAL__
 	unsigned char byte = 0x31;
+#elif COMMUNICATION_PATH == __LCD__
+	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)";
+	const unsigned char error_string[] = "an error occured ... pls check";
 #endif
+
+
 
 	/*
 	 * ---------- cyclon stuff ----------

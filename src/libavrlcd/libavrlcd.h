@@ -126,7 +126,7 @@ lcd_send_command(unsigned char cmd);
  * -> send a character to the lcd
  */
 void 
-lcd_send_character(unsigned char cmd);
+lcd_send_character(unsigned char data);
 
 
 #endif

@@ -155,7 +155,6 @@ lcd_setup_display(void)
 }
 
 
-
 /*
  * ->  reset lcd  
  */
@@ -200,7 +199,6 @@ lcd_reset_lcd()
 
 
 
-
 /*
  * ----------- functions to send commands to the LCD ---------
  */
@@ -239,7 +237,7 @@ lcd_send_command(unsigned char cmd)
  * -> send a character to the lcd
  */
 void 
-lcd_send_character(unsigned char cmd) 
+lcd_send_character(unsigned char data) 
 {
 
 /*

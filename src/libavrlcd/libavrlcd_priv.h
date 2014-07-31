@@ -58,9 +58,10 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
  * LCD timing 
  */
 #define LCD_BOOTUP_TIME 100
+
 #define LCD_ENABLE_PAUSE 100
+#define LCD_ENABLE_PAUSE_DOUBLE 2*LCD_ENABLE_PAUSE
 #define LCD_INIT_LONG 5
-#define LCD_INIT_SHORT 200
 
 
 /*
@@ -72,6 +73,25 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 		LCD_CTRL_PORT &= ~(1 << LCD_EN_PIN);	\
 		_delay_us(LCD_ENABLE_PAUSE);		\
 	}
+
+
+#define LCD_SET_RS_TO_COMMAND() {			\
+		LCD_CTRL_PORT &= ~(1 << LCD_RS_PIN);	\
+	}
+
+#define LCD_SET_RS_TO_CHARACTER() {	\
+		LCD_CTRL_PORT |= (1 << LCD_RS_PIN);	\
+	}
+
+
+#define LCD_SET_EN_ZERO() {				\
+		LCD_CTRL_PORT &= ~(1 << LCD_EN_PIN);	\
+	}						
+
+
+#define LCD_SET_EN_ONE() {				\
+		LCD_CTRL_PORT |= (1 << LCD_EN_PIN);	\
+	}						
 
 
 /*

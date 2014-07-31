@@ -129,4 +129,10 @@ void
 lcd_send_character(unsigned char data);
 
 
+/*
+ * -> send a string to the lcd
+ */
+void 
+lcd_send_string(const unsigned char *data);
+
 #endif

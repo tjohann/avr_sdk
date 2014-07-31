@@ -103,14 +103,12 @@ lcd_setup_display(void)
 	 */
 	LCD_PORT = 0x38;
 	LCD_PUSH_EN_BUTTON();
-	_delay_ms(LCD_INIT_LONG);
 
 	/*
 	 * - display on/off control instruction 
 	 */
 	LCD_PORT = 0x08;
 	LCD_PUSH_EN_BUTTON();
-	_delay_ms(LCD_INIT_LONG);
 	
 	/*
 	 * - clear display
@@ -124,7 +122,6 @@ lcd_setup_display(void)
 	 */
 	LCD_PORT = 0x06;
 	LCD_PUSH_EN_BUTTON();
-	_delay_ms(LCD_INIT_LONG);
 
 	// ------ init done ------
 
@@ -177,11 +174,11 @@ lcd_reset_lcd()
 
 	LCD_PORT = 0x30;
 	LCD_PUSH_EN_BUTTON();
-	_delay_us(LCD_INIT_SHORT); // normal < 200us
+	_delay_us(LCD_ENABLE_PAUSE_DOUBLE); // +200us
 
 	LCD_PORT = 0x30;
 	LCD_PUSH_EN_BUTTON();
-	_delay_us(LCD_INIT_SHORT); // normal < 200us 
+	_delay_us(LCD_ENABLE_PAUSE_DOUBLE); // +200us
 
 	// now the hd44780 is ready to receive the first normal function set
 
@@ -214,7 +211,15 @@ lcd_send_command(unsigned char cmd)
  * SEND COMMAND FOR AVR
  */
 #if CONTROLLER_FAMILY == __AVR__
-	// fill_me
+	LCD_SET_RS_TO_COMMAND();
+	
+        /*
+	 * switch case for the different commands 
+	 */
+        //LCD_PORT = cmd;
+	
+
+	LCD_PUSH_EN_BUTTON();
 #endif
 	
 
@@ -244,12 +249,40 @@ lcd_send_character(unsigned char data)
  * SEND CHARACTER FOR AVR
  */
 #if CONTROLLER_FAMILY == __AVR__
-	// fill_me
+	LCD_SET_RS_TO_CHARACTER();
+	LCD_PORT = data;
+	LCD_PUSH_EN_BUTTON();
 #endif
 	
 
 /*
  * SEND CHARACTER FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
+
+/*
+ * -> send a string to the lcd
+ */
+void 
+lcd_send_string(const unsigned char *data) 
+{
+
+/*
+ * SEND STRING FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	while(*data != '\0')
+		lcd_send_character(*data++);
+#endif
+	
+
+/*
+ * SEND STRING FOR ARM-CORTEX-M3
  */
 #if CONTROLLER_FAMILY == __ARM__
 	// fill me

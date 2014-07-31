@@ -64,12 +64,11 @@ __attribute__((noinline)) init_template(void)
  * -> let the led blink on errors or send error_string via serial
  */
 void
-error_indication(const unsigned char *error_string,
-		 const unsigned char size) 
+error_indication(const unsigned char *error_string) 
 {
 #if COMMUNICATION_PATH == __SERIAL__
 	if (state_of_template & STATE_SERIAL_INIT_DONE) {
-		serial_send_string(error_string, size); 	
+		serial_send_string(error_string); 	
 #elif COMMUNICATION_PATH == __LCD__
 			if (state_of_template & STATE_LCD_INIT_DONE) {
 			//lcd_set_string(error_string, size); 
@@ -95,7 +94,6 @@ __attribute__((OS_main)) main(void)
 	const unsigned char error_string[] = "an error occured ... pls check\n\r";
 
 #if COMMUNICATION_PATH == __SERIAL__
-	unsigned char *string = NULL;
 	unsigned char byte = 0x31;
 #endif
 
@@ -120,11 +118,11 @@ __attribute__((OS_main)) main(void)
 	// init serial and let the led blink with DELAYTIME_ON_ERROR ms
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
-		error_indication(error_string, sizeof(error_string));
+		error_indication(error_string);
 	
 	// init serial done ... send greetings to peer
 	state_of_template |= STATE_SERIAL_INIT_DONE;
-	serial_send_string(greeting_string, sizeof(greeting_string));
+	serial_send_string(greeting_string);
 
 	// get an char from peer and send it as ascii 
 	byte = serial_receive_byte();
@@ -160,11 +158,11 @@ __attribute__((OS_main)) main(void)
 #if COMMUNICATION_PATH == __LCD__
 	lcd_setup_display();
 	if (lcd_errno != MY_OK)
-		error_indication(error_string, sizeof(error_string));
+		error_indication(error_string);
 
 	// init lcd done ... send greetings to peer
 	state_of_template |= STATE_LCD_INIT_DONE;
-	//lcd_set_string(greeting_string, sizeof(greeting_string));
+	lcd_send_string(greeting_string);
 #endif // COMMUNICATION_PATH      
 
 #endif

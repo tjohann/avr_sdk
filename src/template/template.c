@@ -98,12 +98,11 @@ __attribute__((OS_main)) main(void)
 #elif COMMUNICATION_PATH == __LCD__
 	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)";
 	const unsigned char error_string[] = "an error occured ... pls check";
+	unsigned char data_string[5];
+
+	memset(data_string, 0, sizeof(data_string));
 #endif
 
-	/*
-	 * ---------- helper stuff ----------
-	 */
-	helper_dummy();
 
 	/*
 	 * ---------- serial stuff ----------
@@ -162,7 +161,9 @@ __attribute__((OS_main)) main(void)
 #if USE_SERIAL == __YES__
 	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
 #elif USE_LCD == __YES__
-	lcd_send_character(adcValue);
+	lcd_send_character('-');
+	helper_convert_ushort_to_string(data_string, adcValue);
+	lcd_send_string(data_string);
 #endif	
 
 #endif

@@ -100,13 +100,6 @@ __attribute__((OS_main)) main(void)
 	const unsigned char error_string[] = "an error occured ... pls check";
 #endif
 
-
-
-	/*
-	 * ---------- cyclon stuff ----------
-	 */
-
-
 	/*
 	 * ---------- helper stuff ----------
 	 */
@@ -137,23 +130,6 @@ __attribute__((OS_main)) main(void)
 #endif
 
 	/*
-	 * ---------- adc stuff ----------
-	 */
-#if USE_ADC == __YES__
-	adc_setup_adc(ADC_CH0);
-	// only temporary for learning
-	ADCSRA |= (1 << ADSC);
-	loop_until_bit_is_clear(ADCSRA, ADSC);
-	uint16_t adcValue;
-	adcValue = ADC;
-
-#if USE_SERIAL == __YES__
-	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
-#endif
-
-#endif	
-
-	/*
 	 * ---------- lcd stuff ----------
 	 *
 	 * Note: dont use serial & lcd -> PIN conflict 
@@ -169,6 +145,25 @@ __attribute__((OS_main)) main(void)
 	state_of_template |= STATE_LCD_INIT_DONE;
 	lcd_send_string(greeting_string);
 #endif // COMMUNICATION_PATH      
+
+#endif
+
+	/*
+	 * ---------- adc stuff ----------
+	 */
+#if USE_ADC == __YES__
+	adc_setup_adc(ADC_CH0);
+	// only temporary for learning
+	ADCSRA |= (1 << ADSC);
+	loop_until_bit_is_clear(ADCSRA, ADSC);
+	uint16_t adcValue;
+	adcValue = ADC;
+
+#if USE_SERIAL == __YES__
+	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
+#elif USE_LCD == __YES__
+	lcd_send_character(adcValue);
+#endif	
 
 #endif
 

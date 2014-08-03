@@ -24,7 +24,6 @@
 
 /*
  * LCD pinning 
- *
  */
 #if LCD_COMMON_PORT == __PORT_A__
 #define LCD_PORT PORTA
@@ -50,6 +49,20 @@
 #define LCD_EN_PIN PC3
 #define LCD_CTRL_PORT PORTC
 #define LCD_CTRL_DDR DDRC
+
+
+/*
+ * LCD specific data
+ */
+// lcd_size
+#define LCD_NUMBER_OF_LINES 4
+#define LCD_NUMBER_OF_ROWS 20
+
+// address of lines -> see datasheet
+#define LCD_ADDR_LINE1         0x00
+#define LCD_ADDR_LINE2         0x40
+#define LCD_ADDR_LINE3         0x14
+#define LCD_ADDR_LINE4         0x54
 
 
 #else // USE_LCD == __YES__

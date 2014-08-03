@@ -96,7 +96,7 @@ __attribute__((OS_main)) main(void)
 	const unsigned char error_string[] = "an error occured ... pls check\n\r";
 	unsigned char byte = 0x31;
 #elif COMMUNICATION_PATH == __LCD__
-	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)";
+	const unsigned char greeting_string[] = "hello ... i'm an atmega32";
 	const unsigned char error_string[] = "an error occured ... pls check";
 	unsigned char data_string[5];
 
@@ -161,9 +161,16 @@ __attribute__((OS_main)) main(void)
 #if USE_SERIAL == __YES__
 	serial_send_byte((adcValue >> 3), SERIAL_SEND_NORMAL);
 #elif USE_LCD == __YES__
-	lcd_send_character('-');
+	lcd_set_cursor(0, LCD_LINE_4);
+
+	lcd_send_string("adcValue -> ");
 	helper_convert_ushort_to_string(data_string, adcValue);
 	lcd_send_string(data_string);
+
+	if (lcd_errno == LCD_LINE_OVERFLOW) {
+		lcd_set_cursor(5, LCD_LINE_3);
+		lcd_send_character('!');
+	}
 #endif	
 
 #endif
@@ -190,6 +197,22 @@ __attribute__((OS_main)) main(void)
 	 * ---------- main stuff below ----------
 	 */
 	_delay_ms(5 * DELAYTIME);
+#if USE_LCD == __YES__
+	lcd_set_cursor_to_home_pos();
+	_delay_ms(5 * DELAYTIME);
+
+	lcd_set_display_off();
+	_delay_ms(5 * DELAYTIME);
+	lcd_set_display_on();
+	_delay_ms(5 * DELAYTIME);
+	lcd_set_cursor_off();
+
+	_delay_ms(5 * DELAYTIME);
+	lcd_clear_display();
+	_delay_ms(5 * DELAYTIME);
+	lcd_set_cursor_on();
+#endif
+
 
 	while (1) {
 		

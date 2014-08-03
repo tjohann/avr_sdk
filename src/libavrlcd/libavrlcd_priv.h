@@ -58,10 +58,20 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
  * LCD timing 
  */
 #define LCD_BOOTUP_TIME 100
-
 #define LCD_ENABLE_PAUSE 100
 #define LCD_ENABLE_PAUSE_DOUBLE 2*LCD_ENABLE_PAUSE
 #define LCD_INIT_LONG 5
+
+
+/*
+ * LCD commands
+ */
+#define LCD_CMD_CLEAR_LCD 0x01
+#define LCD_CMD_CURSOR_HOME 0x02
+#define LCD_CMD_DISPLAY_OFF 0x08
+#define LCD_CMD_DISPLAY_ON 0x0F
+#define LCD_CMD_CURSOR_OFF 0x0C
+#define LCD_CMD_DDRAM_ADDR 0x80
 
 
 /*

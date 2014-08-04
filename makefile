@@ -2,10 +2,8 @@ main = none
 
 #include include/defines.mk
 
-MODULES = src projects
-FLASH_MODULES = src 
-INSTALL_MODULES = src 
-MODULES_ADDITIONAL = include lib man bin etc docs schematics
+MODULES = src 
+MODULES_ADDITIONAL = include lib man bin etc docs schematics projects
 
 all::
 	@echo "+-----------------------------------------------+"
@@ -33,7 +31,7 @@ install:: all
 	@echo "|            Install all in src                 |"
 	@echo "|                                               |"
 	@echo "+-----------------------------------------------+"
-	for dir in $(INSTALL_MODULES); do (cd $$dir && $(MAKE) $@); done
+	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
 
 flash::
@@ -42,4 +40,4 @@ flash::
 	@echo "|            Flashing template                  |"
 	@echo "|                                               |"
 	@echo "+-----------------------------------------------+"
-	for dir in $(FLASH_MODULES); do (cd $$dir && $(MAKE) $@); done
+	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done

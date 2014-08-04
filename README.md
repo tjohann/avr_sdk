@@ -22,7 +22,10 @@ This is a short introduction for using my avr_sdk.
    usage: ~/avr_sdk$. ./my_m168p_env
 - src ... sources for avr specific libs and tools
 - projects ... here are my real projects
-
+  Note: - to build a project, you have to source the corresponding env file in
+          projects -> my_ext_ctrl_modul_env as an example
+	- this env files only include needed switches and not more (like my_m32_env)
+	- a build started in $(AVR_SDK_HOME) wont build projects!
 
 * General usage: *
 - Create an controller specific file like my_m168p_env ... source it and try to build content

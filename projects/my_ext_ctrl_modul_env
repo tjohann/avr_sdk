@@ -1,5 +1,5 @@
 # +----------------------------- setup the my personal env ----------------------------+
-# |                                    my_m32_env                                      |
+# |                                my_ext_ctrl_modul_env                               |
 # +------------------------------------------------------------------------------------+
 
 cd ..
@@ -9,7 +9,6 @@ cd projects
 # common controller defines
 export MCU=atmega32
 export F_CPU=16000000
-export BAUD=9600
 
 #
 # my programmer -> a old stk500 on usb<->serial adapter
@@ -25,18 +24,6 @@ export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 # export project specific definitions 
 #
 export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m32.mk"
-
-#
-# want to use SERIAL? 
-#
-export USE_SERIAL=__NO__
-
-#
-# want to use CYCLON? 
-#
-# Note: dont forget to define CYCLON_PORT
-#
-export USE_CYCLON=__NO__
 
 #
 # want to use LCD? 
@@ -56,14 +43,6 @@ export COMMUNICATION_PATH=__LCD__
 #
 # lcd port
 #
-# -> __PORT_A__
-# -> __PORT_B__
-# -> __PORT_C__
-# -> __PORT_D__
-#
-# Note: the definition of which pin of lcd is connected to 
-#       which controller pin is done in include/avr_compile_macros.h
-#
 export LCD_COMMON_PORT=__PORT_D__
 
-echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"
+echo "Setup env for target ${MCU} with ${F_CPU}Hz"

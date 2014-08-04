@@ -71,7 +71,7 @@ error_indication(const unsigned char *error_string)
 		serial_send_string(error_string); 	
 #elif COMMUNICATION_PATH == __LCD__
 			if (state_of_template & STATE_LCD_INIT_DONE) {
-			//lcd_set_string(error_string, size); 
+			lcd_send_string(error_string); 
 #endif
 	} else {
 		while (1) {

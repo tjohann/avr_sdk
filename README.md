@@ -21,6 +21,7 @@ This is a short introduction for using my avr_sdk.
 - my_m168p_env/my_m32_env ... the controller specific config 
    usage: ~/avr_sdk$. ./my_m168p_env
 - src ... sources for avr specific libs and tools
+- projects ... here are my real projects
 
 
 * General usage: *

@@ -24,27 +24,21 @@
 #define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 
+#include <string.h>
+
 /*
  * -> my avr_sdk libs 
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
-#include <libavrserial.h>
 #include <libavradc.h>
 #include <libavrlcd.h>
-#include <libavrcyclon.h>
 
 
 // make shure that COMMUNICATION_PATH is available
 #ifndef COMMUNICATION_PATH
 #error "COMMUNICATION_PATH not defined"
 #endif
-
-/*
- * -> use serial_errno
- */
-extern unsigned char serial_errno;
-
 
 /*
  * -> use adc_errno
@@ -59,9 +53,8 @@ extern unsigned char lcd_errno;
 
 
 /*
- * special pins for blinking ...
+ * special pins for controll led 
  *
- * Note: you could also use __PORT_B__ ... see libcyclon
  */
 #define LED_PIN PB0
 #define LED_DDR DDRB

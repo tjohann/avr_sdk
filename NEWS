@@ -1,5 +1,14 @@
 # THE LATEST NEWS
 
+2014-08-04 -> implementation of a small lib for interfacing a lcd ... tested with atmeag32
+              Note: 8bit interface ... within the next ceckins i will add a shift register for it
+
+	      implemenation of libavrserial works fine ... testet with atmega168 
+	      
+	      also there were a lot of cleanups and small fixes
+
+	      updated NOTES and all the other files 
+
 2014-07-10 -> first implementation of libavrserial content ... now its possible
 	      to send bytes and chars ... also ready is possible
 	      also there were a lot of cleanups and small fixes

@@ -37,6 +37,7 @@ libavrcyclon  libavrhelper  libavrserial  makefile  template ...
 Check for errors ... there shouldn't be any 
 
 *HOTWO use it: *
+Check Notes file and also
 Check the template for a general overview and/or check the lib*s 
 
 

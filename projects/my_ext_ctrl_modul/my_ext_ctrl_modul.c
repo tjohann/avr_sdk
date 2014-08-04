@@ -171,6 +171,11 @@ __attribute__((OS_main)) main(void)
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
 		} else {
+
+			/*
+			 * my main loop
+			 */
+
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME);

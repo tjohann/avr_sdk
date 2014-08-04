@@ -1,0 +1,17 @@
+# README
+
+my_ext_ctrl_modul -> This is a small module based on an atmega32 with lcd, 4 adc-read buttons and
+		     a i2c conntection. It should display informations from a master modul and 
+		     let it controll within my_ext_ctrl_modul.
+		     
+		     usecase:
+
+                     +--------------------------------+           +-------------------+
+                     |                                |           |                   | 
+                     | Temp-controller within pc case |<-- I2C -->| my_ext_ctrl_modul |  
+                     |                                |           |                   |
+                     +--------------------------------+           +-------------------+
+
+		     The temp-controller is a pid controller with 3 different fans for 2 climate zones.
+		     My_ext_ctrl_modul is the modul to display temps and fan speed and let
+		     me also set paramater for the pid controller.

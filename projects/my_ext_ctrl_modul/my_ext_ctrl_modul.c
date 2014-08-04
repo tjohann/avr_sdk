@@ -136,7 +136,7 @@ __attribute__((OS_main)) main(void)
 	// ---------- init modul stuff ----------
 	init_modul();
         lcd_set_cursor(0, LCD_LINE_3);
-	lcd_send_string((unsigned char *) "my_ext_ctrl_modul init done");
+	lcd_send_string((unsigned char *) "Init done");
 
 
         // clear display and co

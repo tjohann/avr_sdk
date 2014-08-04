@@ -1,6 +1,243 @@
+2014-08-03  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
 
+	Changes:	add some functions for lcd handling
+			-> set_cursor
+			-> set_position
+			-> clear_display
+			-> ...
+			add usage of it in template.c
+			add lcd specific defines in avr_defines_displayy.h
 
+			some minor changes
 
+2014-08-02  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
 
+	Changes:	add 2 helper functions to convert a value like 12345 to a string "12345"
+			Note: no \0 char at the end!
+			add usage to show values on the lcd in template.c
 
-#EOF
+	Changes:	activate adc
+			change oder of activation so that lcd is active before adc
+
+2014-07-31  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	after test at lcd
+			-> add greeting_string and error_string for lcd ... no \n\r
+			-> add todo content ... needed lcd command function
+
+2014-07-31  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	remove unused size information for sending strings to serial and adapt
+			template.c ...
+			implement lcd_send_byte and lcd_send_string
+			add usage of lcd_send_string to template.c
+
+	Changes:	add some minor changes
+
+2014-07-30  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	fix display problems -> pc3 & pc4 were always on high
+			-> disable jtag
+			move defines from common header to priv header
+			add delays for every step of init
+
+2014-07-30  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	fix completely wrong behaviour of init_lcd function
+
+2014-07-29  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	set RS to character set -> thats the default
+
+	Changes:	add skeleton for sending commands and characters to the lcd
+
+	Changes:	implement setup_lcd function
+			fix double build warning
+
+2014-07-29  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	some rework regarding USE_SOME_FUNCTION ...
+			-> add USE_ADC
+			-> more brackets to the c files (like libavrlcd.c)
+			-> add USE_ADC to all makefiles
+			remove unused parts and especially of the lcd parts
+			-> it seems to me that it was not correct and quite confusing
+
+			add correct port pins for lcd connection
+
+			some minor changes
+
+2014-07-29  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	move content of FUSE_STRING to project/controller specific config
+			add proposals for lcd pinning for a atmega32
+			add correct lcd pinning for my atmega32 project
+			some minor changes
+
+2014-07-27  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	some minor changes
+
+2014-07-25  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	fix build error -> wrong include of avr_defines_display.h
+
+2014-07-24  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	next steps for interfacing lcd
+
+2014-07-23  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add header file for common display info and kdo
+			some minor changes
+
+	Changes:	a lot of changes regarding use of libs
+			-> USE_SERIAL, USE_LCD, USE_CYCLON
+			add all in my_m*
+			adapt the needed makefiles
+			adapt template for using such defines
+			some minor changes
+
+	Changes:	playing around with kicad and add the results
+			Note: not usable yet
+
+	Changes:	add skeleton for my atmeag32 board schematic ...
+			Note: i will use kicad for it
+
+2014-07-22  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	add skeleton for using a atmega32 with external 16MHz resonator
+			fill in first content
+			Note: libavrserial wont build with m32 config!
+
+2014-07-22  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add TODO item -> move fuse config to my_mxxx files
+			add macro to select COMMUNICATION_PATH -> serial or lcd (__LCD__, __SERIAL__)
+			add skeleton for libavrlcd which should be a handle for a display (LCD)
+			macros added:
+			__LCD__, __SERIAL__ to select COMMUNICATION_PATH
+			LCD_* ... see libavrlcd for mor info
+
+			globals
+			lcd_errno ... see libavrlcd for info
+
+2014-07-21  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	first implementation steps for adc usage
+
+2014-07-10  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add dir for schematics
+
+	Changes:	add NOTES with some informations about the background of all these
+
+	Changes:	update NEWS
+
+	Changes:	change the header content to reflect the usage as a
+			avr and arm lib ...
+			remove unused examples-dir in docs
+
+	Changes:	fix some speliing bugs
+			add skeleton for a adc lib
+			add usage of libavradc in my template
+
+2014-07-09  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	fix cyclon_run function and add correct led 0 behaviour
+			add cyclon_double_run which is the same like cyclon_run but with
+			2 leds on -> led 0  and led 7 ... led 1 and led 6 ...
+
+2014-07-09  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes; 	next steps for libavrcyclon
+			add usage of it in template
+
+2014-07-08  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	correct BAUD definitions
+			remove unused BAUD addtions in makefile
+			move check if BAUD is defined to libavrserial
+
+	Changes:	fix wrong bahaviour of _delay_ms usage
+			implement cyclon_run
+			some cleanup in common defines.mk
+
+	Changes:	correct handling of port definition for libavrcyclon
+
+2014-07-07  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	include skeleton for libavrcyclon
+
+2014-07-06  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	fix serial_send behaviour
+			add text file to indicate what i've tested
+			add flash tag to makefile
+
+	Changes:	fix wrong init of usart
+			fix some minor bugs
+			serial_setup_usart tested for 9600 and 1Mhz
+
+2014-07-04  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add new functions for sending/receiving strings
+			adopt serial_send_byte to also send the ascii representation of
+			tha data value -> 123 ... send '1' ... send '2' ... send '3'
+			some minor changes
+
+	Changes:	finish usage of serial_errno -> forgot to call error_indication function
+
+	Changes:	correct example for adding my_m168p_env in .bashrc
+			-> if you use konsole or so and use the feature to open a dir other then
+			$(HOME) if you start konsole, then bashrc wont find my_m168p_env ...
+			add serial_errno code and use them in libavrserial.c
+			extend template.* for usage of serial_errno
+
+2014-07-03  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add skeleton for SERIAL_ERROR handling
+			add receive function (polling mode)
+			let template include the needed defines for SERIAL_ERROR
+
+2014-07-02  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	add send function ... polling mode
+
+2014-06-30  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	update template for usage of compiler switches
+
+2014-06-30  Thorsten  <thorsten.johannvorderbrueggen@de.bosch.com>
+
+	Changes:	define macros for setting umsel bits
+			add op_mode MASTER_SPI ... i dont know how to handle that ... we will see
+
+	Changes:	define a lot of macros for setting op_mode
+			define some macros for ena/disa of rx/tx
+			define macros for setting double speed mode
+			add statemachine for frame mode
+			define macros for setting of correct frame mode
+
+	Changes:	make readme for readable
+
+	Changes:	update README.md
+
+	Changes:	update README.md
+
+	Changes:	change spelling to correct english :-)
+			add compiler switch and infrastructure for using it
+
+	Changes:	fix wrong behaviour of make and make install in src
+			remove binarys
+
+	Changes:	add fourth operation mode skeleton to libserial
+			remove wrong content -> make output
+
+2014-06-29  Thorsten Johannvorderbrueggen  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Changes:	initial setup
+
+2014-06-29  tjohann  <thorsten.johannvorderbrueggen@t-online.de>
+
+	Initial commit

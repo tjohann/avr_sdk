@@ -1,11 +1,5 @@
 # TODO 
 
-2014-07-31 -> tjohann, libavrlcd
-	      add lcd_deactivate_lcd_cursor_blinking
-	      add lcd_home
-	      add lcd_set_cursor
-	      add lcd_clear
-	      -> count for lcd_send_string to split it to new lines (count > 20 chars --> new line)
 
 2014-07-29 -> tjohann, libavrcyclon 
 	      rework for port handling needed -> similiar to lcd_port

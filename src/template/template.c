@@ -33,6 +33,7 @@
  * -> STATE_INIT_DONE ... init finished
  * -> STATE_SERIAL_INIT_DONE ... init of serial finished -> used serial 
  *                               in error_indication 
+ * -> ...
  */
 #define DELAYTIME 1000
 #define DELAYTIME_ON_ERROR 100

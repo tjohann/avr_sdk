@@ -176,6 +176,9 @@ lcd_send_character(unsigned char data);
 
 /*
  * -> send a string to the lcd
+ *
+ * Note: if a line is longer than LCD_NUMBER_OF_ROWS, then
+ *       lcd_errno is set to LCD_LINE_OVERFLOW
  */
 void 
 lcd_send_string(const unsigned char *data);

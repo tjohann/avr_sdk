@@ -43,7 +43,8 @@
 #define STATE_ERROR 0x02
 #define STATE_SERIAL_INIT_DONE 0x04
 #define STATE_LCD_INIT_DONE 0x08
-#define STATE_INIT_DONE 0x10
+#define STATE_ADC_INIT_DONE 0x10
+#define STATE_INIT_DONE 0x20
 
 // my common state info
 unsigned char state_of_template = STATE_UNKNOWN;
@@ -152,6 +153,9 @@ __attribute__((OS_main)) main(void)
 	 */
 #if USE_ADC == __YES__
 	adc_setup_adc(ADC_CH0);
+	if (adc_errno != MY_OK)
+		error_indication(error_string);
+
 	// only temporary for learning
 	ADCSRA |= (1 << ADSC);
 	loop_until_bit_is_clear(ADCSRA, ADSC);
@@ -163,7 +167,7 @@ __attribute__((OS_main)) main(void)
 #elif USE_LCD == __YES__
 	lcd_set_cursor(0, LCD_LINE_4);
 
-	lcd_send_string("adcValue -> ");
+	lcd_send_string((unsigned char *) "adcValue -> ");
 	helper_convert_ushort_to_string(data_string, adcValue);
 	lcd_send_string(data_string);
 

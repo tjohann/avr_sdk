@@ -29,38 +29,42 @@
  * -> STATE_UNKNOWN ... state of template is unknown 
  * -> STATE_OK ... everthing is up and running
  * -> STATE_ERROR ... an error occured
- * -> STATE_INIT_DONE ... init finished
- * -> STATE_SERIAL_INIT_DONE ... init of serial finished -> used serial 
- *                               in error_indication 
+ * -> ...
+ *
  */
 #define DELAYTIME 1000
-#define DELAYTIME_ON_ERROR 100
+#define DELAYTIME_ON_ERROR DELAYTIME/100
 
 // Note: incrising values ... do not change
 #define STATE_UNKNOWN 0x00
 #define STATE_OK 0x01
 #define STATE_ERROR 0x02
-#define STATE_SERIAL_INIT_DONE 0x04
-#define STATE_LCD_INIT_DONE 0x08
-#define STATE_INIT_DONE 0x10
+#define STATE_LCD_INIT_DONE 0x04
+#define STATE_ADC_INIT_DONE 0x08
+#define STATE_MYMODUL_INIT_DONE 0x10
 
 // my common state info
 unsigned char state_of_modul = STATE_UNKNOWN;
 
 
 /*
- * -> init hw
+ * -> init my_ext_ctrl_modul hw
  */
 void 
 init_modul(void) 
 {
-	// set ddr for led pin
-	SET_BIT(LED_DDR, LED_PIN);            
+	// init controll led port
+	SET_BIT(LED_DDR, LED_PIN);  
+
+	// init my_ext_ctrl_modul done 
+	state_of_modul |= STATE_MYMODUL_INIT_DONE;
 }
 
 
 /*
- * -> let the led blink on errors or send error_string via serial
+ * -> let the led blink on errors or send error_string to lcd
+ *
+ *    Note: DELAYTIME_ON_ERROR is 10. part of DELAYTIME
  */
 void
 error_indication(const unsigned char *error_string) 
@@ -79,86 +83,101 @@ error_indication(const unsigned char *error_string)
 }
 
 /*
- * set LED on PB0 and clears it after DELAYTIME
+ * my_ext_ctrl_modul
+ *
+ This is a small module based on an atmega32 with lcd, 4 adc-read buttons and
+ a i2c conntection. It should display informations from a master modul and 
+ let it controll within my_ext_ctrl_modul.
+ 
+ usecase:
+ 
+ +--------------------------------+           +-------------------+
+ |                                |           |                   | 
+ | Temp-controller within pc case |<-- I2C -->| my_ext_ctrl_modul |  
+ |                                |           |                   |
+ +--------------------------------+           +-------------------+
+ 
+ The temp-controller is a pid controller with 3 different fans for 2 climate zones.
+ My_ext_ctrl_modul is the modul to display temps and fan speed and let
+ me also set paramater for the pid controller.
+ * 
  */
 int 
 __attribute__((OS_main)) main(void) 
 {
-	
-	const unsigned char greeting_string[] = "hey: my_ext_ctrl_modul";
-	const unsigned char error_string[] = "an error occured";
-	unsigned char data_string[5];
-
-	memset(data_string, 0, sizeof(data_string));
+	const unsigned char lcd_error_string[] = "LCD error occured";
+	const unsigned char adc_error_string[] = "ADC error occured";
 
 
-	/*
-	 * ---------- lcd stuff ----------
-	 *
-	 */
+	// ---------- lcd stuff ----------
 	lcd_setup_display();
 	if (lcd_errno != MY_OK)
-		error_indication(error_string);
+		error_indication(lcd_error_string);
+
 
 	// init lcd done ... send greetings to peer
 	state_of_modul |= STATE_LCD_INIT_DONE;
-	lcd_send_string(greeting_string);
+	lcd_set_cursor_off();
+	lcd_set_cursor(0, LCD_LINE_1);
+	lcd_send_string((unsigned char *) "LCD init done");
 
-	/*
-	 * ---------- adc stuff ----------
-	 */
+
+	// ---------- adc stuff ----------
 	adc_setup_adc(ADC_CH0);
-	// only temporary for learning
-	ADCSRA |= (1 << ADSC);
-	loop_until_bit_is_clear(ADCSRA, ADSC);
-	uint16_t adcValue;
-	adcValue = ADC;
+	if (adc_errno != MY_OK)
+		error_indication(adc_error_string);
 
-	lcd_set_cursor(0, LCD_LINE_4);
+	// init adc done 
+	state_of_modul |= STATE_ADC_INIT_DONE;
+	lcd_set_cursor(0, LCD_LINE_2);
+	lcd_send_string((unsigned char *) "ADC init done");
 
-	lcd_send_string("adcValue -> ");
-	helper_convert_ushort_to_string(data_string, adcValue);
-	lcd_send_string(data_string);
 
-	if (lcd_errno == LCD_LINE_OVERFLOW) {
-		lcd_set_cursor(5, LCD_LINE_3);
-		lcd_send_character('!');
-	}
-
-	/*
-	 * ---------- init modul stuff ----------
-	 */
-	// infrastructure is ready to use ... so my init is the next step 
+	// ---------- init modul stuff ----------
 	init_modul();
+        lcd_set_cursor(0, LCD_LINE_3);
+	lcd_send_string((unsigned char *) "my_ext_ctrl_modul init done");
 
+
+        // clear display and co
+	_delay_ms(5 * DELAYTIME);
+	lcd_clear_display();
+	lcd_set_cursor_on();
+
+	// init done and everthing okay?
+	if (state_of_modul == (STATE_ADC_INIT_DONE | 
+			       STATE_LCD_INIT_DONE | 
+			       STATE_MYMODUL_INIT_DONE)) {
+		state_of_modul = STATE_OK;
+
+		// clear display and co
+		_delay_ms(5 * DELAYTIME);
+		lcd_clear_display();
+		lcd_set_cursor_on();
+	} else
+		state_of_modul = STATE_ERROR;
 
         /*
 	 * ---------- main stuff below ----------
 	 */
-	_delay_ms(5 * DELAYTIME);
-	lcd_set_cursor_to_home_pos();
-	_delay_ms(5 * DELAYTIME);
-
-	lcd_set_display_off();
-	_delay_ms(5 * DELAYTIME);
-	lcd_set_display_on();
-	_delay_ms(5 * DELAYTIME);
-	lcd_set_cursor_off();
-
-	_delay_ms(5 * DELAYTIME);
-	lcd_clear_display();
-	_delay_ms(5 * DELAYTIME);
-	lcd_set_cursor_on();
-
 	while (1) {
 		
-		// led on
-		SET_BIT(LED_PORT, LED_PIN);
-		_delay_ms(DELAYTIME);
-		
-		// led off
-		CLEAR_BIT(LED_PORT, LED_PIN);
-		_delay_ms(DELAYTIME);
-		
+		if (state_of_modul == STATE_ERROR) {
+			// led on
+			SET_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME_ON_ERROR);
+			
+			// led off
+			CLEAR_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME_ON_ERROR);
+		} else {
+			// led on
+			SET_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME);
+			
+			// led off
+			CLEAR_BIT(LED_PORT, LED_PIN);
+			_delay_ms(DELAYTIME);
+		}
 	}
 }

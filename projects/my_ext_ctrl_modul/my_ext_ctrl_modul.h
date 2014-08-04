@@ -53,7 +53,7 @@ extern unsigned char lcd_errno;
 
 
 /*
- * special pins for controll led 
+ * pins for control led 
  *
  */
 #define LED_PIN PB0

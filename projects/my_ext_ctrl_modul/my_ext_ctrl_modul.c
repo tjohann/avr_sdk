@@ -159,12 +159,6 @@ __attribute__((OS_main)) main(void)
         lcd_set_cursor(0, LCD_LINE_3);
 	lcd_send_string((unsigned char *) "Modul init done");
 
-
-        // clear display and co
-	_delay_ms(5 * DELAYTIME);
-	lcd_clear_display();
-	lcd_set_cursor_on();
-
 	// init done and everthing okay?
 	if (state_of_modul == (STATE_ADC_INIT_DONE | 
 			       STATE_LCD_INIT_DONE | 
@@ -185,7 +179,6 @@ __attribute__((OS_main)) main(void)
 	 * ---------- main stuff below ----------
 	 */
 	while (1) {
-		
 		if (state_of_modul == STATE_ERROR) {
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);
@@ -199,6 +192,8 @@ __attribute__((OS_main)) main(void)
 			/*
 			 * my main loop
 			 */
+			lcd_set_cursor(0, LCD_LINE_2);
+			lcd_send_string((unsigned char *) "Ready");
 
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);

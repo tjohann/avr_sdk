@@ -245,6 +245,7 @@ void lcd_clear_display()
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_CLEAR_LCD;
     LCD_PUSH_EN_BUTTON();
+    _delay_ms(LCD_INIT_LONG);
 }
 
 

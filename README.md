@@ -26,6 +26,7 @@ This is a short introduction for using my avr_sdk.
           projects -> my_ext_ctrl_modul_env as an example
 	- this env files only include needed switches and not more (like my_m32_env)
 	- a build started in $(AVR_SDK_HOME) wont build projects!
+- FEATURE_OVERVIEW ... a short decription of the feartures and the configuration
 
 * General usage: *
 - Create an controller specific file like my_m168p_env ... source it and try to build content
@@ -42,7 +43,9 @@ Check for errors ... there shouldn't be any
 
 *HOTWO use it: *
 Check Notes file and also
-Check the template for a general overview and/or check the lib*s 
+Check the template for a general overview and/or check the lib*s ...
+Check FEATURE_OVERVIEW and 
+Check HOWTO
 
 
 Pls report errors to thorsten.johannvorderbrueggen@t-online.de with subject [AVR_SDK_ERRORS] ...

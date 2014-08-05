@@ -70,10 +70,16 @@ error_indication(const unsigned char *error_string)
 {
 #if COMMUNICATION_PATH == __SERIAL__
 	if (state_of_template & STATE_SERIAL_INIT_DONE) {
-		serial_send_string(error_string); 	
+		if (error_string != NULL)
+			serial_send_string(error_string);
+		else
+			SET_BIT(LED_PORT, LED_PIN);	
 #elif COMMUNICATION_PATH == __LCD__
-			if (state_of_template & STATE_LCD_INIT_DONE) {
-			lcd_send_string(error_string); 
+	if (state_of_template & STATE_LCD_INIT_DONE) {
+		if (error_string != NULL)
+			lcd_send_string(error_string);
+		else
+			SET_BIT(LED_PORT, LED_PIN);
 #endif
 	} else {
 		while (1) {

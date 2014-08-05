@@ -1,5 +1,10 @@
 # THE LATEST NEWS
 
+2014-08-05 -> add projects dir with skeletons for my 3 related projects 
+	      -> my_ext_ctrl_modul (external i2c display ...)
+	      -> my_fan_ctrl_modul (fan ctrl modul for my pc case ...)
+	      -> my_usb_i2c_shifter (usb to i2c converter ...)
+
 2014-08-04 -> implementation of a small lib for interfacing a lcd ... tested with atmeag32
               Note: 8bit interface ... within the next ceckins i will add a shift register for it
 

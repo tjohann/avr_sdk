@@ -62,12 +62,24 @@ export USE_ADC=__YES__
 export COMMUNICATION_PATH=__LCD__
 
 #
+# led port for cylcon eyes
+#
+# -> __PORT_A__
+# -> __PORT_B__
+# -> __PORT_C__
+# -> __PORT_D__
+# -> __NONE__
+#
+export CYCLON_PORT=__NONE__
+
+#
 # lcd port
 #
 # -> __PORT_A__
 # -> __PORT_B__
 # -> __PORT_C__
 # -> __PORT_D__
+# -> __NONE__
 #
 # Note: the definition of which pin of lcd is connected to 
 #       which controller pin is done in include/avr_compile_macros.h

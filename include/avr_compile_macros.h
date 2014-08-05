@@ -70,6 +70,14 @@
 
 
 /*
+ * define NONE 
+ */
+#ifndef __NONE__
+#define __NONE__ 0
+#endif
+
+
+/*
  * defines for COMMUNICATION_PATH -> see template and my_m168p_env ...
  */
 #ifndef __SERIAL__

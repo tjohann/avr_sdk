@@ -1,4 +1,4 @@
-MODULES = my_ext_ctrl_modul 
+MODULES = my_ext_ctrl_modul my_fan_ctrl_modul my_usb_i2c_shifter
 FLASH = my_ext_ctrl_modul
 
 all::

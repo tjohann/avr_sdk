@@ -1,6 +1,6 @@
 /*
-  my_ext_ctrl_modul - simple project with atmega32 
-
+  my_fan_ctrl_modul - simple project with atmega168(pa)
+  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
 #include <libavradc.h>
-#include <libavrlcd.h>
+#include <libavrserial.h>
 
 
 // make shure that COMMUNICATION_PATH is available
@@ -46,9 +46,9 @@ extern unsigned char adc_errno;
 
 
 /*
- * -> use lcd_errno
+ * -> use serial_errno
  */
-extern unsigned char lcd_errno;
+extern unsigned char serial_errno;
 
 
 /*

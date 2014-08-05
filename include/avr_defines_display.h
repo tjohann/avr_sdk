@@ -41,7 +41,7 @@
 #define LCD_PORT PORTD
 #define LCD_DDR DDRD
 #else
-# error "LCD_COMMON_PORT not valid"
+# warning "LCD_COMMON_PORT not defined"
 #endif
 
 // ctrl pins

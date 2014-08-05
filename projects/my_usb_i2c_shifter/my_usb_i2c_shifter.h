@@ -1,5 +1,5 @@
 /*
-  my_ext_ctrl_modul - simple project with atmega32 
+  my_usb_i2c_shifter - simple project with atmega168(pa)
 
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -30,8 +30,7 @@
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
-#include <libavradc.h>
-#include <libavrlcd.h>
+#include <libavrserial.h>
 
 
 // make shure that COMMUNICATION_PATH is available
@@ -39,16 +38,11 @@
 #error "COMMUNICATION_PATH not defined"
 #endif
 
-/*
- * -> use adc_errno
- */
-extern unsigned char adc_errno;
-
 
 /*
- * -> use lcd_errno
+ * -> use serial_errno
  */
-extern unsigned char lcd_errno;
+extern unsigned char serial_errno;
 
 
 /*

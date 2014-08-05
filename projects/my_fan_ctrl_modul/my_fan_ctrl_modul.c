@@ -1,5 +1,5 @@
 /*
-  my_ext_ctrl_modul - simple project with atmega32
+  my_fan_ctrl_modul - simple project with atmega168(pa)
  
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -18,7 +18,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "my_ext_ctrl_modul.h"
+#include "my_fan_ctrl_modul.h"
 
 /*
  * common defines
@@ -39,7 +39,7 @@
 #define STATE_UNKNOWN 0x00
 #define STATE_OK 0x01
 #define STATE_ERROR 0x02
-#define STATE_LCD_INIT_DONE 0x04
+#define STATE_SERIAL_INIT_DONE 0x04
 #define STATE_ADC_INIT_DONE 0x08
 #define STATE_MYMODUL_INIT_DONE 0x10
 
@@ -69,11 +69,11 @@ init_modul(void)
 void
 error_indication(const unsigned char *error_string) 
 {
-	if (state_of_modul & STATE_LCD_INIT_DONE) {
+	if (state_of_modul & STATE_SERIAL_INIT_DONE) {
 		if (error_string != NULL)
-			lcd_send_string(error_string); 
-		else
-			SET_BIT(LED_PORT, LED_PIN);
+			serial_send_string(error_string); 
+		else 
+			SET_BIT(LED_PORT, LED_PIN);	
 	} else {
 		while (1) {
 			SET_BIT(LED_PORT, LED_PIN);
@@ -86,37 +86,26 @@ error_indication(const unsigned char *error_string)
 }
 
 /*
- * my_ext_ctrl_modul
+ * my_fan_ctrl_modul
  *
- This is a small module based on an atmega32 with lcd, 4 adc-read buttons and
- a i2c conntection. It should display informations from different moduls and 
- let it access my_ext_ctrl_modul. To select wich modul is the source of info
- my_ext_ctrl_modul has a mode switch.
- 
- usecase:
- | 
- |  +--------------------------------+               +---------------------------+
- |  |                                |<---- I2C ---->|                           | 
- |  | Temp-controller within pc case |               |     my_ext_ctrl_modul     |  
- |  |                                |           +-->|                           |
- |  +--------------------------------+           |   +---------------------------+
- |                                               |       ||   ||     ||     ||
- |                                              I2C      ||   \/     ||     \/ 
- |                                               |       || (lm75-1) ||  Mode-swt
- |                                               |       ||          \/ 
- |                                               |       \/       LCD/8-bit
- |                                               |    adc-buttons
- |  +----------------+         +-------------+  I2C
- |  |                |         |             |   |
- |  | Linux-board/pc |<- USB ->|  usb<->i2c  |<--+
- |  |                |         |             | 
- |  +----------------+         +-------------+ 
- | 
- The temp-controller is a pid controller with 3 different fans for 2 climate zones.
- My_ext_ctrl_modul is the modul to display temps and fan speed and let
- me also set paramater for the pid controller.
- The Linux-board/pc is a normal pc or an embbedded devices which shows info of it
- on my_ext_ctrl_modul and also theres a access path available (e.g. halt/reboot)
+ This is a small module based on an atmega168(pa) with serial, 2 fan outputs,
+ 2 lm75 for temperature measurment and 3 adc channels for measuring the fan speed.
+ The third fan is only switched on/off if needed.
+ |
+ | usecase:
+ |
+ |                   +--------------------------------+           +-------------------+
+ |                   |                                |           |                   | 
+ |                   |       my_fan_ctrl_modul        |<-- I2C -->| my_ext_ctrl_modul | 
+ |                   |                                |           |                   |
+ |                   +--------------------------------+           +-------------------+
+ |                     ||     ||    ||    ||       ||
+ |                     ||     ||    \/    ||       \/
+ |                     \/     ||  serial  ||    adc1/2-fan
+ |                 PWM-Fan2/3 ||          \/
+ |                            \/       swt Fan1
+ |                         lm75-1/2
+ |
  * 
  */
 int 
@@ -124,18 +113,16 @@ __attribute__((OS_main)) main(void)
 {
 	const unsigned char adc_error_string[] = "ADC error occured";
 
-
-	// ---------- lcd stuff ----------
-	lcd_setup_display();
-	if (lcd_errno != MY_OK)
+	/*
+	 * ---------- serial stuff ----------
+	 */
+	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
+	if (serial_errno != MY_OK)
 		error_indication(NULL);
-
-
-	// init lcd done ... send greetings to peer
-	state_of_modul |= STATE_LCD_INIT_DONE;
-	lcd_set_cursor_off();
-	lcd_set_cursor(0, LCD_LINE_1);
-	lcd_send_string((unsigned char *) "LCD init done");
+	
+	// init serial done ... send greetings to peer
+	state_of_modul |= STATE_SERIAL_INIT_DONE;
+	serial_send_string((unsigned char *) "SERIAL init done");
 
 
 	// ---------- adc stuff ----------
@@ -145,39 +132,28 @@ __attribute__((OS_main)) main(void)
 
 	// init adc done 
 	state_of_modul |= STATE_ADC_INIT_DONE;
-	lcd_set_cursor(0, LCD_LINE_2);
-	lcd_send_string((unsigned char *) "ADC init done");
+	serial_send_string((unsigned char *) "ADC init done");
 
 	/*
 	 * TODO: i2c init
-	 *       lm75 init 
+	 *       lm75 init
+	 *       adc for channel 2
+	 *       pwm fan1/2
 	 *       mode switch
+	 *       on/off switch fan3
 	 */
 
 	// ---------- init modul stuff ----------
 	init_modul();
-        lcd_set_cursor(0, LCD_LINE_3);
-	lcd_send_string((unsigned char *) "Modul init done");
+	serial_send_string((unsigned char *) "Modul init done");
 
-
-        // clear display and co
-	_delay_ms(5 * DELAYTIME);
-	lcd_clear_display();
-	lcd_set_cursor_on();
 
 	// init done and everthing okay?
 	if (state_of_modul == (STATE_ADC_INIT_DONE | 
-			       STATE_LCD_INIT_DONE | 
+			       STATE_SERIAL_INIT_DONE | 
 			       STATE_MYMODUL_INIT_DONE)) {
 		state_of_modul = STATE_OK;
-
-		lcd_set_cursor(0, LCD_LINE_4);
-		lcd_send_string((unsigned char *) "Init done");
-
-		// clear display and co
-		_delay_ms(5 * DELAYTIME);
-		lcd_clear_display();
-		lcd_set_cursor_on();
+		serial_send_string((unsigned char *) "Init done");
 	} else
 		state_of_modul = STATE_ERROR;
 

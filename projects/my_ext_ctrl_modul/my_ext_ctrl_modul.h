@@ -52,11 +52,49 @@ extern unsigned char lcd_errno;
 
 
 /*
- * pins for control led 
- *
+ * pin for control led
  */
 #define LED_PIN PB0
 #define LED_DDR DDRB
 #define LED_PORT PORTB
+
+
+/*
+ * pin for mode switch
+ */
+#define MODE_PIN PA7
+#define MODE_DDR DDRA
+#define MODE_PORT PORTA
+#define MODE_INPUT_PORT PINA
+
+
+/*
+ * common defines
+ * 
+ * -> DELAYTIME ... the normal blink time
+ * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
+ *
+ * -> DELAYTIME_HEART_ON ... for heartbeat
+ * -> DELAYTIME_HEART_OFF ... for heartbeat
+ *
+ * -> STATE_UNKNOWN ... state of template is unknown 
+ * -> STATE_OK ... everthing is up and running
+ * -> STATE_ERROR ... an error occured
+ * -> ...
+ *
+ */
+#define DELAYTIME 1000
+#define DELAYTIME_ON_ERROR DELAYTIME/100
+
+#define DELAYTIME_HEART_ON 100
+#define DELAYTIME_HEART_OFF 50
+
+// Note: incrising values ... do not change
+#define STATE_UNKNOWN 0x00
+#define STATE_OK 0x01
+#define STATE_ERROR 0x02
+#define STATE_LCD_INIT_DONE 0x04
+#define STATE_ADC_INIT_DONE 0x08
+#define STATE_MYMODUL_INIT_DONE 0x10
 
 

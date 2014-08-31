@@ -20,28 +20,6 @@
 
 #include "my_ext_ctrl_modul.h"
 
-/*
- * common defines
- * 
- * -> DELAYTIME ... the normal blink time
- * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
- *
- * -> STATE_UNKNOWN ... state of template is unknown 
- * -> STATE_OK ... everthing is up and running
- * -> STATE_ERROR ... an error occured
- * -> ...
- *
- */
-#define DELAYTIME 1000
-#define DELAYTIME_ON_ERROR DELAYTIME/100
-
-// Note: incrising values ... do not change
-#define STATE_UNKNOWN 0x00
-#define STATE_OK 0x01
-#define STATE_ERROR 0x02
-#define STATE_LCD_INIT_DONE 0x04
-#define STATE_ADC_INIT_DONE 0x08
-#define STATE_MYMODUL_INIT_DONE 0x10
 
 // my common state info
 unsigned char state_of_modul = STATE_UNKNOWN;
@@ -53,9 +31,13 @@ unsigned char state_of_modul = STATE_UNKNOWN;
 void 
 init_modul(void) 
 {
-	// init controll led port
+	// init control led port
 	SET_BIT(LED_DDR, LED_PIN);  
 
+	// init mode switch
+	CLEAR_BIT(MODE_DDR, MODE_PIN);
+	CLEAR_BIT(MODE_PORT, MODE_PIN);
+	
 	// init my_ext_ctrl_modul done 
 	state_of_modul |= STATE_MYMODUL_INIT_DONE;
 }
@@ -84,6 +66,31 @@ error_indication(const unsigned char *error_string)
 		}
 	}
 }
+
+
+/*
+ * -> heartbeat led
+ */
+void 
+heartbeat_led(void) 
+{
+	// led on
+	SET_BIT(LED_PORT, LED_PIN);
+	_delay_ms(DELAYTIME_HEART_ON);
+	
+	// led off
+	CLEAR_BIT(LED_PORT, LED_PIN);
+	_delay_ms(DELAYTIME_HEART_OFF);
+
+	// led on
+	SET_BIT(LED_PORT, LED_PIN);
+	_delay_ms(DELAYTIME_HEART_ON);
+
+	// led off
+	CLEAR_BIT(LED_PORT, LED_PIN);
+	_delay_ms(DELAYTIME);
+}
+
 
 /*
  * my_ext_ctrl_modul
@@ -169,7 +176,7 @@ __attribute__((OS_main)) main(void)
 		lcd_send_string((unsigned char *) "Init done");
 
 		// clear display and co
-		_delay_ms(5 * DELAYTIME);
+		_delay_ms(2 * DELAYTIME);
 		lcd_clear_display();
 		lcd_set_cursor_on();
 	} else
@@ -192,16 +199,25 @@ __attribute__((OS_main)) main(void)
 			/*
 			 * my main loop
 			 */
-			lcd_set_cursor(0, LCD_LINE_2);
+			lcd_set_cursor(0, LCD_LINE_1);
 			lcd_send_string((unsigned char *) "Ready");
 
-			// led on
-			SET_BIT(LED_PORT, LED_PIN);
-			_delay_ms(DELAYTIME);
-			
-			// led off
-			CLEAR_BIT(LED_PORT, LED_PIN);
-			_delay_ms(DELAYTIME);
+			// i am alive
+			//heartbeat_led();
+
+			if (MODE_INPUT_PORT & (1 << MODE_PIN)) {
+				lcd_set_cursor(0, LCD_LINE_2);
+				lcd_send_string((unsigned char *) "Mode not pressed");
+				lcd_set_cursor(0, LCD_LINE_3);
+				lcd_send_string((unsigned char *) "------------");
+			} else {
+				lcd_set_cursor(0, LCD_LINE_3);
+				lcd_send_string((unsigned char *) "Mode pressed");
+				heartbeat_led();
+			}
 		}
 	}
 }
+
+
+

@@ -45,4 +45,10 @@ export COMMUNICATION_PATH=__LCD__
 #
 export LCD_COMMON_PORT=__PORT_D__
 
+#
+# want to use I2C? 
+#
+#
+export USE_I2C=__YES__
+
 echo "Setup env for target ${MCU} with ${F_CPU}Hz"

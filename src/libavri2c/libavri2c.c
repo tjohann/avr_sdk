@@ -1,6 +1,7 @@
 /*
-  my_fan_ctrl_modul - simple project with atmega168(pa)
-  
+  libavri2c/libarmi2c - simple library as a handle of i2c stuff for small
+                        microcontroller(avr) and cortex-m3(arm) devices
+ 
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -18,52 +19,41 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include <avr/io.h>
+#include "libavri2c.h"
+#include "libavri2c_priv.h"
 
-#define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h>
-
-#include <string.h>
 
 /*
- * -> my avr_sdk libs 
+ * if you want to use I2C ... otherwise no code to to link
  */
-#include <avr_compile_macros.h>
-#include <libavrhelper.h>
-#include <libavradc.h>
-#include <libavrserial.h>
-#include <libavri2c.h>
+#if USE_I2C == __YES__
 
 
-// make shure that COMMUNICATION_PATH is available
-#ifndef COMMUNICATION_PATH
-#error "COMMUNICATION_PATH not defined"
+/*
+ * -> setup i2c
+ */
+void 
+i2c_setup_i2c(void) 
+{
+
+/*
+ * I2C SETUP FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	// fill me
+#endif  // AVR
+
+
+/*
+ * I2C SETUP FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
+
+#else
+# warning "USE_I2C == __NO__ -> dont try to use the functions "
 #endif
-
-/*
- * -> use adc_errno
- */
-extern unsigned char adc_errno;
-
-
-/*
- * -> use serial_errno
- */
-extern unsigned char serial_errno;
-
-
-/*
- * -> use i2c_errno
- */
-extern unsigned char i2c_errno;
-
-
-/*
- * pins for control led 
- *
- */
-#define LED_PIN PB0
-#define LED_DDR DDRB
-#define LED_PORT PORTB
-
-

@@ -37,5 +37,11 @@ export USE_SERIAL=__YES__
 #
 export COMMUNICATION_PATH=__SERIAL__
 
+#
+# want to use I2C? 
+#
+#
+export USE_I2C=__YES__
+
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

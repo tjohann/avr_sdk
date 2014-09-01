@@ -143,7 +143,7 @@ lcd_setup_display(void)
 
 
 /*
- * ADC SETUP FOR ARM-CORTEX-M3
+ * LCD SETUP FOR ARM-CORTEX-M3
  */
 #if CONTROLLER_FAMILY == __ARM__
 	// fill me

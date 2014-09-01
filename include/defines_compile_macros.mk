@@ -27,5 +27,11 @@ SERIAL_ERROR = __ON__
 LCD_ERROR = __ON__
 
 
+# use i2c_errno to indicate i2c specific erros
+# -> ON  (use it)
+# -> OFF (no i can do it better)
+I2C_ERROR = __ON__
+
+
 
 

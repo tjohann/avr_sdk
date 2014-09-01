@@ -1,6 +1,7 @@
 /*
-  my_fan_ctrl_modul - simple project with atmega168(pa)
-  
+  libavri2c/libarmi2c - simple library as a handle of i2c stuff for small
+                        microcontroller(avr) and cortex-m3(arm) devices
+ 
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -18,52 +19,39 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef _LIBAVRI2C_PRIV_H_
+#define _LIBAVRI2C_PRIV_H_
+
+#include <libavrhelper.h>
+#include "libavri2c.h"
 #include <avr/io.h>
+#include <stdlib.h>
 
 #define __DELAY_BACKWARD_COMPATIBLE__
 #include <util/delay.h>
 
-#include <string.h>
+#include <avr_defines_display.h>
 
 /*
- * -> my avr_sdk libs 
+ * i2c errno stuff
+ *
+ * Note: of course not reentrant 
+ *       I2C_ERROR is the general switch
+ *       I2C_ERRNO for i2c_errno which holds i2c_error_t values 
  */
-#include <avr_compile_macros.h>
-#include <libavrhelper.h>
-#include <libavradc.h>
-#include <libavrserial.h>
-#include <libavri2c.h>
-
-
-// make shure that COMMUNICATION_PATH is available
-#ifndef COMMUNICATION_PATH
-#error "COMMUNICATION_PATH not defined"
+#ifdef I2C_ERROR 
+#ifndef I2C_ERRNO
+#define I2C_ERRNO
+unsigned char i2c_errno = MY_OK;
+#endif
+#else
+# warning "No special i2c error indication!"
 #endif
 
 /*
- * -> use adc_errno
+ * error string 
  */
-extern unsigned char adc_errno;
+unsigned char *i2c_error_string = (unsigned char *) "I2C_ERROR";
 
 
-/*
- * -> use serial_errno
- */
-extern unsigned char serial_errno;
-
-
-/*
- * -> use i2c_errno
- */
-extern unsigned char i2c_errno;
-
-
-/*
- * pins for control led 
- *
- */
-#define LED_PIN PB0
-#define LED_DDR DDRB
-#define LED_PORT PORTB
-
-
+#endif

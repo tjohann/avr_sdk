@@ -10,7 +10,7 @@ include $(PROJECT_CONTROLLER)
 
 # target + source file (NOTE: only one src file)
 TARGET = my_ext_ctrl_modul
-USED_LIBS = avrhelper -lavradc -lavrlcd 
+USED_LIBS = avrhelper -lavradc -lavrlcd -lavri2c
 SRC = my_ext_ctrl_modul.c
 HEADER = my_ext_ctrl_modul.h
 
@@ -30,8 +30,8 @@ HEADER = my_ext_ctrl_modul.h
 CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL
 OPT_FLAGS = -Os
 COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY) 
-COMPILER_SWITCHES += -DUSE_LCD=$(USE_LCD) -DUSE_ADC=$(USE_ADC) 
-COMPILER_SWITCHES += -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR) 
+COMPILER_SWITCHES += -DUSE_LCD=$(USE_LCD) -DUSE_ADC=$(USE_ADC) -DUSE_I2C=$(USE_I2C) 
+COMPILER_SWITCHES += -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR) -DI2C_ERROR=$(I2C_ERROR)
 COMPILER_SWITCHES += -DCOMMUNICATION_PATH=$(COMMUNICATION_PATH) 
 
 #

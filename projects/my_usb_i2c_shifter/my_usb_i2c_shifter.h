@@ -31,6 +31,7 @@
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
 #include <libavrserial.h>
+#include <libavri2c.h>
 
 
 // make shure that COMMUNICATION_PATH is available
@@ -43,6 +44,12 @@
  * -> use serial_errno
  */
 extern unsigned char serial_errno;
+
+
+/*
+ * -> use i2c_errno
+ */
+extern unsigned char i2c_errno;
 
 
 /*

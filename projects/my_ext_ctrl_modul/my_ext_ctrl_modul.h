@@ -32,6 +32,7 @@
 #include <libavrhelper.h>
 #include <libavradc.h>
 #include <libavrlcd.h>
+#include <libavri2c.h>
 
 
 // make shure that COMMUNICATION_PATH is available
@@ -49,6 +50,12 @@ extern unsigned char adc_errno;
  * -> use lcd_errno
  */
 extern unsigned char lcd_errno;
+
+
+/*
+ * -> use i2c_errno
+ */
+extern unsigned char i2c_errno;
 
 
 /*

@@ -45,7 +45,8 @@
 #define STATE_SERIAL_INIT_DONE 0x04
 #define STATE_LCD_INIT_DONE 0x08
 #define STATE_ADC_INIT_DONE 0x10
-#define STATE_INIT_DONE 0x20
+#define STATE_I2C_INIT_DONE 0x20
+#define STATE_INIT_DONE 0x40
 
 // my common state info
 unsigned char state_of_template = STATE_UNKNOWN;
@@ -187,6 +188,16 @@ __attribute__((OS_main)) main(void)
 #endif
 
 	/*
+	 * ---------- i2c stuff ----------
+	 */
+#if USE_I2C == __YES__
+	i2c_setup_i2c();
+	if (i2c_errno != MY_OK)
+		error_indication(error_string);
+
+#endif
+
+	/*
 	 * ---------- init template stuff ----------
 	 */
 	// infrastructure is ready to use ... so my init is the next step 
@@ -223,7 +234,6 @@ __attribute__((OS_main)) main(void)
 	_delay_ms(5 * DELAYTIME);
 	lcd_set_cursor_on();
 #endif
-
 
 	while (1) {
 		

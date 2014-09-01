@@ -33,6 +33,7 @@
 #include <libavrserial.h>
 #include <libavradc.h>
 #include <libavrlcd.h>
+#include <libavri2c.h>
 #include <libavrcyclon.h>
 
 
@@ -57,6 +58,12 @@ extern unsigned char adc_errno;
  * -> use lcd_errno
  */
 extern unsigned char lcd_errno;
+
+
+/*
+ * -> use i2c_errno
+ */
+extern unsigned char i2c_errno;
 
 
 /*

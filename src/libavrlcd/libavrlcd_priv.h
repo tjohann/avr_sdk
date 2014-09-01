@@ -37,7 +37,7 @@
  *
  * Note: of course not reentrant 
  *       LCD_ERROR is the general switch
- *       LCD_ERRNO for adc_errno which holds lcd_error_t values 
+ *       LCD_ERRNO for lcd_errno which holds lcd_error_t values 
  */
 #ifdef LCD_ERROR 
 #ifndef LCD_ERRNO

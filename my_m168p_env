@@ -93,4 +93,10 @@ export LCD_COMMON_PORT=__NONE__
 #
 export USE_I2C=__YES__
 
+#
+# want to use CAN? 
+#
+#
+export USE_CAN=__NO__
+
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

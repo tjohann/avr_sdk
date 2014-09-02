@@ -34,6 +34,7 @@
 #include <libavradc.h>
 #include <libavrlcd.h>
 #include <libavri2c.h>
+#include <libavrcan.h>
 #include <libavrcyclon.h>
 
 
@@ -64,6 +65,12 @@ extern unsigned char lcd_errno;
  * -> use i2c_errno
  */
 extern unsigned char i2c_errno;
+
+
+/*
+ * -> use can_errno
+ */
+extern unsigned char can_errno;
 
 
 /*

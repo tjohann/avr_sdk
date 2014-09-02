@@ -1,5 +1,5 @@
 /*
-  libavri2c/libarmi2c - simple library as a handle of i2c stuff for small
+  libavrcan/libarmcan - simple library as a handle of can stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
 
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
@@ -19,57 +19,55 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _LIBAVRI2C_H_
-#define _LIBAVRI2C_H_
+#ifndef _LIBAVRCAN_H_
+#define _LIBAVRCAN_H_
 
 #include <avr_compile_macros.h>
 
 
 /*
- * i2c specific error codes
+ * can specific error codes
  */
-typedef enum i2c_errors {
-	I2C_UNKNOWN = 0x00
-} i2c_errors_t;
+typedef enum can_errors {
+	CAN_UNKNOWN = 0x00
+} can_errors_t;
 
 
 /*
- * i2c errno stuff
+ * can errno stuff
  *
- * HOTWO: use i2c_errno
+ * HOTWO: use can_errno
  * -> a global variable is defined and set to default by 
- *    this lib -> unsigned char i2c_errno = MY_OK;
+ *    this lib -> unsigned char can_errno = MY_OK;
  * -> in YOUR header file add the folling declaration
- *    extern unsigned char i2c_errno; 
- * -> if something goes wrong, then the functions set i2c_errno to 
- *    an value of i2c_errors_t 
- * -> if everthing works fine, then i2c_errno is set to MY_OK (see libavrhelper.h)
+ *    extern unsigned char can_errno; 
+ * -> if something goes wrong, then the functions set can_errno to 
+ *    an value of can_errors_t 
+ * -> if everthing works fine, then can_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
  * Note: of course not reentrant 
- *       I2C_ERROR is the general switch
- *       I2C_ERRNO for i2c_errno which holds i2c_error_t values 
- *       unsigned char * i2c_error_string = "I2C_ERROR" for a common error string
+ *       CAN_ERROR is the general switch
+ *       CAN_ERRNO for can_errno which holds can_error_t values 
+ *       unsigned char * can_error_string = "CAN_ERROR" for a common error string
  * 
  */
 
-#ifndef I2C_ERROR  
-#define I2C_ERROR OFF  
-#  warning "I2C_ERROR not defined, use OFF"
+#ifndef CAN_ERROR  
+#define CAN_ERROR OFF  
+#  warning "CAN_ERROR not defined, use OFF"
 #endif
 
 
 /*
- * ----------- functions for init/setup of the I2C -----------
+ * ----------- functions for init/setup of the CAN -----------
  */
 
 /*
- * -> setup i2c 
+ * -> setup can
  */
 void 
-i2c_setup_i2c(void);
-
-
+can_setup_can(void);
 
 
 #endif

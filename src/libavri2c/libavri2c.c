@@ -30,7 +30,56 @@
 
 
 /*
- * -> setup i2c
+ * -> setup i2c for master mode
+ */
+void 
+i2c_setup_master_mode(i2c_bit_rate_t bit_rate)
+{
+
+/*
+ * I2C MASTER FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+
+
+#endif  // AVR
+
+
+/*
+ * I2C MASTER FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+}
+
+
+/*
+ * -> setup i2c for slave mode
+ */
+void 
+i2c_setup_slave_mode(void)
+{
+
+/*
+ * I2C SLAVE FOR AVR
+ */
+#if CONTROLLER_FAMILY == __AVR__
+	// fill me
+#endif  // AVR
+
+
+/*
+ * I2C SLAVE FOR ARM-CORTEX-M3
+ */
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+}
+
+
+/*
+ * -> setup i2c (private)
  */
 void 
 i2c_setup_i2c(void) 
@@ -40,7 +89,11 @@ i2c_setup_i2c(void)
  * I2C SETUP FOR AVR
  */
 #if CONTROLLER_FAMILY == __AVR__
-	// fill me
+
+	
+	
+
+
 #endif  // AVR
 
 

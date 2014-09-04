@@ -75,11 +75,7 @@ serial_setup_sync_slave(serial_frame_type_t frame_type)
 
 
 /*
- * ************** private functions **************
- */
-
-/*
- * -> init USART
+ * -> init USART (private)
  */
 void 
 serial_setup_usart(serial_op_mode_t op_mode,
@@ -306,7 +302,7 @@ serial_send_byte(const unsigned char byte,
 void 
 serial_send_string(const unsigned char *data) 
 {
-	while(*data != '\0')
+	while (*data != '\0')
 		serial_send_byte(*data++, SERIAL_SEND_NORMAL);
 }
 

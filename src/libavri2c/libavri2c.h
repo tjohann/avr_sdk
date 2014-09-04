@@ -34,6 +34,15 @@ typedef enum i2c_errors {
 
 
 /*
+ * Baudrate
+ */
+typedef enum i2c_bit_rate {
+        I2C_100KHz = 0x00,
+	I2C_400KHz,
+} i2c_bit_rate_t;
+
+
+/*
  * i2c errno stuff
  *
  * HOTWO: use i2c_errno
@@ -64,11 +73,17 @@ typedef enum i2c_errors {
  */
 
 /*
- * -> setup i2c 
+ * -> setup i2c for master mode
  */
 void 
-i2c_setup_i2c(void);
+i2c_setup_master_mode(i2c_bit_rate_t bit_rate);
 
+
+/*
+ * -> setup i2c for slave mode
+ */
+void 
+i2c_setup_slave_mode(void);
 
 
 

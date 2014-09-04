@@ -54,4 +54,20 @@ unsigned char i2c_errno = MY_OK;
 unsigned char *i2c_error_string = (unsigned char *) "I2C_ERROR";
 
 
+/*
+ * operation mode
+ */
+typedef enum i2c_op_mode {
+	MASTER = 0x00,
+	SYNC_SLAVE
+} i2c_op_mode_t;
+
+
+/*
+ * -> setup i2c 
+ */
+void 
+i2c_setup_i2c(void);
+
+
 #endif

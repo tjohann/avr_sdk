@@ -191,7 +191,7 @@ __attribute__((OS_main)) main(void)
 	 * ---------- i2c stuff ----------
 	 */
 #if USE_I2C == __YES__
-	i2c_setup_i2c();
+	i2c_setup_master_mode(I2C_100KHz);
 	if (i2c_errno != MY_OK)
 		error_indication(error_string);
 

@@ -83,7 +83,6 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		   serial_enable_rxtx_t ena_rxtx) 
 {
 
-
 /*
  * SERIAL SETUP FOR AVR
  */
@@ -186,7 +185,6 @@ serial_setup_usart(serial_op_mode_t op_mode,
 #endif
 	}
 
-	
 #endif  // AVR
 
 /*
@@ -419,7 +417,6 @@ serial_receive_byte(void)
 
 	return data;
 }
-
 
 
 /*

@@ -35,22 +35,7 @@
 void 
 i2c_setup_master_mode(i2c_bit_rate_t bit_rate)
 {
-
-/*
- * I2C MASTER FOR AVR
- */
-#if CONTROLLER_FAMILY == __AVR__
-
-
-#endif  // AVR
-
-
-/*
- * I2C MASTER FOR ARM-CORTEX-M3
- */
-#if CONTROLLER_FAMILY == __ARM__
-	// fill me
-#endif  // ARM
+	i2c_setup_i2c(MASTER, bit_rate);
 }
 
 
@@ -60,39 +45,92 @@ i2c_setup_master_mode(i2c_bit_rate_t bit_rate)
 void 
 i2c_setup_slave_mode(void)
 {
-
-/*
- * I2C SLAVE FOR AVR
- */
-#if CONTROLLER_FAMILY == __AVR__
-	// fill me
-#endif  // AVR
-
-
-/*
- * I2C SLAVE FOR ARM-CORTEX-M3
- */
-#if CONTROLLER_FAMILY == __ARM__
-	// fill me
-#endif  // ARM
+	i2c_setup_i2c(SLAVE, NONE);
 }
 
 
 /*
- * -> setup i2c (private)
+ * -> setup i2c for multi master mode
  */
 void 
-i2c_setup_i2c(void) 
+i2c_setup_multi_master_mode(i2c_bit_rate_t bit_rate)
+{
+	i2c_setup_i2c(MULTI_MASTER, bit_rate);
+}
+
+
+/*
+ * -> enable i2c
+ */
+void 
+i2c_enable_i2c(void) 
+{
+
+#if CONTROLLER_FAMILY == __AVR__
+	TWCR |= (1 << TWEN);
+#endif  // AVR
+
+
+#if CONTROLLER_FAMILY == __ARM__
+	// fill me
+#endif  // ARM
+
+}
+
+
+/*
+ * -> enable i2c 
+ *
+ *  i2c_errno: I2C_INIT_DEFAULT
+ *             I2C_TWBR_UNSTABLE
+ */
+void 
+i2c_setup_i2c(i2c_op_mode_t mode,
+    	     i2c_bit_rate_t bit_rate) 
 {
 
 /*
  * I2C SETUP FOR AVR
  */
 #if CONTROLLER_FAMILY == __AVR__
+	if (mode == MASTER) {
 
-	
-	
+		/*
+		 * TODO: -> prescaler handling ...
+		 */
+		TWSR = 0;
 
+		switch (bit_rate)
+		{
+		case I2C_100KHz:
+			TWBR = (F_CPU / TWBR_DENOMINATOR_100KHZ) - 8;
+			if (TWBR < 10)
+				i2c_errno = I2C_TWBR_UNSTABLE;
+			break;
+		case I2C_400KHz:
+			TWBR = (F_CPU / TWBR_DENOMINATOR_400KHZ) - 8;
+			if (TWBR < 10)
+				i2c_errno = I2C_TWBR_UNSTABLE;
+			break;
+		default:
+			// 100 kHz
+			TWBR = (F_CPU / TWBR_DENOMINATOR_100KHZ) - 8;
+#if I2C_ERROR == __ON__
+			i2c_errno = I2C_INIT_DEFAULT;
+#endif
+		}	
+		
+		i2c_enable_i2c();
+	}
+
+
+	if (mode == SLAVE) {
+		// SLAVE mode
+	}
+
+	if (mode == MULTI_MASTER) {
+		// MULTIMASTER
+	}
 
 #endif  // AVR
 

@@ -25,11 +25,18 @@
 #include <avr_compile_macros.h>
 
 
+#ifndef F_CPU
+#  error "Freq of CPU not defined!"
+#endif
+
+
 /*
  * i2c specific error codes
  */
 typedef enum i2c_errors {
-	I2C_UNKNOWN = 0x00
+	I2C_INIT_DEFAULT = 0x00,
+	I2C_TWBR_UNSTABLE,
+	I2C_UNKNOWN
 } i2c_errors_t;
 
 
@@ -39,6 +46,7 @@ typedef enum i2c_errors {
 typedef enum i2c_bit_rate {
         I2C_100KHz = 0x00,
 	I2C_400KHz,
+	NONE
 } i2c_bit_rate_t;
 
 
@@ -85,6 +93,19 @@ i2c_setup_master_mode(i2c_bit_rate_t bit_rate);
 void 
 i2c_setup_slave_mode(void);
 
+
+/*
+ * -> setup i2c for multi master mode
+ */
+void 
+i2c_setup_multi_master_mode(i2c_bit_rate_t bit_rate);
+
+
+/*
+ * -> enable i2c
+ */
+void 
+i2c_enable_i2c(void);
 
 
 #endif

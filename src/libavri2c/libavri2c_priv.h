@@ -48,6 +48,14 @@ unsigned char i2c_errno = MY_OK;
 # warning "No special i2c error indication!"
 #endif
 
+
+/*
+ * some defines for TWBR calculation
+ */
+#define TWBR_DENOMINATOR_100KHZ 200000UL 
+#define TWBR_DENOMINATOR_400KHZ 800000UL
+
+
 /*
  * error string 
  */
@@ -59,7 +67,8 @@ unsigned char *i2c_error_string = (unsigned char *) "I2C_ERROR";
  */
 typedef enum i2c_op_mode {
 	MASTER = 0x00,
-	SYNC_SLAVE
+	MULTI_MASTER,
+	SLAVE
 } i2c_op_mode_t;
 
 
@@ -67,7 +76,8 @@ typedef enum i2c_op_mode {
  * -> setup i2c 
  */
 void 
-i2c_setup_i2c(void);
+i2c_setup_i2c(i2c_op_mode_t mode,
+	      i2c_bit_rate_t bit_rate);
 
 
 #endif

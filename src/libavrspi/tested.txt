@@ -1,0 +1,10 @@
+Some infos regarding tested configs:
+
+Tested with:    
+
+1). 
+ *  ...
+
+
+2).
+ *  ...

@@ -1,6 +1,6 @@
 MODULES = template 
 FLASH = template
-AVR_LIBS = libavrhelper libavrserial libavradc libavrlcd libavri2c libavrcan libavrcyclon
+AVR_LIBS = libavrhelper libavrserial libavradc libavrlcd libavri2c libavrspi libavrcan libavrcyclon
 
 all::
 	@echo " "

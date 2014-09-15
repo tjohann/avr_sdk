@@ -93,6 +93,12 @@ export LCD_COMMON_PORT=__PORT_D__
 export USE_I2C=__YES__
 
 #
+# want to use SPI? 
+#
+#
+export USE_SPI=__NO__
+
+#
 # want to use CAN? 
 #
 #

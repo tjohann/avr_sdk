@@ -54,5 +54,5 @@ Pls report errors to thorsten.johannvorderbrueggen@t-online.de with subject [AVR
   Thorsten
 
 
-Note: There will be another project based on cortex-m3 (arm_cortex_sdk) ... 
+Note: i moved my effort to the arm_cortex_sdk and to embedded linux 
 

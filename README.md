@@ -40,12 +40,18 @@ General usage:
 Create an controller specific file like my_m168p_env ... source it and try to build content
 of ~/avr_sdk/src$ ... 
 
-   ...~/avr_sdk$ . ./my_m168p_env 
+   ~/avr_sdk$ . ./my_m168p_env 
+
    Setup env for target atmega168p with 1000000Hz and 9600baud
-   ...:~/avr_sdk$ cd src
+
+   ~/avr_sdk$ cd src
+
    ~/avr_sdk/src$ ls
+
    libavrcyclon  libavrhelper  libavrserial  makefile  template ...
+
    ~/avr_sdk/src$ make
+
    .... A lot of output ...
    Check for errors ... there shouldn't be any 
 

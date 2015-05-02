@@ -16,7 +16,7 @@ my_ext_ctrl_modul -> This is a small module based on an atmega32 with lcd, 4 adc
 		     usecase:
 
                      +--------------------------------+               +---------------------------+
-                     |                                |<---- I2C ---->|                           | 
+                     |                                |<---- CAN ---->|                           | 
                      | Temp-controller within pc case |               |     my_ext_ctrl_modul     |  
                      |                                |           +-->|                           |
                      +--------------------------------+           |   +---------------------------+
@@ -47,7 +47,7 @@ my_fan_ctrl_modul -> This is a small module based on an atmega168(pa) with seria
 
 		     +--------------------------------+           +-------------------+
                      |                                |           |                   | 
-                     |       my_fan_ctrl_modul        |<-- I2C -->| my_ext_ctrl_modul | 
+                     |       my_fan_ctrl_modul        |<-- CAN -->| my_ext_ctrl_modul | 
                      |                                |           |                   |
                      +--------------------------------+           +-------------------+
 		      ||     ||    ||    ||       ||

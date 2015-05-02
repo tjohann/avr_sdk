@@ -37,7 +37,7 @@ Files:
 General usage:
 -------------
 
-- Create an controller specific file like my_m168p_env ... source it and try to build content
+Create an controller specific file like my_m168p_env ... source it and try to build content
 of ~/avr_sdk/src$ ... 
 
    ...~/avr_sdk$ . ./my_m168p_env 

@@ -9,7 +9,7 @@ Setup AVR dev environment
 This is a short introduction for using my avr_sdk.
 
 
-Files:
+Files
 -------------
 
 - bin ... some usefull bin (x86_64)
@@ -34,7 +34,7 @@ Files:
 - FEATURE_OVERVIEW ... a short decription of the feartures and the configuration
 
 
-General usage:
+General usage
 -------------
 
 Create an controller specific file like my_m168p_env ... source it and try to build content
@@ -56,12 +56,15 @@ of ~/avr_sdk/src$ ...
    Check for errors ... there shouldn't be any 
 
 
-HOTWO use it:
+HOTWO use it
 -------------
 
 Check Notes file and also
+
 Check the template for a general overview and/or check the lib*s ...
+
 Check FEATURE_OVERVIEW and 
+
 Check HOWTO
 
 

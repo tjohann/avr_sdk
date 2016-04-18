@@ -42,7 +42,7 @@ export FUSE_STRING = -U lfuse:w:${LFUSE}:m -U hfuse:w:${HFUSE}:m -U efuse:w:${EF
 #
 # ---------  BUILD all in a single step ----------
 #
-all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.hex $(TARGET)_eeprom.srec $(TARGET)_eeprom.bin $(TARGET).lst size
+all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.hex $(TARGET)_eeprom.srec $(TARGET)_eeprom.bin $(TARGET).lst
 	@echo "|| "	
 	@echo "|| -->   Finished building $(TARGET).* of $(SRC) "
 	@echo "|| "
@@ -115,7 +115,7 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	@echo "|| "
 	@echo "|| -->  Create $(TARGET).lst "
 	@echo "|| "
-	$(AVR-OBJDUMP) -h -S  $< > $@
+	$(AVR-OBJDUMP) -h -S $< > $@
 
 
 # 

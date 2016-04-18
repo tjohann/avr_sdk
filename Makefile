@@ -3,7 +3,7 @@ main = none
 #include include/defines.mk
 
 MODULES = src 
-MODULES_ADDITIONAL = include lib man bin etc docs schematics projects
+MODULES_ADDITIONAL = include lib Documentation schematics projects
 
 all::
 	@echo "+-----------------------------------------------+"
@@ -32,7 +32,6 @@ install:: all
 	@echo "|                                               |"
 	@echo "+-----------------------------------------------+"
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
-
 
 flash::
 	@echo "+-----------------------------------------------+"

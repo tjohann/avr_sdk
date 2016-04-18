@@ -1,5 +1,8 @@
 # THE LATEST NEWS
 
+2016-04-18 -> some smaller cleanups
+	      start implement new architecture
+
 2014-08-05 -> add projects dir with skeletons for my 3 related projects 
 	      -> my_ext_ctrl_modul (external i2c display ...)
 	      -> my_fan_ctrl_modul (fan ctrl modul for my pc case ...)

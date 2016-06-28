@@ -54,24 +54,24 @@ typedef enum i2c_bit_rate {
  * i2c errno stuff
  *
  * HOTWO: use i2c_errno
- * -> a global variable is defined and set to default by 
+ * -> a global variable is defined and set to default by
  *    this lib -> unsigned char i2c_errno = MY_OK;
  * -> in YOUR header file add the folling declaration
- *    extern unsigned char i2c_errno; 
- * -> if something goes wrong, then the functions set i2c_errno to 
- *    an value of i2c_errors_t 
+ *    extern unsigned char i2c_errno;
+ * -> if something goes wrong, then the functions set i2c_errno to
+ *    an value of i2c_errors_t
  * -> if everthing works fine, then i2c_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       I2C_ERROR is the general switch
- *       I2C_ERRNO for i2c_errno which holds i2c_error_t values 
+ *       I2C_ERRNO for i2c_errno which holds i2c_error_t values
  *       unsigned char * i2c_error_string = "I2C_ERROR" for a common error string
- * 
+ *
  */
 
-#ifndef I2C_ERROR  
-#define I2C_ERROR OFF  
+#ifndef I2C_ERROR
+#define I2C_ERROR OFF
 #  warning "I2C_ERROR not defined, use OFF"
 #endif
 
@@ -83,28 +83,28 @@ typedef enum i2c_bit_rate {
 /*
  * -> setup i2c for master mode
  */
-void 
+void
 i2c_setup_master_mode(i2c_bit_rate_t bit_rate);
 
 
 /*
  * -> setup i2c for slave mode
  */
-void 
+void
 i2c_setup_slave_mode(void);
 
 
 /*
  * -> setup i2c for multi master mode
  */
-void 
+void
 i2c_setup_multi_master_mode(i2c_bit_rate_t bit_rate);
 
 
 /*
  * -> enable i2c
  */
-void 
+void
 i2c_enable_i2c(void);
 
 

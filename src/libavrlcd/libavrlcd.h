@@ -1,7 +1,7 @@
 /*
   libavrlcd/libarmlcd - simple library as a handle of lcd stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -31,9 +31,9 @@
 
 
 /*
- * LCD pinnig 
+ * LCD pinnig
  *
- * Note: - only 8 bit mode 
+ * Note: - only 8 bit mode
  *       - RS <-> PC2
  *       - EN <-> PC3
  *       - RW <-> t.b.d.
@@ -46,7 +46,7 @@
  * lcd specific error codes
  */
 typedef enum lcd_errors {
-	LCD_SET_CURSOR_DEFAULT = 0x00, 
+	LCD_SET_CURSOR_DEFAULT = 0x00,
 	LCD_LINE_OVERFLOW,
 	LCD_UNKNOWN
 } lcd_errors_t;
@@ -56,7 +56,7 @@ typedef enum lcd_errors {
  * lcd lines
  */
 typedef enum lcd_lines {
-	LCD_LINE_1 = 0x00, 
+	LCD_LINE_1 = 0x00,
 	LCD_LINE_2,
 	LCD_LINE_3,
 	LCD_LINE_4
@@ -67,24 +67,24 @@ typedef enum lcd_lines {
  * lcd errno stuff
  *
  * HOTWO: use lcd_errno
- * -> a global variable is defined and set to default by 
+ * -> a global variable is defined and set to default by
  *    this lib -> unsigned char lcd_errno = MY_OK;
  * -> in YOUR header file add the folling declaration
- *    extern unsigned char lcd_errno; 
- * -> if something goes wrong, then the functions set lcd_errno to 
- *    an value of lcd_errors_t 
+ *    extern unsigned char lcd_errno;
+ * -> if something goes wrong, then the functions set lcd_errno to
+ *    an value of lcd_errors_t
  * -> if everthing works fine, then lcd_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       LCD_ERROR is the general switch
- *       LCD_ERRNO for lcd_errno which holds lcd_error_t values 
+ *       LCD_ERRNO for lcd_errno which holds lcd_error_t values
  *       unsigned char * lcd_error_string = "LCD_ERROR" for a common error string
- * 
+ *
  */
 
-#ifndef LCD_ERROR  
-#define LCD_ERROR OFF  
+#ifndef LCD_ERROR
+#define LCD_ERROR OFF
 #  warning "LCD_ERROR not defined, use OFF"
 #endif
 
@@ -94,23 +94,23 @@ typedef enum lcd_lines {
  */
 
 /*
- * -> setup lcd 
+ * -> setup lcd
  *
  * Note: includes call lcd_reset_lcd()
  *       =====
  *       Config: - 8 bit mode
- *               - 2 logical lines 
+ *               - 2 logical lines
  *               - 5x7 fonts
  *               - blinking cursor with
  *               - underline
  *               - cursor auto increment
  */
-void 
+void
 lcd_setup_display(void);
 
 
 /*
- * -> reset lcd  
+ * -> reset lcd
  *
  * Note: see lcd_setup_display for init values
  */
@@ -170,7 +170,7 @@ void lcd_set_cursor_on();
 /*
  * -> send a character to the lcd
  */
-void 
+void
 lcd_send_character(unsigned char data);
 
 
@@ -180,7 +180,7 @@ lcd_send_character(unsigned char data);
  * Note: if a line is longer than LCD_NUMBER_OF_ROWS, then
  *       lcd_errno is set to LCD_LINE_OVERFLOW
  */
-void 
+void
 lcd_send_string(const unsigned char *data);
 
 #endif

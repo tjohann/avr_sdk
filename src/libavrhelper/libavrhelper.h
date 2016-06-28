@@ -1,7 +1,7 @@
 /*
   libavrhelper/libarmhelper - simple lib with common helper functions/macros for small
                               microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@
 /*
  * common defines
  */
-// define on and off 
+// define on and off
 #define MY_ON = 1;
 #define MY_OFF = 0;
 
@@ -48,17 +48,17 @@
  */
 #ifndef SET_BIT
 #define SET_BIT(sfr, bit)			\
-	(_SFR_BYTE(sfr) |= (1 << bit))		
+	(_SFR_BYTE(sfr) |= (1 << bit))
 #endif
 
-#ifndef CLEAR_BIT	
+#ifndef CLEAR_BIT
 #define CLEAR_BIT(sfr, bit)			\
-	(_SFR_BYTE(sfr) &= ~(1 << bit))		
+	(_SFR_BYTE(sfr) &= ~(1 << bit))
 #endif
 
 #ifndef TOGGLE_BIT
 #define TOGGLE_BIT(sfr, bit)			\
-	(_SFR_BYTE(sfr) ^= (1 << bit))		
+	(_SFR_BYTE(sfr) ^= (1 << bit))
 #endif
 
 

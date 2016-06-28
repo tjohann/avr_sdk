@@ -1,7 +1,7 @@
 /*
-  libavrserial/libarmserial - simple library as a handle for serial communication for 
+  libavrserial/libarmserial - simple library as a handle for serial communication for
                               small microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@
 typedef enum serial_errors {
 	SERIAL_RCV_ERROR = 0x01,
 	SERIAL_SEND_ERROR,
-	SERIAL_INIT_DEFAULT,            
+	SERIAL_INIT_DEFAULT,
 	SERIAL_RCV_DEFAULT,
 	SERIAL_SEND_DEFAULT,
 	SERIAL_UNKNOWN
@@ -48,37 +48,37 @@ typedef enum serial_errors {
  * serial errno stuff
  *
  * HOTWO: use serial_errno
- * -> a global variable is defined and set to default by 
+ * -> a global variable is defined and set to default by
  *    this lib -> unsigned char serial_errno = MY_OK;
  * -> in YOUR header file add the follwing declaration
- *    extern unsigned char serial_errno; 
- * -> if something goes wrong, then the functions set serial_errno to 
- *    an value of serial_errors_t 
+ *    extern unsigned char serial_errno;
+ * -> if something goes wrong, then the functions set serial_errno to
+ *    an value of serial_errors_t
  * -> if everthing works fine, then serial_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       SERIAL_ERROR is the general switch
- *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
+ *       SERIAL_ERRNO for serial_errno which holds serial_error_t values
  *       unsigned char * serial_error_string = "SERIAL_ERROR" for a common error string
- * 
- * Hint: its only tested in small range of possible clock and baud rates ... so
- *       i am not shure if everthing works fine! 
  *
- * Tested with:    MCU=atmega168p 
- *                 F_CPU=1000000 
+ * Hint: its only tested in small range of possible clock and baud rates ... so
+ *       i am not shure if everthing works fine!
+ *
+ * Tested with:    MCU=atmega168p
+ *                 F_CPU=1000000
  *                 BAUD=9600
  *                 8 databits / 1 stop bit / no parity
  *                -----------------
  */
-#ifndef SERIAL_ERROR  
-#define SERIAL_ERROR OFF  
+#ifndef SERIAL_ERROR
+#define SERIAL_ERROR OFF
 #  warning "SERIAL_ERROR not defined, use OFF"
 #endif
 
 
 /*
- * HOWTO: configuration of the USART0 
+ * HOWTO: configuration of the USART0
  *
  * -> function serial_setup_asyn_normal_mode for normal mode ...
  * -> function serial_setup_asyn_double_speed for async mode with double speed ...
@@ -116,7 +116,7 @@ typedef enum serial_send_mode {
  * contraints: enable rx and tx
  * serial_errno: SERIAL_INIT_DEFAULT
  */
-void 
+void
 serial_setup_async_normal_mode(serial_frame_type_t frame_type);
 
 /*
@@ -125,7 +125,7 @@ serial_setup_async_normal_mode(serial_frame_type_t frame_type);
  * contraints: enable rx and tx
  * serial_errno: SERIAL_INIT_DEFAULT
  */
-void 
+void
 serial_setup_async_double_speed(serial_frame_type_t frame_type);
 
 /*
@@ -134,16 +134,16 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type);
  * contraints: enable rx and tx
  * serial_errno: SERIAL_INIT_DEFAULT
  */
-void 
+void
 serial_setup_sync_master(serial_frame_type_t frame_type);
 
 /*
  * -> setup USART0 for sync slave mode
- * 
+ *
  * contraints: enable rx and tx
  * serial_errno: SERIAL_INIT_DEFAULT
  */
-void 
+void
 serial_setup_sync_slave(serial_frame_type_t frame_type);
 
 
@@ -157,16 +157,16 @@ serial_setup_sync_slave(serial_frame_type_t frame_type);
  * contrains: check for 9 databits
  * serial_errno: SERIAL_RCV_ERROR
  */
-unsigned short 
-serial_receive_data(); 
+unsigned short
+serial_receive_data();
 
 /*
  * -> receive byte (polling)
  *
  *  serial_errno: SERIAL_RCV_ERROR
  */
-unsigned char 
-serial_receive_byte(); 
+unsigned char
+serial_receive_byte();
 
 /*
  * -> receive string (polling)
@@ -185,31 +185,31 @@ serial_receive_string(const unsigned char size);
  * -> send data (polling)
  *
  * contrains: check for 9 databits
- * serial_errno: no usage 
+ * serial_errno: no usage
  */
-void 
-serial_send_data(const unsigned short data); 
+void
+serial_send_data(const unsigned short data);
 
 /*
  * -> send byte (polling)
  *
- * note: if you set mode to ASCII it will send the corresponding 
- *       ASCII char instead of the value 
+ * note: if you set mode to ASCII it will send the corresponding
+ *       ASCII char instead of the value
  *       example: 0x01 in SERIAL_SEND_NORMAL and
  *                0x01 + 0x30 in SERIAL_SEND_ASCII
  * serial_errno: SERIAL_RCV_DEFAULT
  */
-void 
+void
 serial_send_byte(const unsigned char byte,
-		 serial_send_mode_t mode); 
+		 serial_send_mode_t mode);
 
 /*
  * -> send string (polling)
  *
  * contrains: only bytes ... no 9. bit handling
- * serial_errno: no usage 
+ * serial_errno: no usage
  */
-void 
-serial_send_string(const unsigned char *data); 
+void
+serial_send_string(const unsigned char *data);
 
 #endif

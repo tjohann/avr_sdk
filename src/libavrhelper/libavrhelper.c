@@ -1,7 +1,7 @@
 /*
   libavrhelper/libarmhelper - simple lib with common helper functions/macros for small
                               microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -43,6 +43,6 @@ void
 helper_convert_uchar_to_string(unsigned char data_string[], unsigned char data)
 {
 	data_string[2] = 0x30 + (data % 10);
-	data_string[1] = 0x30 + ((data / 10) % 10); 
+	data_string[1] = 0x30 + ((data / 10) % 10);
 	data_string[0] = 0x30 + (data / 100);
 }

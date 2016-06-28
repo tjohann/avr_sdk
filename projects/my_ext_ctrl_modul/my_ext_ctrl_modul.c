@@ -1,6 +1,6 @@
 /*
   my_ext_ctrl_modul - simple project with atmega32
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -28,17 +28,17 @@ unsigned char state_of_modul = STATE_UNKNOWN;
 /*
  * -> init my_ext_ctrl_modul hw
  */
-void 
-init_modul(void) 
+void
+init_modul(void)
 {
 	// init control led port
-	SET_BIT(LED_DDR, LED_PIN);  
+	SET_BIT(LED_DDR, LED_PIN);
 
 	// init mode switch
 	CLEAR_BIT(MODE_DDR, MODE_PIN);
 	CLEAR_BIT(MODE_PORT, MODE_PIN);
-	
-	// init my_ext_ctrl_modul done 
+
+	// init my_ext_ctrl_modul done
 	state_of_modul |= STATE_MYMODUL_INIT_DONE;
 }
 
@@ -49,18 +49,18 @@ init_modul(void)
  *    Note: DELAYTIME_ON_ERROR is 10. part of DELAYTIME
  */
 void
-error_indication(const unsigned char *error_string) 
+error_indication(const unsigned char *error_string)
 {
 	if (state_of_modul & STATE_LCD_INIT_DONE) {
 		if (error_string != NULL)
-			lcd_send_string(error_string); 
+			lcd_send_string(error_string);
 		else
 			SET_BIT(LED_PORT, LED_PIN);
 	} else {
 		while (1) {
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
-			
+
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
 		}
@@ -71,13 +71,13 @@ error_indication(const unsigned char *error_string)
 /*
  * -> heartbeat led
  */
-void 
-heartbeat_led(void) 
+void
+heartbeat_led(void)
 {
 	// led on
 	SET_BIT(LED_PORT, LED_PIN);
 	_delay_ms(DELAYTIME_HEART_ON);
-	
+
 	// led off
 	CLEAR_BIT(LED_PORT, LED_PIN);
 	_delay_ms(DELAYTIME_HEART_OFF);
@@ -96,38 +96,38 @@ heartbeat_led(void)
  * my_ext_ctrl_modul
  *
  This is a small module based on an atmega32 with lcd, 4 adc-read buttons and
- a i2c conntection. It should display informations from different moduls and 
+ a i2c conntection. It should display informations from different moduls and
  let it access my_ext_ctrl_modul. To select wich modul is the source of info
  my_ext_ctrl_modul has a mode switch.
- 
+
  usecase:
- | 
+ |
  |  +--------------------------------+               +---------------------------+
- |  |                                |<---- I2C ---->|                           | 
- |  | Temp-controller within pc case |               |     my_ext_ctrl_modul     |  
+ |  |                                |<---- I2C ---->|                           |
+ |  | Temp-controller within pc case |               |     my_ext_ctrl_modul     |
  |  |                                |           +-->|                           |
  |  +--------------------------------+           |   +---------------------------+
  |                                               |       ||   ||     ||     ||
- |                                              I2C      ||   \/     ||     \/ 
+ |                                              I2C      ||   \/     ||     \/
  |                                               |       || (lm75-1) ||  Mode-swt
- |                                               |       ||          \/ 
+ |                                               |       ||          \/
  |                                               |       \/       LCD/8-bit
  |                                               |    adc-buttons
  |  +----------------+         +-------------+  I2C
  |  |                |         |             |   |
  |  | Linux-board/pc |<- USB ->|  usb<->i2c  |<--+
- |  |                |         |             | 
- |  +----------------+         +-------------+ 
- | 
+ |  |                |         |             |
+ |  +----------------+         +-------------+
+ |
  The temp-controller is a pid controller with 3 different fans for 2 climate zones.
  My_ext_ctrl_modul is the modul to display temps and fan speed and let
  me also set paramater for the pid controller.
  The Linux-board/pc is a normal pc or an embbedded devices which shows info of it
  on my_ext_ctrl_modul and also theres a access path available (e.g. halt/reboot)
- * 
+ *
  */
-int 
-__attribute__((OS_main)) main(void) 
+int
+__attribute__((OS_main)) main(void)
 {
 	const unsigned char adc_error_string[] = "ADC error occured";
 
@@ -150,14 +150,14 @@ __attribute__((OS_main)) main(void)
 	if (adc_errno != MY_OK)
 		error_indication(adc_error_string);
 
-	// init adc done 
+	// init adc done
 	state_of_modul |= STATE_ADC_INIT_DONE;
 	lcd_set_cursor(0, LCD_LINE_2);
 	lcd_send_string((unsigned char *) "ADC init done");
 
 	/*
 	 * TODO: i2c init
-	 *       lm75 init 
+	 *       lm75 init
 	 *       mode switch
 	 */
 
@@ -167,8 +167,8 @@ __attribute__((OS_main)) main(void)
 	lcd_send_string((unsigned char *) "Modul init done");
 
 	// init done and everthing okay?
-	if (state_of_modul == (STATE_ADC_INIT_DONE | 
-			       STATE_LCD_INIT_DONE | 
+	if (state_of_modul == (STATE_ADC_INIT_DONE |
+			       STATE_LCD_INIT_DONE |
 			       STATE_MYMODUL_INIT_DONE)) {
 		state_of_modul = STATE_OK;
 
@@ -190,7 +190,7 @@ __attribute__((OS_main)) main(void)
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
-			
+
 			// led off
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);

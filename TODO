@@ -1,9 +1,9 @@
-# TODO 
+# TODO
 
-2014-08-05 -> all 
+2014-08-05 -> all
               make shure, that every lib is build with my 2 example controllers
 
-2014-07-29 -> libavrcyclon 
+2014-07-29 -> libavrcyclon
 	      rework for port handling needed -> similiar to lcd_port
 
 2014-07-29 -> libavrcyclon

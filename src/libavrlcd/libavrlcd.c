@@ -1,7 +1,7 @@
 /*
   libavrlcd/libarmlcd - simple library as a handle of lcd stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -32,8 +32,8 @@
 /*
  * -> setup lcd (HD44780 or compatible)
  */
-void 
-lcd_setup_display(void) 
+void
+lcd_setup_display(void)
 {
 
 /*
@@ -45,15 +45,15 @@ lcd_setup_display(void)
 	 * usefull state after power on
 	 *
 	 * -> D0-D7 low
-	 * -> EN high 
+	 * -> EN high
 	 * -> RS low (commands)
 	 * -> RW low (write)
 	 */
 
 	// setup db port
-	LCD_DDR = 0xFF;	
+	LCD_DDR = 0xFF;
 	LCD_PORT &= ~0xFF;
-	
+
 	/*
 	 * setup ctrl pins
 	 *
@@ -66,7 +66,7 @@ lcd_setup_display(void)
 	 *        - RW <-> read/write <-> 0 write bytes to lcd, 1 read bytes from display
 	 *        =====
 	 *        Order/Timing
-	 *        - EN should be 0 as default 
+	 *        - EN should be 0 as default
 	 *        - EN periode > 1us (0-1-0-1) ... pulse width < 0,5us
 	 *        - RS and RW could be set/clear together
 	 *        1. set/clear RS
@@ -87,29 +87,29 @@ lcd_setup_display(void)
 	 * reset the lcd with special case ot the function set
 	 *
 	 * Note: - normally the hd44780 has a reset sequence which init the
-	 *         controller after power on, but the power unit must 
-	 *         behave in a special way 
+	 *         controller after power on, but the power unit must
+	 *         behave in a special way
 	 *       - also the lcd must get an reset if the controller get an reset
 	 *       =====
 	 *       - the order of the function sets is a must
-	 *       - the same for most the values (only change 0x38 if needed) 
+	 *       - the same for most the values (only change 0x38 if needed)
 	 */
 	lcd_reset_lcd();
-	
+
 	/*
 	 * - 8 bit mode
-	 * - 2 logical lines 
+	 * - 2 logical lines
 	 * - 5x7 fonts
 	 */
 	LCD_PORT = 0x38;
 	LCD_PUSH_EN_BUTTON();
 
 	/*
-	 * - display on/off control instruction 
+	 * - display on/off control instruction
 	 */
 	LCD_PORT = LCD_CMD_DISPLAY_OFF;
 	LCD_PUSH_EN_BUTTON();
-	
+
 	/*
 	 * - clear display
 	 */
@@ -136,9 +136,9 @@ lcd_setup_display(void)
 	LCD_PUSH_EN_BUTTON();
 	_delay_ms(LCD_INIT_LONG);
 
-	// enable character mode -> default 
+	// enable character mode -> default
 	LCD_CTRL_PORT |= (1 << LCD_RS_PIN);
-	
+
 #endif  // AVR
 
 
@@ -153,10 +153,10 @@ lcd_setup_display(void)
 
 
 /*
- * ->  reset lcd  
+ * ->  reset lcd
  */
-void 
-lcd_reset_lcd() 
+void
+lcd_reset_lcd()
 {
 
 /*
@@ -183,7 +183,7 @@ lcd_reset_lcd()
 	// now the hd44780 is ready to receive the first normal function set
 
 #endif
-	
+
 
 /*
  * RESET LCD FOR ARM-CORTEX-M3
@@ -206,31 +206,31 @@ lcd_reset_lcd()
 void lcd_set_cursor(unsigned char x, lcd_lines_t line)
 {
     unsigned char command;
- 
+
     switch(line) {
-    case LCD_LINE_1:    
+    case LCD_LINE_1:
 	    command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE1 + x;
 	    break;
-	    
-    case LCD_LINE_2:    
+
+    case LCD_LINE_2:
 	    command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE2 + x;
             break;
-	    
-    case LCD_LINE_3:    
+
+    case LCD_LINE_3:
             command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE3 + x;
             break;
-	    
-    case LCD_LINE_4:    
+
+    case LCD_LINE_4:
             command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE4 + x;
             break;
-	    
+
     default:
-	    command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE1 + x;                              
+	    command = LCD_CMD_DDRAM_ADDR + LCD_ADDR_LINE1 + x;
 #if LCD_ERROR == __ON__
 		lcd_errno = LCD_SET_CURSOR_DEFAULT;
 #endif
     }
-    
+
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = command;
     LCD_PUSH_EN_BUTTON();
@@ -241,7 +241,7 @@ void lcd_set_cursor(unsigned char x, lcd_lines_t line)
  *  -> clear display
  */
 void lcd_clear_display()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_CLEAR_LCD;
     LCD_PUSH_EN_BUTTON();
@@ -253,7 +253,7 @@ void lcd_clear_display()
  *  -> set cursor to home position
  */
 void lcd_set_cursor_to_home_pos()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_CURSOR_HOME;
     LCD_PUSH_EN_BUTTON();
@@ -264,7 +264,7 @@ void lcd_set_cursor_to_home_pos()
  *  -> turn the display off
  */
 void lcd_set_display_off()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_DISPLAY_OFF;
     LCD_PUSH_EN_BUTTON();
@@ -275,7 +275,7 @@ void lcd_set_display_off()
  *  -> turn the display on
  */
 void lcd_set_display_on()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_DISPLAY_ON;
     LCD_PUSH_EN_BUTTON();
@@ -286,7 +286,7 @@ void lcd_set_display_on()
  *  -> set cursor off
  */
 void lcd_set_cursor_off()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_CURSOR_OFF;
     LCD_PUSH_EN_BUTTON();
@@ -297,7 +297,7 @@ void lcd_set_cursor_off()
  *  -> set cursor off
  */
 void lcd_set_cursor_on()
-{  
+{
     LCD_SET_RS_TO_COMMAND();
     LCD_PORT = LCD_CMD_DISPLAY_ON;
     LCD_PUSH_EN_BUTTON();
@@ -311,8 +311,8 @@ void lcd_set_cursor_on()
 /*
  * -> send a character to the lcd
  */
-void 
-lcd_send_character(unsigned char data) 
+void
+lcd_send_character(unsigned char data)
 {
 
 /*
@@ -323,7 +323,7 @@ lcd_send_character(unsigned char data)
 	LCD_PORT = data;
 	LCD_PUSH_EN_BUTTON();
 #endif
-	
+
 
 /*
  * SEND CHARACTER FOR ARM-CORTEX-M3
@@ -338,8 +338,8 @@ lcd_send_character(unsigned char data)
 /*
  * -> send a string to the lcd
  */
-void 
-lcd_send_string(const unsigned char *data) 
+void
+lcd_send_string(const unsigned char *data)
 {
 	unsigned char row_count = 0x00;
 /*
@@ -351,12 +351,12 @@ lcd_send_string(const unsigned char *data)
 			row_count++;
 	}
 #if LCD_ERROR == __ON__
-	if (*data != '\0') 
+	if (*data != '\0')
 		lcd_errno = LCD_LINE_OVERFLOW;
 #endif
 
 #endif
-	
+
 /*
  * SEND STRING FOR ARM-CORTEX-M3
  */

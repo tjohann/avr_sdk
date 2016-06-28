@@ -1,6 +1,6 @@
 # common defines for m32
 
-# atmege32 defaults 
+# atmege32 defaults
 LFUSE_DEF = 0xee
 HFUSE_DEF = 0x99
 
@@ -8,10 +8,10 @@ HFUSE_DEF = 0x99
 LFUSE = 0xee
 HFUSE = 0xD9
 
-# default fuses 
-FUSE_DEFAULT = -U lfuse:w:$(LFUSE_DEF):m -U hfuse:w:$(HFUSE_DEF):m 
+# default fuses
+FUSE_DEFAULT = -U lfuse:w:$(LFUSE_DEF):m -U hfuse:w:$(HFUSE_DEF):m
 
 #
-# Note: 
+# Note:
 #       set also FUSE_STRING in project makefile
 #

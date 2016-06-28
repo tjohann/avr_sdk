@@ -1,7 +1,7 @@
 /*
   libavrspi/libarmspi - simple library as a handle of spi stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -35,11 +35,11 @@
 /*
  * spi errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       SPI_ERROR is the general switch
- *       SPI_ERRNO for spi_errno which holds spi_error_t values 
+ *       SPI_ERRNO for spi_errno which holds spi_error_t values
  */
-#ifdef SPI_ERROR 
+#ifdef SPI_ERROR
 #ifndef SPI_ERRNO
 #define SPI_ERRNO
 unsigned char spi_errno = MY_OK;
@@ -50,15 +50,15 @@ unsigned char spi_errno = MY_OK;
 
 
 /*
- * error string 
+ * error string
  */
 unsigned char *spi_error_string = (unsigned char *) "SPI_ERROR";
 
 
 /*
- * -> setup spi 
+ * -> setup spi
  */
-void 
+void
 spi_setup_spi(void);
 
 

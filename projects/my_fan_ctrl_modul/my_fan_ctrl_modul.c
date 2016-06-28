@@ -1,6 +1,6 @@
 /*
   my_fan_ctrl_modul - simple project with atmega168(pa)
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -22,11 +22,11 @@
 
 /*
  * common defines
- * 
+ *
  * -> DELAYTIME ... the normal blink time
  * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
  *
- * -> STATE_UNKNOWN ... state of template is unknown 
+ * -> STATE_UNKNOWN ... state of template is unknown
  * -> STATE_OK ... everthing is up and running
  * -> STATE_ERROR ... an error occured
  * -> ...
@@ -50,13 +50,13 @@ unsigned char state_of_modul = STATE_UNKNOWN;
 /*
  * -> init my_ext_ctrl_modul hw
  */
-void 
-init_modul(void) 
+void
+init_modul(void)
 {
 	// init controll led port
-	SET_BIT(LED_DDR, LED_PIN);  
+	SET_BIT(LED_DDR, LED_PIN);
 
-	// init my_ext_ctrl_modul done 
+	// init my_ext_ctrl_modul done
 	state_of_modul |= STATE_MYMODUL_INIT_DONE;
 }
 
@@ -67,18 +67,18 @@ init_modul(void)
  *    Note: DELAYTIME_ON_ERROR is 10. part of DELAYTIME
  */
 void
-error_indication(const unsigned char *error_string) 
+error_indication(const unsigned char *error_string)
 {
 	if (state_of_modul & STATE_SERIAL_INIT_DONE) {
 		if (error_string != NULL)
-			serial_send_string(error_string); 
-		else 
-			SET_BIT(LED_PORT, LED_PIN);	
+			serial_send_string(error_string);
+		else
+			SET_BIT(LED_PORT, LED_PIN);
 	} else {
 		while (1) {
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
-			
+
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
 		}
@@ -95,8 +95,8 @@ error_indication(const unsigned char *error_string)
  | usecase:
  |
  |                   +--------------------------------+           +-------------------+
- |                   |                                |           |                   | 
- |                   |       my_fan_ctrl_modul        |<-- I2C -->| my_ext_ctrl_modul | 
+ |                   |                                |           |                   |
+ |                   |       my_fan_ctrl_modul        |<-- I2C -->| my_ext_ctrl_modul |
  |                   |                                |           |                   |
  |                   +--------------------------------+           +-------------------+
  |                     ||     ||    ||    ||       ||
@@ -106,10 +106,10 @@ error_indication(const unsigned char *error_string)
  |                            \/       swt Fan1
  |                         lm75-1/2
  |
- * 
+ *
  */
-int 
-__attribute__((OS_main)) main(void) 
+int
+__attribute__((OS_main)) main(void)
 {
 	const unsigned char adc_error_string[] = "ADC error occured";
 
@@ -119,7 +119,7 @@ __attribute__((OS_main)) main(void)
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
 		error_indication(NULL);
-	
+
 	// init serial done ... send greetings to peer
 	state_of_modul |= STATE_SERIAL_INIT_DONE;
 	serial_send_string((unsigned char *) "SERIAL init done");
@@ -130,7 +130,7 @@ __attribute__((OS_main)) main(void)
 	if (adc_errno != MY_OK)
 		error_indication(adc_error_string);
 
-	// init adc done 
+	// init adc done
 	state_of_modul |= STATE_ADC_INIT_DONE;
 	serial_send_string((unsigned char *) "ADC init done");
 
@@ -149,8 +149,8 @@ __attribute__((OS_main)) main(void)
 
 
 	// init done and everthing okay?
-	if (state_of_modul == (STATE_ADC_INIT_DONE | 
-			       STATE_SERIAL_INIT_DONE | 
+	if (state_of_modul == (STATE_ADC_INIT_DONE |
+			       STATE_SERIAL_INIT_DONE |
 			       STATE_MYMODUL_INIT_DONE)) {
 		state_of_modul = STATE_OK;
 		serial_send_string((unsigned char *) "Init done");
@@ -161,12 +161,12 @@ __attribute__((OS_main)) main(void)
 	 * ---------- main stuff below ----------
 	 */
 	while (1) {
-		
+
 		if (state_of_modul == STATE_ERROR) {
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
-			
+
 			// led off
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
@@ -179,7 +179,7 @@ __attribute__((OS_main)) main(void)
 			// led on
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME);
-			
+
 			// led off
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME);

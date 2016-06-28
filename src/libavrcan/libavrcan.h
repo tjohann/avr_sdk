@@ -37,24 +37,24 @@ typedef enum can_errors {
  * can errno stuff
  *
  * HOTWO: use can_errno
- * -> a global variable is defined and set to default by 
+ * -> a global variable is defined and set to default by
  *    this lib -> unsigned char can_errno = MY_OK;
  * -> in YOUR header file add the folling declaration
- *    extern unsigned char can_errno; 
- * -> if something goes wrong, then the functions set can_errno to 
- *    an value of can_errors_t 
+ *    extern unsigned char can_errno;
+ * -> if something goes wrong, then the functions set can_errno to
+ *    an value of can_errors_t
  * -> if everthing works fine, then can_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       CAN_ERROR is the general switch
- *       CAN_ERRNO for can_errno which holds can_error_t values 
+ *       CAN_ERRNO for can_errno which holds can_error_t values
  *       unsigned char * can_error_string = "CAN_ERROR" for a common error string
- * 
+ *
  */
 
-#ifndef CAN_ERROR  
-#define CAN_ERROR OFF  
+#ifndef CAN_ERROR
+#define CAN_ERROR OFF
 #  warning "CAN_ERROR not defined, use OFF"
 #endif
 
@@ -66,7 +66,7 @@ typedef enum can_errors {
 /*
  * -> setup can
  */
-void 
+void
 can_setup_can(void);
 
 

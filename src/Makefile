@@ -1,4 +1,4 @@
-MODULES = template 
+MODULES = template
 FLASH = template
 AVR_LIBS = libavrhelper libavrserial libavradc libavrlcd libavri2c libavrspi libavrcan libavrcyclon
 
@@ -17,7 +17,7 @@ clean::
 	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) $@); done
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
-install:: 
+install::
 	@echo " "
 	@echo "--> Install $(AVR_LIBS) "
 	@echo " "

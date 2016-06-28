@@ -1,7 +1,7 @@
 /*
   libavradc/libarmadc - simple library as a handle of adc stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -31,11 +31,11 @@
 /*
  * adc errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       ADC_ERROR is the general switch
- *       ADC_ERRNO for adc_errno which holds adc_error_t values 
+ *       ADC_ERRNO for adc_errno which holds adc_error_t values
  */
-#ifdef ADC_ERROR 
+#ifdef ADC_ERROR
 #ifndef ADC_ERRNO
 #define ADC_ERRNO
 unsigned char adc_errno = MY_OK;
@@ -45,7 +45,7 @@ unsigned char adc_errno = MY_OK;
 #endif
 
 /*
- * error string 
+ * error string
  */
 unsigned char *adc_error_string = (unsigned char *) "ADC_ERROR";
 

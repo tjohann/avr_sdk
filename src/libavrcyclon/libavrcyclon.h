@@ -1,7 +1,7 @@
 /*
-  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr) 
-                              or cortex-m3(arm) devices 
- 
+  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr)
+                              or cortex-m3(arm) devices
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -30,7 +30,7 @@
 #endif
 
 /*
- * -> do some init stuff 
+ * -> do some init stuff
  */
 void
 cyclon_setup_port(void);
@@ -40,7 +40,7 @@ cyclon_setup_port(void);
  * -> cyclon eye function like knight rider or whatever you like
  *
  * Note: if count == 0 -> endless mode
- *       delay_time in ms -> example: 100 -> 100ms 
+ *       delay_time in ms -> example: 100 -> 100ms
  */
 void
 cyclon_run(const unsigned short count,
@@ -56,7 +56,7 @@ cyclon_run(const unsigned short count,
  *       ...
  */
 void
-cyclon_double_run(const unsigned short count, 
+cyclon_double_run(const unsigned short count,
 		  double delay_time);
 
 

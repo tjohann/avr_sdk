@@ -15,14 +15,14 @@ HEADER = libavradc.h
 
 
 #
-# common controller defines 
+# common controller defines
 #
 # -> see my_m168p_env
 
 #
 # common CFLAGS in $(AVR_HOME)/include/defines.mk
 #
-CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL -DBAUD=$(BAUD)UL 
+CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL -DBAUD=$(BAUD)UL
 OPT_FLAGS = -Os
 COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY) -DUSE_ADC=$(USE_ADC) -DADC_ERROR=$(ADC_ERROR)
 
@@ -32,7 +32,7 @@ COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY) -DUSE_ADC=$(USE_ADC
 all: $(TARGET).a $(TARGET).lst
 
 $(TARGET).a: $(TARGET).c $(TARGET).h $(TARGET)_priv.h
-	@echo "|| "	
+	@echo "|| "
 	@echo "|| -->   building $(TARGET).a of $(SRC) for target $(MCU)"
 	@echo "|| "
 	$(AVR-GCC) $(WARN) $(DEBUG) -std=$(CSTD) $(CONTROLLER) $(CFLAGS) $(OPT_FLAGS) $(COMPILER_SWITCHES) -save-temps -c $(SRC) -I$(INCLUDEDIR)
@@ -49,8 +49,8 @@ install: $(TARGET).a
 	cp -d *.a $(AVR_HOME)/lib
 	cp -d *.h $(AVR_HOME)/include
 
-# 
-# -> surprise surpirse a cleanup tag 
+#
+# -> surprise surpirse a cleanup tag
 #
 clean:
 	rm -rf *~ *.a *.i *.s *.elf *.hex *.bin *.srec *.obj *.o *.eeprom *.lst *.map core.d

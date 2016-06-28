@@ -2,7 +2,7 @@ main = none
 
 #include include/defines.mk
 
-MODULES = src 
+MODULES = src
 MODULES_ADDITIONAL = include lib pics Documentation schematics projects
 
 all::
@@ -23,7 +23,7 @@ distclean: clean
 	@echo "|                                               |"
 	@echo "|         Nothing to do for distclean           |"
 	@echo "|                                               |"
-	@echo "+-----------------------------------------------+"	
+	@echo "+-----------------------------------------------+"
 
 install:: all
 	@echo "+-----------------------------------------------+"

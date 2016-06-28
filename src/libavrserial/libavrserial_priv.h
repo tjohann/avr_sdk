@@ -1,7 +1,7 @@
 /*
-  libavrserial/libarmserial - simple library as a handle for serial communication for 
+  libavrserial/libarmserial - simple library as a handle for serial communication for
                               small microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -57,11 +57,11 @@ typedef enum serial_enable_rxtx {
 /*
  * serial errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       SERIAL_ERROR is the general switch
- *       SERIAL_ERRNO for serial_errno which holds serial_error_t values 
+ *       SERIAL_ERRNO for serial_errno which holds serial_error_t values
  */
-#ifdef SERIAL_ERROR 
+#ifdef SERIAL_ERROR
 #ifndef SERIAL_ERRNO
 #define SERIAL_ERRNO
 unsigned char serial_errno = MY_OK;
@@ -71,12 +71,12 @@ unsigned char serial_errno = MY_OK;
 #endif
 
 /*
- * error string 
+ * error string
  */
 unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 /*
- * -> macros for setting operation mode of usart 
+ * -> macros for setting operation mode of usart
  */
 #define SERIAL_SET_ASYNC_MODE()			\
 	{					\
@@ -90,7 +90,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 		UCSR0C &= ~(1 << UMSEL01);	\
 	}
 
-// TODO: Check that 
+// TODO: Check that
 #define SERIAL_SET_MASTER_SPI_MODE()		\
 	{					\
 		UCSR0C |= (1 << UMSEL00);	\
@@ -99,7 +99,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 
 
 /*
- * -> macros for setting a correct frame type 
+ * -> macros for setting a correct frame type
  */
 #define SERIAL_SET_5_DATA_BITS()		\
 	{					\
@@ -229,7 +229,7 @@ unsigned char *serial_error_string = (unsigned char *) "SERIAL_ERROR";
 /*
  * -> init USART
  */
-void 
+void
 serial_setup_usart(serial_op_mode_t op_mode,
 		   serial_frame_type_t frame_type,
 		   serial_enable_rxtx_t ena_rxtx);

@@ -1,7 +1,7 @@
 /*
-  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr) 
-                              or cortex-m3(arm) devices 
- 
+  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr)
+                              or cortex-m3(arm) devices
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -29,7 +29,7 @@
 #if USE_CYCLON == __YES__
 
 /*
- * -> do some init stuff 
+ * -> do some init stuff
  */
 void
 cyclon_setup_port(void)
@@ -41,7 +41,7 @@ cyclon_setup_port(void)
  * -> cyclon eye function like knight rider
  */
 void
-cyclon_run(const unsigned short count, 
+cyclon_run(const unsigned short count,
 	   unsigned char starting_led,
 	   double delay_time)
 {
@@ -57,13 +57,13 @@ cyclon_run(const unsigned short count,
 			_delay_ms(delay_time);
 			i++;
 		}
-		
+
 		while (i > 0) {
 			LEDS_PORT = (1 << i);
 			_delay_ms(delay_time);
 			i--;
 		}
-		
+
 		if (count != 0)
 			act_count++;
 		else
@@ -74,7 +74,7 @@ cyclon_run(const unsigned short count,
 			_delay_ms(delay_time);
 			LEDS_PORT = 0x00;
 		}
-		
+
 	} while (act_count != count);
 }
 
@@ -87,7 +87,7 @@ cyclon_run(const unsigned short count,
  *       ...
  */
 void
-cyclon_double_run(const unsigned short count, 
+cyclon_double_run(const unsigned short count,
 		  double delay_time)
 {
 	uint8_t i = 0;
@@ -98,14 +98,14 @@ cyclon_double_run(const unsigned short count,
 			LEDS_PORT = (1 << i) | (1 << (7 - i));
 			_delay_ms(delay_time);
 			i++;
-		}   
+		}
 
 		while (i > 0) {
 			LEDS_PORT = (1 << i) | (1 << (7 - i));
 			_delay_ms(delay_time);
 			i--;
-		}   
-		
+		}
+
 		if (count != 0)
 			act_count++;
 		else

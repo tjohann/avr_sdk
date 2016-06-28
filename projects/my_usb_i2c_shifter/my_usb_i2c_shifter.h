@@ -26,7 +26,7 @@
 #include <string.h>
 
 /*
- * -> my avr_sdk libs 
+ * -> my avr_sdk libs
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
@@ -53,7 +53,7 @@ extern unsigned char i2c_errno;
 
 
 /*
- * pins for control led 
+ * pins for control led
  *
  */
 #define LED_PIN PB0

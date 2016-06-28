@@ -14,7 +14,7 @@ export BAUD=9600
 #
 # my programmer -> a old stk500 on usb<->serial adapter
 #                  export PROGRAMMER_ARGS=" -P /dev/ttyUSB0"
-#               -> a old stk500 direkt conected 
+#               -> a old stk500 direkt conected
 #                  export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 #
 export PROGRAMMER=avrdude
@@ -22,18 +22,18 @@ export PROGRAMMER_HW=stk500
 export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 
 #
-# export project specific definitions 
+# export project specific definitions
 #
 export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
 #echo $PROJECT_CONTROLLER
 
 #
-# want to use SERIAL? 
+# want to use SERIAL?
 #
 export USE_SERIAL=__YES__
 
 #
-# want to use ADC? 
+# want to use ADC?
 #
 export USE_ADC=__YES__
 
@@ -43,7 +43,7 @@ export USE_ADC=__YES__
 export COMMUNICATION_PATH=__SERIAL__
 
 #
-# want to use I2C? 
+# want to use I2C?
 #
 #
 export USE_I2C=__YES__

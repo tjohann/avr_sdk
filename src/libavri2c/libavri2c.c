@@ -1,7 +1,7 @@
 /*
   libavri2c/libarmi2c - simple library as a handle of i2c stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@
 /*
  * -> setup i2c for master mode
  */
-void 
+void
 i2c_setup_master_mode(i2c_bit_rate_t bit_rate)
 {
 	i2c_setup_i2c(MASTER, bit_rate);
@@ -42,7 +42,7 @@ i2c_setup_master_mode(i2c_bit_rate_t bit_rate)
 /*
  * -> setup i2c for slave mode
  */
-void 
+void
 i2c_setup_slave_mode(void)
 {
 	i2c_setup_i2c(SLAVE, NONE);
@@ -52,7 +52,7 @@ i2c_setup_slave_mode(void)
 /*
  * -> setup i2c for multi master mode
  */
-void 
+void
 i2c_setup_multi_master_mode(i2c_bit_rate_t bit_rate)
 {
 	i2c_setup_i2c(MULTI_MASTER, bit_rate);
@@ -62,8 +62,8 @@ i2c_setup_multi_master_mode(i2c_bit_rate_t bit_rate)
 /*
  * -> enable i2c
  */
-void 
-i2c_enable_i2c(void) 
+void
+i2c_enable_i2c(void)
 {
 
 #if CONTROLLER_FAMILY == __AVR__
@@ -79,14 +79,14 @@ i2c_enable_i2c(void)
 
 
 /*
- * -> enable i2c 
+ * -> enable i2c
  *
  *  i2c_errno: I2C_INIT_DEFAULT
  *             I2C_TWBR_UNSTABLE
  */
-void 
+void
 i2c_setup_i2c(i2c_op_mode_t mode,
-    	     i2c_bit_rate_t bit_rate) 
+    	     i2c_bit_rate_t bit_rate)
 {
 
 /*
@@ -118,8 +118,8 @@ i2c_setup_i2c(i2c_op_mode_t mode,
 #if I2C_ERROR == __ON__
 			i2c_errno = I2C_INIT_DEFAULT;
 #endif
-		}	
-		
+		}
+
 		i2c_enable_i2c();
 	}
 

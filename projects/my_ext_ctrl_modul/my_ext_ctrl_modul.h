@@ -1,5 +1,5 @@
 /*
-  my_ext_ctrl_modul - simple project with atmega32 
+  my_ext_ctrl_modul - simple project with atmega32
 
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
@@ -26,7 +26,7 @@
 #include <string.h>
 
 /*
- * -> my avr_sdk libs 
+ * -> my avr_sdk libs
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
@@ -77,14 +77,14 @@ extern unsigned char i2c_errno;
 
 /*
  * common defines
- * 
+ *
  * -> DELAYTIME ... the normal blink time
  * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
  *
  * -> DELAYTIME_HEART_ON ... for heartbeat
  * -> DELAYTIME_HEART_OFF ... for heartbeat
  *
- * -> STATE_UNKNOWN ... state of template is unknown 
+ * -> STATE_UNKNOWN ... state of template is unknown
  * -> STATE_OK ... everthing is up and running
  * -> STATE_ERROR ... an error occured
  * -> ...

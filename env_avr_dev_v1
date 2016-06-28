@@ -8,7 +8,7 @@ export AVR_VER=v1
 # set avr home
 export AVR_HOME=${HOME}/avr_sdk
 
-# extend PATH 
+# extend PATH
 export PATH=${AVR_HOME}/bin::$PATH
 
 

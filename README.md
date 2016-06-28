@@ -15,13 +15,13 @@ Files
 
 	- Documentation ... some usefull documentation
 	- env_avr_dev_latest -> env_avr_dev_v1
-	- env_avr_dev_v1 ... env script which set needed variables 
+	- env_avr_dev_v1 ... env script which set needed variables
 	  usage: ~/avr_sdk$. ./env_avr_dev_latest
 	- include ... the avr specific headers
 	  usage: see ~/avr_sdk/src/template for usage
-	- lib ... the avr specific libs 
+	- lib ... the avr specific libs
       usage: see ~/avr_sdk/src/template for usage
-	- my_m168p_env/my_m32_env ... the controller specific config 
+	- my_m168p_env/my_m32_env ... the controller specific config
       usage: ~/avr_sdk$. ./my_m168p_env
 	- src ... sources for avr specific libs and tools
 	- projects ... here are my real projects
@@ -36,9 +36,9 @@ General usage
 -------------
 
 Create an controller specific file like my_m168p_env ... source it and try to build content
-of ~/avr_sdk/src$ ... 
+of ~/avr_sdk/src$ ...
 
-	~/avr_sdk$ . ./my_m168p_env 
+	~/avr_sdk$ . ./my_m168p_env
 
 Setup env for target atmega168p with 1000000Hz and 9600baud
 
@@ -47,8 +47,8 @@ Setup env for target atmega168p with 1000000Hz and 9600baud
 	libavrcyclon  libavrhelper  libavrserial  makefile  template ...
 	~/avr_sdk/src$ make
 	.... A lot of output ...
-   
-Check for errors ... there shouldn't be any 
+
+Check for errors ... there shouldn't be any
 
 
 HOTWO use it
@@ -58,7 +58,7 @@ Check Notes file and also
 
 Check the template for a general overview and/or check the lib*s ...
 
-Check FEATURE_OVERVIEW and 
+Check FEATURE_OVERVIEW and
 
 Check HOWTO
 

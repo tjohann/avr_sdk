@@ -1,7 +1,7 @@
 /*
   libavri2c/libarmi2c - simple library as a handle of i2c stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -35,11 +35,11 @@
 /*
  * i2c errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       I2C_ERROR is the general switch
- *       I2C_ERRNO for i2c_errno which holds i2c_error_t values 
+ *       I2C_ERRNO for i2c_errno which holds i2c_error_t values
  */
-#ifdef I2C_ERROR 
+#ifdef I2C_ERROR
 #ifndef I2C_ERRNO
 #define I2C_ERRNO
 unsigned char i2c_errno = MY_OK;
@@ -52,12 +52,12 @@ unsigned char i2c_errno = MY_OK;
 /*
  * some defines for TWBR calculation
  */
-#define TWBR_DENOMINATOR_100KHZ 200000UL 
+#define TWBR_DENOMINATOR_100KHZ 200000UL
 #define TWBR_DENOMINATOR_400KHZ 800000UL
 
 
 /*
- * error string 
+ * error string
  */
 unsigned char *i2c_error_string = (unsigned char *) "I2C_ERROR";
 
@@ -73,9 +73,9 @@ typedef enum i2c_op_mode {
 
 
 /*
- * -> setup i2c 
+ * -> setup i2c
  */
-void 
+void
 i2c_setup_i2c(i2c_op_mode_t mode,
 	      i2c_bit_rate_t bit_rate);
 

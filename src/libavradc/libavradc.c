@@ -1,7 +1,7 @@
 /*
   libavradc/libarmadc - simple library as a handle of adc stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -29,10 +29,10 @@
 #if USE_ADC == __YES__
 
 /*
- * -> setup adc 
+ * -> setup adc
  */
-void 
-adc_setup_adc(unsigned char adc_channel) 
+void
+adc_setup_adc(unsigned char adc_channel)
 {
 
 /*
@@ -57,16 +57,16 @@ adc_setup_adc(unsigned char adc_channel)
 		 */
 
 		break;
-	default: 
+	default:
 		// ADC_CH0
-		ADMUX |= (1 << REFS0);  
+		ADMUX |= (1 << REFS0);
 		ADCSRA |= (1 << ADPS2);
 		ADCSRA |= (1 << ADEN);
 #if ADC_ERROR == __ON__
 	adc_errno = ADC_INIT_DEFAULT;
 #endif
-		};                  
-	
+		};
+
 #endif  // AVR
 
 

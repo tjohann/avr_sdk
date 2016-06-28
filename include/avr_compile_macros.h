@@ -1,6 +1,6 @@
 /*
   avr/arm_compile_macros - some common compile macros for avr/arm usage
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 */
 
 #ifndef _AVR_COMPILE_MACROS_H_
-#define _AVR_COMPILE_MACROS_H_   
+#define _AVR_COMPILE_MACROS_H_
 
 
 /*
@@ -31,7 +31,7 @@
 
 
 /*
- * check macros and define reasonable defaults 
+ * check macros and define reasonable defaults
  */
 #ifndef CONTROLLER_FAMILY
 #define CONTROLLER_FAMILY  __AVR__
@@ -39,7 +39,7 @@
 #endif
 
 /*
- * define YES and NO 
+ * define YES and NO
  */
 #ifndef __YES__
 #define __YES__ 1
@@ -50,7 +50,7 @@
 #endif
 
 /*
- * defines for port definitions -> see libavrcyclon 
+ * defines for port definitions -> see libavrcyclon
  */
 #ifndef __PORT_A__
 #define __PORT_A__ 1
@@ -70,7 +70,7 @@
 
 
 /*
- * define NONE 
+ * define NONE
  */
 #ifndef __NONE__
 #define __NONE__ 0

@@ -1,7 +1,7 @@
 /*
   libavrlcd/libarmlcd - simple library as a handle of lcd stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -35,11 +35,11 @@
 /*
  * lcd errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       LCD_ERROR is the general switch
- *       LCD_ERRNO for lcd_errno which holds lcd_error_t values 
+ *       LCD_ERRNO for lcd_errno which holds lcd_error_t values
  */
-#ifdef LCD_ERROR 
+#ifdef LCD_ERROR
 #ifndef LCD_ERRNO
 #define LCD_ERRNO
 unsigned char lcd_errno = MY_OK;
@@ -49,13 +49,13 @@ unsigned char lcd_errno = MY_OK;
 #endif
 
 /*
- * error string 
+ * error string
  */
 unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 
 
 /*
- * LCD timing 
+ * LCD timing
  */
 #define LCD_BOOTUP_TIME 100
 #define LCD_ENABLE_PAUSE 100
@@ -96,12 +96,12 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 
 #define LCD_SET_EN_ZERO() {				\
 		LCD_CTRL_PORT &= ~(1 << LCD_EN_PIN);	\
-	}						
+	}
 
 
 #define LCD_SET_EN_ONE() {				\
 		LCD_CTRL_PORT |= (1 << LCD_EN_PIN);	\
-	}						
+	}
 
 
 /*
@@ -110,7 +110,7 @@ unsigned char *lcd_error_string = (unsigned char *) "LCD_ERROR";
 
 
 /*
- * -> reset lcd  
+ * -> reset lcd
  */
 void
 lcd_reset_lcd(void);

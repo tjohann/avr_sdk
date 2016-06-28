@@ -1,7 +1,7 @@
 /*
-  template - simple template for using my avr_sdk and libs for small 
+  template - simple template for using my avr_sdk and libs for small
              microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -23,16 +23,16 @@
 
 /*
  * common defines
- * 
+ *
  * -> DELAYTIME ... the normal blink time
  * -> DELAYTIME_ON_ERROR ... the blinking time to indicate an error
  *
- * -> STATE_UNKNOWN ... state of template is unknown 
+ * -> STATE_UNKNOWN ... state of template is unknown
  * -> STATE_OK ... everthing is up and running
  * -> STATE_ERROR ... an error occured
  * -> STATE_INIT_DONE ... init finished
- * -> STATE_SERIAL_INIT_DONE ... init of serial finished -> used serial 
- *                               in error_indication 
+ * -> STATE_SERIAL_INIT_DONE ... init of serial finished -> used serial
+ *                               in error_indication
  * -> ...
  */
 #define DELAYTIME 1000
@@ -55,11 +55,11 @@ unsigned char state_of_template = STATE_UNKNOWN;
 /*
  * -> init hw
  */
-void 
-__attribute__((noinline)) init_template(void) 
+void
+__attribute__((noinline)) init_template(void)
 {
 	// set ddr for led pin
-	SET_BIT(LED_DDR, LED_PIN);            
+	SET_BIT(LED_DDR, LED_PIN);
 }
 
 
@@ -67,14 +67,14 @@ __attribute__((noinline)) init_template(void)
  * -> let the led blink on errors or send error_string via serial
  */
 void
-error_indication(const unsigned char *error_string) 
+error_indication(const unsigned char *error_string)
 {
 #if COMMUNICATION_PATH == __SERIAL__
 	if (state_of_template & STATE_SERIAL_INIT_DONE) {
 		if (error_string != NULL)
 			serial_send_string(error_string);
 		else
-			SET_BIT(LED_PORT, LED_PIN);	
+			SET_BIT(LED_PORT, LED_PIN);
 #elif COMMUNICATION_PATH == __LCD__
 	if (state_of_template & STATE_LCD_INIT_DONE) {
 		if (error_string != NULL)
@@ -86,7 +86,7 @@ error_indication(const unsigned char *error_string)
 		while (1) {
 			SET_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
-			
+
 			CLEAR_BIT(LED_PORT, LED_PIN);
 			_delay_ms(DELAYTIME_ON_ERROR);
 		}
@@ -96,10 +96,10 @@ error_indication(const unsigned char *error_string)
 /*
  * set LED on PB0 and clears it after DELAYTIME
  */
-int 
-__attribute__((OS_main)) main(void) 
+int
+__attribute__((OS_main)) main(void)
 {
-	
+
 #if COMMUNICATION_PATH == __SERIAL__
 	const unsigned char greeting_string[] = "hello ... i'm an atmega168(pa)\n\r";
 	const unsigned char error_string[] = "an error occured ... pls check\n\r";
@@ -116,7 +116,7 @@ __attribute__((OS_main)) main(void)
 	/*
 	 * ---------- serial stuff ----------
 	 *
-	 * Note: dont use serial & lcd -> PIN conflict 
+	 * Note: dont use serial & lcd -> PIN conflict
 	 */
 #if USE_SERIAL == __YES__
 
@@ -125,22 +125,22 @@ __attribute__((OS_main)) main(void)
 	serial_setup_async_normal_mode(DATA_8_STOP_1_NO_PARITY);
 	if (serial_errno != MY_OK)
 		error_indication(error_string);
-	
+
 	// init serial done ... send greetings to peer
 	state_of_template |= STATE_SERIAL_INIT_DONE;
 	serial_send_string(greeting_string);
 
-	// get an char from peer and send it as ascii 
+	// get an char from peer and send it as ascii
 	byte = serial_receive_byte();
-	serial_send_byte(byte, SERIAL_SEND_ASCII);	
-#endif // COMMUNICATION_PATH 
+	serial_send_byte(byte, SERIAL_SEND_ASCII);
+#endif // COMMUNICATION_PATH
 
 #endif
 
 	/*
 	 * ---------- lcd stuff ----------
 	 *
-	 * Note: dont use serial & lcd -> PIN conflict 
+	 * Note: dont use serial & lcd -> PIN conflict
 	 */
 #if USE_LCD == __YES__
 
@@ -152,7 +152,7 @@ __attribute__((OS_main)) main(void)
 	// init lcd done ... send greetings to peer
 	state_of_template |= STATE_LCD_INIT_DONE;
 	lcd_send_string(greeting_string);
-#endif // COMMUNICATION_PATH      
+#endif // COMMUNICATION_PATH
 
 #endif
 
@@ -183,7 +183,7 @@ __attribute__((OS_main)) main(void)
 		lcd_set_cursor(5, LCD_LINE_3);
 		lcd_send_character('!');
 	}
-#endif	
+#endif
 
 #endif
 
@@ -200,7 +200,7 @@ __attribute__((OS_main)) main(void)
 	/*
 	 * ---------- init template stuff ----------
 	 */
-	// infrastructure is ready to use ... so my init is the next step 
+	// infrastructure is ready to use ... so my init is the next step
 	init_template();
 
         /*
@@ -236,14 +236,14 @@ __attribute__((OS_main)) main(void)
 #endif
 
 	while (1) {
-		
+
 		// led on
 		SET_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
-		
+
 		// led off
 		CLEAR_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
-		
+
 	}
 }

@@ -1,6 +1,6 @@
 /*
   my_fan_ctrl_modul - simple project with atmega168(pa)
-  
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 #include <string.h>
 
 /*
- * -> my avr_sdk libs 
+ * -> my avr_sdk libs
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>
@@ -59,7 +59,7 @@ extern unsigned char i2c_errno;
 
 
 /*
- * pins for control led 
+ * pins for control led
  *
  */
 #define LED_PIN PB0

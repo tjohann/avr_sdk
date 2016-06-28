@@ -1,7 +1,7 @@
 /*
   libavrspi/libarmspi - simple library as a handle of spi stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -30,12 +30,12 @@
 
 
 /*
- * -> enable spi 
+ * -> enable spi
  *
  *  spi_errno: SPI_INIT_DEFAULT
  */
-void 
-spi_setup_spi() 
+void
+spi_setup_spi()
 {
 
 /*

@@ -1,7 +1,7 @@
 /*
-  libavrserial/libarmserial - simple library as a handle for serial communication for 
+  libavrserial/libarmserial - simple library as a handle for serial communication for
                               small microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -31,7 +31,7 @@
 /*
  * -> setup USART0 for async mode at normal speed ... U2Xn=0
  */
-void 
+void
 serial_setup_async_normal_mode(serial_frame_type_t frame_type)
 {
 	serial_setup_usart(ASYNC_NORMAL,
@@ -42,7 +42,7 @@ serial_setup_async_normal_mode(serial_frame_type_t frame_type)
 /*
  * -> setup USART0 for async mode at double speed ... U2Xn=1
  */
-void 
+void
 serial_setup_async_double_speed(serial_frame_type_t frame_type)
 {
 	serial_setup_usart(ASYNC_DOUBLE,
@@ -53,7 +53,7 @@ serial_setup_async_double_speed(serial_frame_type_t frame_type)
 /*
  * -> setup USART0 for sync master mode
  */
-void 
+void
 serial_setup_sync_master(serial_frame_type_t frame_type)
 {
        	serial_setup_usart(SYNC_MASTER,
@@ -65,7 +65,7 @@ serial_setup_sync_master(serial_frame_type_t frame_type)
 /*
  * -> setup USART0 for sync slave mode
  */
-void 
+void
 serial_setup_sync_slave(serial_frame_type_t frame_type)
 {
        	serial_setup_usart(SYNC_SLAVE,
@@ -77,10 +77,10 @@ serial_setup_sync_slave(serial_frame_type_t frame_type)
 /*
  * -> init USART (private)
  */
-void 
+void
 serial_setup_usart(serial_op_mode_t op_mode,
 		   serial_frame_type_t frame_type,
-		   serial_enable_rxtx_t ena_rxtx) 
+		   serial_enable_rxtx_t ena_rxtx)
 {
 
 /*
@@ -95,11 +95,11 @@ serial_setup_usart(serial_op_mode_t op_mode,
 	 * #define F_CPU=1000000
 	 * #define BAUD 9600
 	 * -> include <util/setbaud.h>
-	 * UBRR0H = UBRRH_VALUE;                      
-	 * UBRR0L = UBRRL_VALUE; 
+	 * UBRR0H = UBRRH_VALUE;
+	 * UBRR0L = UBRRL_VALUE;
 	 */
-	UBRR0H = UBRRH_VALUE;                       
-	UBRR0L = UBRRL_VALUE;	
+	UBRR0H = UBRRH_VALUE;
+	UBRR0L = UBRRL_VALUE;
 
 	switch (op_mode) {
 	case ASYNC_NORMAL:
@@ -109,7 +109,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
  *       see http://www.mikrocontroller.net/articles/AVR-GCC-Tutorial/Der_UART for
  *       more information (sry only in german)
  */
- 
+
 #if USE_2X
 		SERIAL_ENA_DOUBLE_SPEED();
 #else
@@ -117,7 +117,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 #endif
 		break;
 	case ASYNC_DOUBLE:
-		SERIAL_SET_ASYNC_MODE();	
+		SERIAL_SET_ASYNC_MODE();
 #if USE_2X
 		SERIAL_ENA_DOUBLE_SPEED();
 #else
@@ -125,13 +125,13 @@ serial_setup_usart(serial_op_mode_t op_mode,
 #endif
 		break;
 	case SYNC_MASTER:
-		SERIAL_SET_SYNC_MODE();	
+		SERIAL_SET_SYNC_MODE();
 		/*
 		 * -> TODO: fill me ...
 		 */
 		break;
 	case SYNC_SLAVE:
-		SERIAL_SET_SYNC_MODE();	
+		SERIAL_SET_SYNC_MODE();
 		/*
 		 * -> TODO: fill me ...
 		 */
@@ -159,7 +159,7 @@ serial_setup_usart(serial_op_mode_t op_mode,
 		break;
 	case ENA_TX:
 		SERIAL_DIS_RX();
-		SERIAL_ENA_TX();	
+		SERIAL_ENA_TX();
 		break;
 	default:
 		// enable TX and RX
@@ -200,8 +200,8 @@ serial_setup_usart(serial_op_mode_t op_mode,
 /*
  * -> send data (polling)
  */
-void 
-serial_send_data(const unsigned short data) 
+void
+serial_send_data(const unsigned short data)
 {
 	unsigned char send_data = 0x00;
 
@@ -210,8 +210,8 @@ serial_send_data(const unsigned short data)
  */
 #if CONTROLLER_FAMILY == __AVR__
 	/*
-	 * Check if UDRE0 (Data Register Empty) is set, 
-	 * otherwise wait ... and wait ... 
+	 * Check if UDRE0 (Data Register Empty) is set,
+	 * otherwise wait ... and wait ...
 	 *
 	 * Note: 9 bit mode uses TXB8n for the 9. bit
 	 */
@@ -221,13 +221,13 @@ serial_send_data(const unsigned short data)
 	if ((UCSR0B >> UCSZ02) & 1) { // 9 bit mode
 		if (data & 0x0100)
 			UCSR0B |= (1 << TXB80);
-		else 
+		else
 			UCSR0B &= ~(1 << TXB80);
-        } 
-		
+        }
+
 	send_data = (0xFF) & data;
-	UDR0 = send_data;   // will change state of send fifo       
-	
+	UDR0 = send_data;   // will change state of send fifo
+
 #endif  // AVR
 
 /*
@@ -242,7 +242,7 @@ serial_send_data(const unsigned short data)
 /*
  * -> send byte (polling)
  */
-void 
+void
 serial_send_byte(const unsigned char byte,
 		 serial_send_mode_t mode)
 {
@@ -251,8 +251,8 @@ serial_send_byte(const unsigned char byte,
  */
 #if CONTROLLER_FAMILY == __AVR__
 	/*
-	 * Check if UDRE0 (Data Register Empty) is set, 
-	 * otherwise wait ... and wait ... 
+	 * Check if UDRE0 (Data Register Empty) is set,
+	 * otherwise wait ... and wait ...
 	 */
 	while (!(UCSR0A & (1 << UDRE0)))
 		;
@@ -260,7 +260,7 @@ serial_send_byte(const unsigned char byte,
 	switch (mode)
 	{
 	case SERIAL_SEND_NORMAL:
-		UDR0 = byte;   // will change state of send fifo       
+		UDR0 = byte;   // will change state of send fifo
 		break;
 	case SERIAL_SEND_ASCII:
 		// first char
@@ -279,7 +279,7 @@ serial_send_byte(const unsigned char byte,
 #if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_DEFAULT;
 #endif
-		UDR0 = byte;        
+		UDR0 = byte;
 	}
 
 #endif  // AVR
@@ -297,8 +297,8 @@ serial_send_byte(const unsigned char byte,
 /*
  * -> send string (polling)
  */
-void 
-serial_send_string(const unsigned char *data) 
+void
+serial_send_string(const unsigned char *data)
 {
 	while (*data != '\0')
 		serial_send_byte(*data++, SERIAL_SEND_NORMAL);
@@ -308,11 +308,11 @@ serial_send_string(const unsigned char *data)
 /*
  * -> receive data (polling)
  */
-unsigned short 
-serial_receive_data(void) 
+unsigned short
+serial_receive_data(void)
 {
 	unsigned short received_data = 0x0000;
-	unsigned char data = 0x00, ninth_bit = 0x00; 
+	unsigned char data = 0x00, ninth_bit = 0x00;
 	unsigned char state_bits = 0x00, state = 0x00;
 
 /*
@@ -320,8 +320,8 @@ serial_receive_data(void)
  */
 #if CONTROLLER_FAMILY == __AVR__
 	/*
-	 * Check if RXC0 (Receive Complete Flag) is set, 
-	 * otherwise wait ... and wait ... 
+	 * Check if RXC0 (Receive Complete Flag) is set,
+	 * otherwise wait ... and wait ...
 	 *
 	 * Note: 9 bit mode uses RXB8n for the 9. bit
 	 */
@@ -329,7 +329,7 @@ serial_receive_data(void)
 		;
 
 	/*
-	 * addtional state bits 
+	 * addtional state bits
 	 *
 	 * -> FEn Frame Error
 	 * -> DORn Data OverRun
@@ -338,7 +338,7 @@ serial_receive_data(void)
 	state_bits = (1 << FE0) | (1 << DOR0) | (1 << UPE0);
 
 	/*
-	 * Note: the order is important 
+	 * Note: the order is important
 	 */
 	state = UCSR0A;
 	ninth_bit = (UCSR0B >> RXB80) & 1;
@@ -347,9 +347,9 @@ serial_receive_data(void)
 	if (state & state_bits) {
 #if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_ERROR;
-#endif		
+#endif
 		received_data = 0x00;
-	} else {		
+	} else {
 #if SERIAL_ERROR == __ON__
 		serial_errno = MY_OK;
 #endif
@@ -372,8 +372,8 @@ serial_receive_data(void)
 /*
  * -> receive byte (polling)
  */
-unsigned char 
-serial_receive_byte(void) 
+unsigned char
+serial_receive_byte(void)
 {
 	unsigned char data = 0x00;
 	unsigned char state_bits = 0x00, state = 0x00;
@@ -383,8 +383,8 @@ serial_receive_byte(void)
  */
 #if CONTROLLER_FAMILY == __AVR__
 	/*
-	 * Check if RXC0 (Receive Complete Flag) is set, 
-	 * otherwise wait ... and wait ... 
+	 * Check if RXC0 (Receive Complete Flag) is set,
+	 * otherwise wait ... and wait ...
 	 */
 	while (!(UCSR0A & (1 << RXC0)))
 		;
@@ -397,9 +397,9 @@ serial_receive_byte(void)
 	if (state & state_bits) {
 #if SERIAL_ERROR == __ON__
 		serial_errno = SERIAL_RCV_ERROR;
-#endif		
+#endif
 		data = 0x00;
-	} else {		
+	} else {
 #if SERIAL_ERROR == __ON__
 		serial_errno = MY_OK;
 #endif

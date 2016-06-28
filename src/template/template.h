@@ -1,7 +1,7 @@
 /*
-  template - simple template for using my avr_sdk and libs for small 
+  template - simple template for using my avr_sdk and libs for small
              microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -26,7 +26,7 @@
 #include <string.h>
 
 /*
- * -> my avr_sdk libs 
+ * -> my avr_sdk libs
  */
 #include <avr_compile_macros.h>
 #include <libavrhelper.h>

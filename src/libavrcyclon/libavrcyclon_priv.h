@@ -1,7 +1,7 @@
 /*
-  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr) 
-                              or cortex-m3(arm) devices 
- 
+  libavrcyclon/libarmcyclon - simple knight rider lib for small microcontroller(avr)
+                              or cortex-m3(arm) devices
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@
 #include <avr/io.h>
 
 #define __DELAY_BACKWARD_COMPATIBLE__
-#include <util/delay.h> 
+#include <util/delay.h>
 
 
 #if USE_CYCLON == __YES__

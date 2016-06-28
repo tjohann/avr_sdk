@@ -1,6 +1,6 @@
 /*
-  avr_defines_display.h - some common defines for lcd usage 
- 
+  avr_defines_display.h - some common defines for lcd usage
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -19,11 +19,11 @@
 */
 
 #ifndef _AVR_DEFINES_DISPLAY_H_
-#define _AVR_DEFINES_DISPLAY_H_   
+#define _AVR_DEFINES_DISPLAY_H_
 
 
 /*
- * LCD pinning 
+ * LCD pinning
  */
 #if LCD_COMMON_PORT == __PORT_A__
 #define LCD_PORT PORTA

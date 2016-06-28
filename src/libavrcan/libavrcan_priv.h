@@ -1,7 +1,7 @@
 /*
   libavrcan/libarmcan - simple library as a handle of can stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -35,11 +35,11 @@
 /*
  * can errno stuff
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       CAN_ERROR is the general switch
- *       CAN_ERRNO for can_errno which holds can_error_t values 
+ *       CAN_ERRNO for can_errno which holds can_error_t values
  */
-#ifdef CAN_ERROR 
+#ifdef CAN_ERROR
 #ifndef CAN_ERRNO
 #define CAN_ERRNO
 unsigned char can_errno = MY_OK;
@@ -49,7 +49,7 @@ unsigned char can_errno = MY_OK;
 #endif
 
 /*
- * error string 
+ * error string
  */
 unsigned char *can_error_string = (unsigned char *) "CAN_ERROR";
 

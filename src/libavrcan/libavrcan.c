@@ -1,7 +1,7 @@
 /*
   libavrcan/libarmcan - simple library as a handle of can stuff for small
                         microcontroller(avr) and cortex-m3(arm) devices
- 
+
   Copyright (C) 2014 Thorsten Johannvorderbrueggen <thorsten.johannvorderbrueggen@t-online.de>
 
   This library is free software; you can redistribute it and/or
@@ -32,8 +32,8 @@
 /*
  * -> setup can
  */
-void 
-can_setup_can(void) 
+void
+can_setup_can(void)
 {
 
 /*

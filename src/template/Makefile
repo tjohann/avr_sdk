@@ -1,6 +1,6 @@
 ########################################################
 #
-# template makefile 
+# template makefile
 #
 ########################################################
 #
@@ -10,12 +10,12 @@ include $(PROJECT_CONTROLLER)
 
 # target + source file (NOTE: only one src file)
 TARGET = template
-USED_LIBS = avrhelper -lavrserial -lavradc -lavrlcd -lavri2c -lavrcan -lavrcyclon 
+USED_LIBS = avrhelper -lavrserial -lavradc -lavrlcd -lavri2c -lavrcan -lavrcyclon
 SRC = template.c
 HEADER = template.h
 
 #
-# common controller defines 
+# common controller defines
 #
 # -> see my_m*_env
 
@@ -29,10 +29,10 @@ HEADER = template.h
 #
 CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL
 OPT_FLAGS = -Os
-COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY) 
-COMPILER_SWITCHES += -DUSE_SERIAL=$(USE_SERIAL) -DUSE_CYCLON=$(USE_CYCLON) -DUSE_LCD=$(USE_LCD) -DUSE_ADC=$(USE_ADC) -DUSE_I2C=$(USE_I2C) -DUSE_CAN=$(USE_CAN) 
-COMPILER_SWITCHES += -DSERIAL_ERROR=$(SERIAL_ERROR) -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR) -DI2C_ERROR=$(I2C_ERROR) -DCAN_ERROR=$(CAN_ERROR)   
-COMPILER_SWITCHES += -DCOMMUNICATION_PATH=$(COMMUNICATION_PATH) 
+COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY)
+COMPILER_SWITCHES += -DUSE_SERIAL=$(USE_SERIAL) -DUSE_CYCLON=$(USE_CYCLON) -DUSE_LCD=$(USE_LCD) -DUSE_ADC=$(USE_ADC) -DUSE_I2C=$(USE_I2C) -DUSE_CAN=$(USE_CAN)
+COMPILER_SWITCHES += -DSERIAL_ERROR=$(SERIAL_ERROR) -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR) -DI2C_ERROR=$(I2C_ERROR) -DCAN_ERROR=$(CAN_ERROR)
+COMPILER_SWITCHES += -DCOMMUNICATION_PATH=$(COMMUNICATION_PATH)
 
 #
 # common fuses in $(AVR_HOME)/include/defines_m*.mk
@@ -43,14 +43,14 @@ export FUSE_STRING = -U lfuse:w:${LFUSE}:m -U hfuse:w:${HFUSE}:m -U efuse:w:${EF
 # ---------  BUILD all in a single step ----------
 #
 all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.hex $(TARGET)_eeprom.srec $(TARGET)_eeprom.bin $(TARGET).lst
-	@echo "|| "	
+	@echo "|| "
 	@echo "|| -->   Finished building $(TARGET).* of $(SRC) "
 	@echo "|| "
 
 #
 # -> compile to object file and link them all to elf
 #
-# Note: split compile and linkage although only one src file 
+# Note: split compile and linkage although only one src file
 %.elf: $(SRC) $(HEADER)
 	@echo " "
 	@echo "|| "
@@ -65,21 +65,21 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 #
 %.hex: %.elf
 	@echo " "
-	@echo "|| "	
+	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).hex "
 	@echo "|| "
 	$(AVR-OBJCOPY) -R .eeprom -O ihex $< $@
 
 %.srec: %.elf
 	@echo " "
-	@echo "|| "	
+	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).srec "
 	@echo "|| "
 	$(AVR-OBJCOPY) -R .eeprom -O srec $< $@
 
 %.bin: %.elf
 	@echo " "
-	@echo "|| "	
+	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).bin "
 	@echo "|| "
 	$(AVR-OBJCOPY) -R .eeprom -O binary $< $@
@@ -93,21 +93,21 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).eeprom "
 	@echo "|| "
-	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O ihex $< $@ 
+	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O ihex $< $@
 
 %_eeprom.srec: %.elf
 	@echo " "
 	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).srec "
 	@echo "|| "
-	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O srec $< $@ 
+	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O srec $< $@
 
 %_eeprom.bin: %.elf
 	@echo " "
 	@echo "|| "
 	@echo "|| -->  Start building $(TARGET).bin "
 	@echo "|| "
-	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@ 
+	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@
 
 
 %.lst: %.elf
@@ -118,8 +118,8 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	$(AVR-OBJDUMP) -h -S $< > $@
 
 
-# 
-# -> surprise surpirse a cleanup tag 
+#
+# -> surprise surpirse a cleanup tag
 #
 clean:
 	rm -rf *~ *.i *.s *.elf *.hex *.bin *.srec *.obj *.o *.eeprom *.lst *.map core.d
@@ -144,7 +144,7 @@ eeprom: $(TARGET).elf
 	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $(TARGET)_eeprom.bin
 
 
-# 
+#
 # show mem usage ... for more use tag readelf
 #
 size: $(TARGET).elf
@@ -168,11 +168,11 @@ readelf: $(TARGET).elf
 #
 # --------- fuses programming ----------
 #
-fuses_prog: 
+fuses_prog:
 	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) $(FUSE_STRING)
 
 fuses_read:
-	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) -nv	
+	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) -nv
 
 fuses_prog_defaults:
 	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) $(FUSE_DEFAULT)
@@ -184,7 +184,7 @@ fuses_prog_defaults:
 #
 flash_all: flash flash_eeprom
 
-flash: $(TARGET).hex 
+flash: $(TARGET).hex
 	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) -U flash:w:$<
 
 flash_eeprom: $(TARGET).eeprom

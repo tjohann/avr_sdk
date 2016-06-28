@@ -43,24 +43,24 @@ typedef enum spi_errors {
  * spi errno stuff
  *
  * HOTWO: use spi_errno
- * -> a global variable is defined and set to default by 
+ * -> a global variable is defined and set to default by
  *    this lib -> unsigned char spi_errno = MY_OK;
  * -> in YOUR header file add the folling declaration
- *    extern unsigned char spi_errno; 
- * -> if something goes wrong, then the functions set spi_errno to 
- *    an value of spi_errors_t 
+ *    extern unsigned char spi_errno;
+ * -> if something goes wrong, then the functions set spi_errno to
+ *    an value of spi_errors_t
  * -> if everthing works fine, then spi_errno is set to MY_OK (see libavrhelper.h)
  * -> for an example see template.* in src/template
  *
- * Note: of course not reentrant 
+ * Note: of course not reentrant
  *       SPI_ERROR is the general switch
- *       SPI_ERRNO for spi_errno which holds spi_error_t values 
+ *       SPI_ERRNO for spi_errno which holds spi_error_t values
  *       unsigned char *spi_error_string = "SPI_ERROR" for a common error string
- * 
+ *
  */
 
-#ifndef SPI_ERROR  
-#define SPI_ERROR OFF  
+#ifndef SPI_ERROR
+#define SPI_ERROR OFF
 #  warning "SPI_ERROR not defined, use OFF"
 #endif
 

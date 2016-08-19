@@ -152,7 +152,8 @@ size: $(TARGET).elf
 	@echo "|| "
 	@echo "|| --> Mem usage "
 	@echo "|| "
-	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
+	$(AVRSIZE) $(TARGET).elf
+#	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
 
 #
 # show defailed elf infos

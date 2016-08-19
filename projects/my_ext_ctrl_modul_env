@@ -17,8 +17,14 @@ export F_CPU=16000000
 #                  export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 #
 export PROGRAMMER=avrdude
-export PROGRAMMER_HW=stk500
-export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+
+# use avr-isp
+export PROGRAMMER_HW=avrispmkii
+export PROGRAMMER_ARGS=" -P usb"
+
+# use stk500
+#export PROGRAMMER_HW=stk500
+#export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 
 #
 # export project specific definitions

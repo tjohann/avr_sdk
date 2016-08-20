@@ -6,4 +6,4 @@ all:
 
 .PHONY: clean
 clean:
-	rm -f *~ *.o lib*.h
+	rm -f *~ *.o lib*.h .*~

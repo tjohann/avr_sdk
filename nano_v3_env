@@ -1,0 +1,105 @@
+# +-------------------------- setup the my personal env -----------------------+
+# |                                nano_v3_env                                 |
+# +----------------------------------------------------------------------------+
+
+#
+# for adding to .bashrc
+#
+## setup the avr environment
+#if [ -f ~/avr_sdk/nano_v3_env ]; then
+#    cd ~/avr_sdk
+#    . ~/avr_sdk/nano_v3_env
+#    cd -
+#fi
+
+. ./env_avr_dev_latest
+
+# common controller defines
+export MCU=atmega328p
+export F_CPU=1600000
+export BAUD=9600
+
+#
+# my programmer -> Olimex AVR-ISP-MK2
+#
+export PROGRAMMER=avrdude
+export PROGRAMMER_HW=avrispmkii
+export PROGRAMMER_ARGS=" -P usb"
+
+#
+# export project specific definitions
+#
+export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m168p.mk"
+#echo $PROJECT_CONTROLLER
+
+#
+# want to use SERIAL?
+#
+export USE_SERIAL=__YES__
+
+#
+# want to use LCD?
+#
+export USE_LCD=__NO__
+
+#
+# want to use ADC?
+#
+export USE_ADC=__YES__
+
+#
+# use __LCD__ or __SERIAL__
+#
+export COMMUNICATION_PATH=__SERIAL__
+
+#
+# want to use CYCLON?
+#
+# Note: dont forget to define CYCLON_PORT
+#
+export USE_CYCLON=__NO__
+
+#
+# led port for cylcon eyes
+#
+# -> __PORT_A__
+# -> __PORT_B__
+# -> __PORT_C__
+# -> __PORT_D__
+# -> __NONE__
+#
+export CYCLON_PORT=__NONE__
+
+#
+# lcd port
+#
+# -> __PORT_A__
+# -> __PORT_B__
+# -> __PORT_C__
+# -> __PORT_D__
+# -> __NONE__
+#
+# Note: the definition of which pin of lcd is connected to
+#       which controller pin is done in include/avr_compile_macros.h
+#
+export LCD_COMMON_PORT=__NONE__
+
+#
+# want to use I2C?
+#
+#
+export USE_I2C=__YES__
+
+#
+# want to use SPI?
+#
+#
+export USE_SPI=__NO__
+
+#
+# want to use CAN?
+#
+#
+export USE_CAN=__NO__
+
+echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

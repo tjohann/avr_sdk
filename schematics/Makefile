@@ -1,6 +1,6 @@
 # only for cleaning :-)
 
-SUBDIRS = atmega32_board
+SUBDIRS = 
 
 .PHONY: all
 all:

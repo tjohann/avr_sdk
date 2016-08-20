@@ -5,8 +5,7 @@
 # high_fuses=0xde
 # extended_fuses=0x05
 
-
-# atmege368 defaults
+# atmege328 defaults
 LFUSE_DEF = 0x62
 # full-speed-mode -> CLDIV8 = 1
 # -> LFUSE = 0xE2
@@ -15,8 +14,8 @@ HFUSE_DEF = 0xdf
 # -> HFUSE = 0xD7
 EFUSE_DEF = 0x00
 
-# atmega168 project specific
-LFUSE = 0x62
+# atmega328 project specific
+LFUSE = 0xe2
 HFUSE = 0xdf
 EFUSE = 0x00
 

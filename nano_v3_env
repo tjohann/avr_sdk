@@ -2,17 +2,11 @@
 # |                                nano_v3_env                                 |
 # +----------------------------------------------------------------------------+
 
-#
-# for adding to .bashrc
-#
-## setup the avr environment
-#if [ -f ~/avr_sdk/nano_v3_env ]; then
-#    cd ~/avr_sdk
-#    . ~/avr_sdk/nano_v3_env
-#    cd -
-#fi
+# set avr home
+export AVR_HOME=${HOME}/avr_sdk
 
-. ./env_avr_dev_latest
+# extend PATH
+export PATH=${AVR_HOME}/bin::$PATH
 
 # common controller defines
 export MCU=atmega328p

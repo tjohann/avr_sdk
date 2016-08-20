@@ -42,7 +42,7 @@ my_fan_ctrl_modul -> This is a small module based on an atmega168(pa) with seria
 
 		     usecase:
 
-		     +--------------------------------+           +-------------------+
+	     +--------------------------------+           +-------------------+
              |                                |           |                   |
              |       my_fan_ctrl_modul        |<-- CAN -->| my_ext_ctrl_modul |
              |                                |           |                   |
@@ -64,5 +64,3 @@ my_usb_i2c_shifter -> This is a small module based on an atmega169(pa) with seri
 		     | Linux-board/pc |<-- USB -->|  usb<->i2c  |<-- I2C -->| my_ext_ctrl_modul |
 		     |                |           |             |           |                   |
  		     +----------------+           +-------------+           +-------------------+
-
-F

@@ -3,6 +3,8 @@ AVR_SDK
 
 A simple sdk with libs and tools for using with 8 bit controller.
 
+WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use create an issue (https://github.com/tjohann/avr_sdk/issues).
+
 
 Setup AVR dev environment
 --------------------------
@@ -13,23 +15,17 @@ This is a short introduction for using my avr_sdk.
 Files
 -----
 
-	- Documentation ... some usefull documentation
-	- env_avr_dev_latest -> env_avr_dev_v1
-	- env_avr_dev_v1 ... env script which set needed variables
-	  usage: ~/avr_sdk$. ./env_avr_dev_latest
+	- Documentation ... some useful documentation
 	- include ... the avr specific headers
 	  usage: see ~/avr_sdk/src/template for usage
 	- lib ... the avr specific libs
-      usage: see ~/avr_sdk/src/template for usage
+      	  usage: see ~/avr_sdk/src/template for usage
 	- my_m168p_env/my_m32_env ... the controller specific config
-      usage: ~/avr_sdk$. ./my_m168p_env
+      	  usage: ~/avr_sdk$. ./my_m168p_env
 	- src ... sources for avr specific libs and tools
 	- projects ... here are my real projects
-	Note: - to build a project, you have to source the corresponding env file in
-            projects -> my_ext_ctrl_modul_env as an example
-		  - this env files only include needed switches and not more (like my_m32_env)
-		  - a build started in $(AVR_SDK_HOME) wont build projects!
-	- FEATURE_OVERVIEW ... a short decription of the feartures and the configuration
+	  Note: to build a project, you have to source the corresponding env file
+   	- FEATURE_OVERVIEW ... a short decription of the feartures and the configuration
 
 
 General usage
@@ -55,11 +51,8 @@ HOTWO use it
 ------------
 
 Check Notes file and also
-
 Check the template for a general overview and/or check the lib*s ...
-
 Check FEATURE_OVERVIEW and
-
 Check HOWTO
 
 

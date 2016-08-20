@@ -1,18 +1,12 @@
-# +----------------------------- setup the my personal env ----------------------------+
-# |                                    my_m168p_env                                    |
-# +------------------------------------------------------------------------------------+
+# +------------------------- setup the my personal env ------------------------+
+# |                                my_m168p_env                                |
+# +----------------------------------------------------------------------------+
 
-#
-# for adding to .bashrc
-#
-## setup the avr environment
-#if [ -f ~/avr_sdk/my_m168p_env ]; then
-#    cd ~/avr_sdk
-#    . ~/avr_sdk/my_m168p_env
-#    cd -
-#fi
+# set avr home
+export AVR_HOME=${HOME}/avr_sdk
 
-. ./env_avr_dev_latest
+# extend PATH
+export PATH=${AVR_HOME}/bin::$PATH
 
 # common controller defines
 export MCU=atmega168p
@@ -20,14 +14,23 @@ export F_CPU=1000000
 export BAUD=9600
 
 #
+# OLD-Stuff:
+#
 # my programmer -> a old stk500 on usb<->serial adapter
 #                  export PROGRAMMER_ARGS=" -P /dev/ttyUSB0"
 #               -> a old stk500 direkt conected
 #                  export PROGRAMMER_ARGS=" -P /dev/ttyS0"
 #
+# export PROGRAMMER=avrdude
+# export PROGRAMMER_HW=stk500
+# export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+
+#
+# my programmer -> Olimex AVR-ISP-MK2
+#
 export PROGRAMMER=avrdude
-export PROGRAMMER_HW=stk500
-export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+export PROGRAMMER_HW=avrispmkii
+export PROGRAMMER_ARGS=" -P usb"
 
 #
 # export project specific definitions

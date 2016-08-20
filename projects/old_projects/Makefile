@@ -1,4 +1,5 @@
-MODULES = old_projects
+MODULES = my_ext_ctrl_modul my_fan_ctrl_modul my_usb_i2c_shifter
+FLASH = my_ext_ctrl_modul
 
 all::
 	@echo " "
@@ -14,3 +15,9 @@ install::
 	@echo " "
 	@echo "--> Nothing to install "
 	@echo " "
+
+flash::
+	@echo " "
+	@echo "--> Flashing $(FLASH) "
+	@echo " "
+	for dir in $(FLASH); do (cd $$dir && $(MAKE) $@); done

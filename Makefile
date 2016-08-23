@@ -1,5 +1,9 @@
 main = none
 
+ifeq "${AVR_HOME}" ""
+    $(error error: please source armhf_env first!)
+endif
+
 #include include/defines.mk
 
 MODULES = src

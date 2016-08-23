@@ -20,7 +20,7 @@ HEADER = template.h
 # -> see my_m*_env
 
 #
-# my programmer -> a old stk500 on usb<->serial adapter
+# my programmer
 #
 # -> see my_m*_env
 

@@ -1,6 +1,6 @@
 # only for cleaning :-)
 
-SUBDIRS = 
+SUBDIRS =
 
 .PHONY: all
 all:

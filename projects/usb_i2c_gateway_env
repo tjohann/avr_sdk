@@ -1,0 +1,16 @@
+# +----------------------------- setup the my personal env -------------------+
+# |                                usb_i2c_gateway_env                        |
+# +---------------------------------------------------------------------------+
+
+cd ..
+. ./nano_v3_env
+cd projects
+
+
+#
+# want to use ADC?
+#
+export USE_ADC=__NO__
+
+
+echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

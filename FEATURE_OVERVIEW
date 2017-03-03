@@ -6,15 +6,15 @@ Feature:	File:		Controller:	  libavr*:         Useable?        Build?
 
 USE_SERIAL 	my_m168p_env	atmega168(pa)     libavrserial	   __YES__	   __YES__
 		my_m32_env	atmega32          	           __NO__	   __NO__   (~1)
-		nano_v3_env	atmega328
+		nano_v3_env	atmega328                          __YES__	   __YES__
 
 USE_LCD		my_m168p_env	atmega168(pa)     libavrlcd	   __NO__ (~2)	   __YES__
-		my_m32_env	atmega32          	           __YES__	   __YSE__
-		nano_v3_env	atmega328
+		my_m32_env	atmega32          	           __YES__	   __YES__
+		nano_v3_env	atmega328                          __NO__ (~2)	   __YES__
 
 USE_CYCLON      my_m168p_env	atmega168(pa)     libavradc	   __YES__ 	   __YES__
 		my_m32_env	atmega32          	           __YES__	   __YES__
-		nano_v3_env	atmega328
+		nano_v3_env	atmega328                          __NO__ (~2)	   __YES__
 
 
 Notes:

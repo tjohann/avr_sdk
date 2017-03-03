@@ -1,10 +1,17 @@
-MODULES = old_projects
+#
+# my simple makefile act as something like a user interface
+#
+
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
+
+MODULES = $(shell ls -d */ | cut -f1 -d'/')
 
 all::
 	@echo " "
-	@echo "--> Building $(MODULES) "
+	@echo "--> Nothing to do"
 	@echo " "
-	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
 
 clean::
 	rm -f *~ *.o .*~
@@ -12,5 +19,6 @@ clean::
 
 install::
 	@echo " "
-	@echo "--> Nothing to install "
+	@echo "--> Nothing to do"
 	@echo " "
+

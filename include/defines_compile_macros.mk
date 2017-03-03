@@ -2,10 +2,9 @@
 #
 # Note: also edit avr/arm_compile_macros.h if needed
 
-# which controller do i use?
-# -> __AVR__
-# -> __ARM__ (cortex-m3)
-CONTROLLER_FAMILY = __AVR__
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
 
 # ----------- ERRNO parts -------------
 

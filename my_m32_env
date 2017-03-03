@@ -36,6 +36,7 @@ export PROGRAMMER_ARGS=" -P usb"
 # export project specific definitions
 #
 export PROJECT_CONTROLLER="${AVR_HOME}/include/defines_m32.mk"
+#echo $PROJECT_CONTROLLER
 
 #
 # want to use SERIAL?

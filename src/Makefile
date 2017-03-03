@@ -1,6 +1,13 @@
+#
+# my simple makefile act as something like a user interface
+#
+
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
+
 MODULES = template
-FLASH = template
-AVR_LIBS = libavrhelper libavrserial libavradc libavrlcd libavri2c libavrspi libavrcan libavrcyclon
+AVR_LIBS = libhelper libserial libadc liblcd libi2c libspi libcan libcyclon
 
 all::
 	@echo " "
@@ -22,9 +29,3 @@ install::
 	@echo "--> Install $(AVR_LIBS) "
 	@echo " "
 	for dir in $(AVR_LIBS); do (cd $$dir && $(MAKE) $@); done
-
-flash::
-	@echo " "
-	@echo "--> Flashing $(FLASH) "
-	@echo " "
-	for dir in $(FLASH); do (cd $$dir && $(MAKE) $@); done

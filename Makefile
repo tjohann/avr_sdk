@@ -1,7 +1,9 @@
-main = none
+#
+# my simple makefile act as something like a user interface
+#
 
 ifeq "${AVR_HOME}" ""
-    $(error error: please source armhf_env first!)
+    $(error error: please source a *_env file first!)
 endif
 
 #include include/defines.mk
@@ -33,14 +35,6 @@ install:: all
 	@echo "+-----------------------------------------------+"
 	@echo "|                                               |"
 	@echo "|            Install all in src                 |"
-	@echo "|                                               |"
-	@echo "+-----------------------------------------------+"
-	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done
-
-flash::
-	@echo "+-----------------------------------------------+"
-	@echo "|                                               |"
-	@echo "|            Flashing template                  |"
 	@echo "|                                               |"
 	@echo "+-----------------------------------------------+"
 	for dir in $(MODULES); do (cd $$dir && $(MAKE) $@); done

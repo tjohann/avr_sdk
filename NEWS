@@ -1,5 +1,8 @@
 # THE LATEST NEWS
 
+2017-03-03 -> a lot of cleanups (really a lot) and docu additions
+	      add skeleton for a new project -> an i2c<->usb gateway for linux
+
 2016-04-18 -> some smaller cleanups
 	      start implement new architecture
 

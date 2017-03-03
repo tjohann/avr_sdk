@@ -1,4 +1,4 @@
-# common defines for m328
+# common defines for m328 (-> nano v3)
 
 # arduino default fuses
 # low_fuses=0xff
@@ -26,6 +26,6 @@ FUSE_DEFAULT = -U lfuse:w:$(LFUSE_DEF):m -U hfuse:w:$(HFUSE_DEF):m -U efuse:w:$(
 # Note:
 #       set also FUSE_STRING in project makefile
 #
-# to add some useful changes set the below values
+# to add some useful changes, set the below values
 # full-speed-mode -> CLDIV8 = 1 -> LFUSE = 0xE2
 # preserve eeprom across flashing -> HFUSE = 0xD7

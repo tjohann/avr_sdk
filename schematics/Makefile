@@ -1,5 +1,10 @@
 # only for cleaning :-)
 
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
+
+
 SUBDIRS =
 
 .PHONY: all

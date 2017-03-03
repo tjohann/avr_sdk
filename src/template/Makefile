@@ -1,38 +1,33 @@
-########################################################
 #
 # template makefile
 #
-########################################################
-#
+
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
+
 include $(AVR_HOME)/include/defines.mk
 include $(AVR_HOME)/include/defines_compile_macros.mk
 include $(PROJECT_CONTROLLER)
 
-# target + source file (NOTE: only one src file)
+
 TARGET = template
-USED_LIBS = avrhelper -lavrserial -lavradc -lavrlcd -lavri2c -lavrcan -lavrcyclon
+USED_LIBS = helper -lserial -ladc -llcd -li2c -lcan -lcyclon
 SRC = template.c
 HEADER = template.h
 
-#
-# common controller defines
-#
-# -> see my_m*_env
-
-#
-# my programmer
-#
-# -> see my_m*_env
 
 #
 # common CFLAGS in $(AVR_HOME)/include/defines.mk
 #
 CONTROLLER = -mmcu=$(MCU) -DF_CPU=$(F_CPU)UL
 OPT_FLAGS = -Os
-COMPILER_SWITCHES = -DCONTROLLER_FAMILY=$(CONTROLLER_FAMILY)
-COMPILER_SWITCHES += -DUSE_SERIAL=$(USE_SERIAL) -DUSE_CYCLON=$(USE_CYCLON) -DUSE_LCD=$(USE_LCD) -DUSE_ADC=$(USE_ADC) -DUSE_I2C=$(USE_I2C) -DUSE_CAN=$(USE_CAN)
-COMPILER_SWITCHES += -DSERIAL_ERROR=$(SERIAL_ERROR) -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR) -DI2C_ERROR=$(I2C_ERROR) -DCAN_ERROR=$(CAN_ERROR)
+COMPILER_SWITCHES = -DUSE_SERIAL=$(USE_SERIAL) -DUSE_CYCLON=$(USE_CYCLON) -DUSE_LCD=$(USE_LCD)
+COMPILER_SWITCHES += -DUSE_ADC=$(USE_ADC) -DUSE_I2C=$(USE_I2C) -DUSE_CAN=$(USE_CAN)
+COMPILER_SWITCHES += -DSERIAL_ERROR=$(SERIAL_ERROR) -DADC_ERROR=$(ADC_ERROR) -DLCD_ERROR=$(LCD_ERROR)
+COMPILER_SWITCHES += -DI2C_ERROR=$(I2C_ERROR) -DCAN_ERROR=$(CAN_ERROR)
 COMPILER_SWITCHES += -DCOMMUNICATION_PATH=$(COMMUNICATION_PATH)
+
 
 #
 # common fuses in $(AVR_HOME)/include/defines_m*.mk
@@ -42,7 +37,7 @@ export FUSE_STRING = -U lfuse:w:${LFUSE}:m -U hfuse:w:${HFUSE}:m -U efuse:w:${EF
 #
 # ---------  BUILD all in a single step ----------
 #
-all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.hex $(TARGET)_eeprom.srec $(TARGET)_eeprom.bin $(TARGET).lst
+all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.hex $(TARGET)_eeprom.srec $(TARGET)_eeprom.bin $(TARGET).lst size
 	@echo "|| "
 	@echo "|| -->   Finished building $(TARGET).* of $(SRC) "
 	@echo "|| "
@@ -50,7 +45,6 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 #
 # -> compile to object file and link them all to elf
 #
-# Note: split compile and linkage although only one src file
 %.elf: $(SRC) $(HEADER)
 	@echo " "
 	@echo "|| "
@@ -60,9 +54,6 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	$(AVR-GCC) $(WARN) $(DEBUG) -std=$(CSTD) $(CONTROLLER) $(LDFLAGS) $(TARGET).o --output $@ -L$(LIBDIR) -l$(USED_LIBS)
 
 
-#
-# -> building hex, srec and binary
-#
 %.hex: %.elf
 	@echo " "
 	@echo "|| "
@@ -85,9 +76,6 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	$(AVR-OBJCOPY) -R .eeprom -O binary $< $@
 
 
-#
-# -> building eeprom files
-#
 %_eeprom.hex: %.elf
 	@echo " "
 	@echo "|| "
@@ -117,23 +105,12 @@ all: $(TARGET).elf $(TARGET).hex $(TARGET).srec $(TARGET).bin $(TARGET)_eeprom.h
 	@echo "|| "
 	$(AVR-OBJDUMP) -h -S $< > $@
 
-
-#
-# -> surprise surpirse a cleanup tag
-#
 clean:
 	rm -rf *~ *.i *.s *.elf *.hex *.bin *.srec *.obj *.o *.eeprom *.lst *.map core.d
 
-
-#
-# -> nothing to install
-#
 install:
 	@echo "Nothing to install"
 
-#
-# tag needed to build the eeprom file within a clean dir
-#
 eeprom: $(TARGET).elf
 	@echo " "
 	@echo "|| "
@@ -144,19 +121,15 @@ eeprom: $(TARGET).elf
 	$(AVR-OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $(TARGET)_eeprom.bin
 
 
-#
-# show mem usage ... for more use tag readelf
-#
 size: $(TARGET).elf
 	@echo " "
 	@echo "|| "
 	@echo "|| --> Mem usage "
 	@echo "|| "
-	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
+	$(AVRSIZE) $(TARGET).elf
+#	$(AVRSIZE) -C --mcu=$(MCU) $(TARGET).elf
 
-#
-# show defailed elf infos
-#
+
 readelf: $(TARGET).elf
 	@echo " "
 	@echo "|| "
@@ -165,9 +138,6 @@ readelf: $(TARGET).elf
 	readelf --all $(TARGET).elf
 
 
-#
-# --------- fuses programming ----------
-#
 fuses_prog:
 	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) $(FUSE_STRING)
 
@@ -178,10 +148,6 @@ fuses_prog_defaults:
 	$(PROGRAMMER) -c $(PROGRAMMER_HW) -p $(MCU) $(PROGRAMMER_ARGS) $(FUSE_DEFAULT)
 
 
-
-#
-# --------- flash programming ----------
-#
 flash_all: flash flash_eeprom
 
 flash: $(TARGET).hex

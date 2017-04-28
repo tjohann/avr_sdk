@@ -21,7 +21,7 @@ After that you have set all possible switches to __YES__ for that controller. Ne
 
       	  ~/avr_sdk$ make
 
-That generates/install the libs in ~/avr_sdk/lib (Note: this also build the template project). Depending on your sourced env file you have lcd or not and serial, and so one. 
+That generates/install the libs in ~/avr_sdk/lib (Note: this also build the template project). Depending on your sourced env file you have lcd or not and serial, and so one.
 
 
 Some more notes

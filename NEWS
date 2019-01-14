@@ -1,5 +1,9 @@
 # THE LATEST NEWS
 
+
+2019-01-14 -> a lot of cleanups
+	      remove old (not finished) projects
+
 2017-03-03 -> a lot of cleanups (really a lot) and docu additions
 	      add skeleton for a new project -> an i2c<->usb gateway for linux
 

@@ -2,8 +2,12 @@
 # makefile for libavrspi
 #
 
-include $(AVR_HOME)/include/defines.mk
-include $(AVR_HOME)/include/defines_compile_macros.mk
+ifeq "${AVR_HOME}" ""
+    $(error error: please source a *_env file first!)
+endif
+
+include $(AVR_HOME)/mk/defines.mk
+include $(AVR_HOME)/mk/defines_compile_macros.mk
 include $(PROJECT_CONTROLLER)
 
 TARGET = libspi

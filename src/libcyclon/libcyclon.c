@@ -20,11 +20,11 @@
 #include "libcyclon.h"
 #include "libcyclon_priv.h"
 
-
 /*
  * if you want to use CYCLON ... otherwise no code to to link
  */
 #if USE_CYCLON == __YES__
+
 
 /*
  * -> do some init stuff

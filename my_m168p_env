@@ -24,12 +24,17 @@ export BAUD=9600
 # export PROGRAMMER=avrdude
 # export PROGRAMMER_HW=stk500
 # export PROGRAMMER_ARGS=" -P /dev/ttyS0"
+#
+# Olimex AVR-ISP-MK2
+#export PROGRAMMER=avrdude
+#export PROGRAMMER_HW=avrispmkii
+#export PROGRAMMER_ARGS=" -P usb"
 
 #
-# my programmer -> Olimex AVR-ISP-MK2
+# my programmer -> Atmel-ICE
 #
 export PROGRAMMER=avrdude
-export PROGRAMMER_HW=avrispmkii
+export PROGRAMMER_HW=atmelice_isp
 export PROGRAMMER_ARGS=" -P usb"
 
 #

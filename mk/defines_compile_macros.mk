@@ -1,6 +1,5 @@
 # common compiler switches to active/deactivate code fragments
 #
-# Note: also edit avr/arm_compile_macros.h if needed
 
 ifeq "${AVR_HOME}" ""
     $(error error: please source a *_env file first!)

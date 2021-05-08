@@ -192,7 +192,6 @@ __attribute__((OS_main)) main(void)
 	i2c_setup_master_mode(I2C_100KHz);
 	if (i2c_errno != MY_OK)
 		error_indication(error_string);
-
 #endif
 
 	/*
@@ -222,7 +221,6 @@ __attribute__((OS_main)) main(void)
 #endif
 
 	while (1) {
-
 		// led on
 		SET_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
@@ -230,6 +228,5 @@ __attribute__((OS_main)) main(void)
 		// led off
 		CLEAR_BIT(LED_PORT, LED_PIN);
 		_delay_ms(DELAYTIME);
-
 	}
 }

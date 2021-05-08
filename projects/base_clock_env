@@ -1,0 +1,9 @@
+# +----------------------------- setup the my personal env -------------------+
+# |                                   base_clock_env                          |
+# +---------------------------------------------------------------------------+
+
+cd ..
+. ./m168p_env
+cd projects
+
+echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

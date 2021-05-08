@@ -19,19 +19,16 @@ export BAUD=9600
 export PROGRAMMER=avrdude
 export PROGRAMMER_HW=atmelice_isp
 export PROGRAMMER_ARGS=" -P usb"
-#
-# Olimex AVR-ISP-MK2
-#
-#export PROGRAMMER=avrdude
-#export PROGRAMMER_HW=avrispmkii
-#export PROGRAMMER_ARGS=" -P usb"
-
 
 #
 # export project specific definitions
 #
 export PROJECT_CONTROLLER="${AVR_HOME}/mk/defines_m168p.mk"
-#echo $PROJECT_CONTROLLER
+
+#
+# want to use ADC?
+#
+export USE_ADC=__NO__
 
 #
 # want to use SERIAL?
@@ -44,28 +41,14 @@ export USE_SERIAL=__YES__
 export USE_LCD=__NO__
 
 #
-# want to use ADC?
+# lcd port
 #
-export USE_ADC=__YES__
+export LCD_COMMON_PORT=__NONE__
 
 #
 # use __LCD__ or __SERIAL__
 #
 export COMMUNICATION_PATH=__SERIAL__
-
-#
-# lcd port
-#
-# -> __PORT_A__
-# -> __PORT_B__
-# -> __PORT_C__
-# -> __PORT_D__
-# -> __NONE__
-#
-# Note: the definition of which pin of lcd is connected to
-#       which controller pin is done in include/avr_compile_macros.h
-#
-export LCD_COMMON_PORT=__NONE__
 
 #
 # want to use I2C?

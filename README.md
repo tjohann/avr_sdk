@@ -5,6 +5,8 @@ A simple sdk with libs and tools for using with 8 bit controller.
 
 WARNING: This is work in progress! So it's possible that something is not working or possibly not implemented yet. If you face a bug then pls use create an issue (https://github.com/tjohann/avr_sdk/issues).
 
+WARNING: I started a complete rework of the whole sdk! So everthing is changing and therefore thinks are not correct!
+
 
 Setup AVR dev environment
 -------------------------
@@ -19,26 +21,26 @@ Files/folders
 
 	- Documentation ... some documentation
 	- include ... the avr specific headers
-	  **usage**: see ~/avr_sdk/src/template for usage
 	- lib ... the avr specific libs
-      **usage**: see ~/avr_sdk/src/template for usage
-	- my_m168p_env/my_m32_env ... the controller specific config
-      **usage**: ~/avr_sdk$. ./my_m168p_env
+	- m168p_env/m32_env/nano_v3_env ... the controller specific config
 	- src ... sources for avr specific libs and tools
 	- projects ... here are some projects
 	  **Note**: to build a project, you have to source the corresponding env file
 	- bin ... some helper scripts
 	- mk ... Makefile relevant defines
-   	- FEATURE_OVERVIEW ... a short decription of the feartures and the configuration
+	- pcb ... the pcb
+	- schematics ... the schematics
+	- pics ... some pics of my devices
+	- FEATURE_OVERVIEW ... a short decription of the features and the configuration
 
 
 Build library for specific device
 ---------------------------------
 
-Create an **controller** specific file like my_m168p_env ... source it and try to build content
+Create an **controller** specific file like m168p_env ... source it and try to build content
 of ~/avr_sdk/src$
 
-	~/avr_sdk$ . ./my_m32_env
+	~/avr_sdk$ . ./m168p_env
 
 Example above: Setup env for target atmega168p with 1000000Hz and 9600baud
 
@@ -46,7 +48,7 @@ Now build the library:
 
 	~/avr_sdk$ cd src
 	~/avr_sdk/src$ ls
-	libavrcyclon  libavrhelper  libavrserial  makefile  template ...
+	libavrhelper  libavrserial  makefile  template ...
 	~/avr_sdk/src$ make
 	.... A lot of output ...
 
@@ -56,7 +58,9 @@ Check for errors ... there shouldn't be any ... also be aware of the warnings.
 Build a project
 ---------------
 
-The projects are bound to a specific controller. There'fore the source the corresponding env files above. To build a project source the project file and build it in the folder:
+The projects are bound to a specific controller (ATMega168P/ATMega32/...). Therefore they source the corresponding env files above.
+
+To build a project source the project file and build it in the folder:
 
 	~/avr_sdk/projects$ . ./usb_i2c_gateway_env
 	Setup env for target atmega328p with 16000000Hz and 9600baud
@@ -80,16 +84,16 @@ Note: the projects use the library, so you first have to build the library with 
 Build the library:
 
 	cd ~/avr_sdk
-	~/avr_sdk$ . ./my_m32_env
+	~/avr_sdk$ . ./nano_v3_env
 	make
 	... a lot of output ...
 
 Build the project:
 
 	cd ~/avr_sdk/projects$
-	~/avr_sdk/projects$ . ./my_ext_ctrl_modul_env
+	~/avr_sdk/projects$ . ./usb_i2c_gateway_env
 
-	cd my_ext_ctrl_modul
+	cd usb_i2c_gateway
 	make
 	... a lot of output ...
 

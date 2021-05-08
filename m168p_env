@@ -1,5 +1,5 @@
 # +------------------------- setup the my personal env ------------------------+
-# |                                my_m168p_env                                |
+# |                                 m168p_env                                  |
 # +----------------------------------------------------------------------------+
 
 # set avr home
@@ -14,28 +14,18 @@ export F_CPU=1000000
 export BAUD=9600
 
 #
-# OLD-Stuff:
-#
-# my programmer -> a old stk500 on usb<->serial adapter
-#                  export PROGRAMMER_ARGS=" -P /dev/ttyUSB0"
-#               -> a old stk500 direkt conected
-#                  export PROGRAMMER_ARGS=" -P /dev/ttyS0"
-#
-# export PROGRAMMER=avrdude
-# export PROGRAMMER_HW=stk500
-# export PROGRAMMER_ARGS=" -P /dev/ttyS0"
-#
-# Olimex AVR-ISP-MK2
-#export PROGRAMMER=avrdude
-#export PROGRAMMER_HW=avrispmkii
-#export PROGRAMMER_ARGS=" -P usb"
-
-#
-# my programmer -> Atmel-ICE
+# Atmel-ICE
 #
 export PROGRAMMER=avrdude
 export PROGRAMMER_HW=atmelice_isp
 export PROGRAMMER_ARGS=" -P usb"
+#
+# Olimex AVR-ISP-MK2
+#
+#export PROGRAMMER=avrdude
+#export PROGRAMMER_HW=avrispmkii
+#export PROGRAMMER_ARGS=" -P usb"
+
 
 #
 # export project specific definitions
@@ -47,13 +37,6 @@ export PROJECT_CONTROLLER="${AVR_HOME}/mk/defines_m168p.mk"
 # want to use SERIAL?
 #
 export USE_SERIAL=__YES__
-
-#
-# want to use CYCLON?
-#
-# Note: dont forget to define CYCLON_PORT
-#
-export USE_CYCLON=__YES__
 
 #
 # want to use LCD?
@@ -69,17 +52,6 @@ export USE_ADC=__YES__
 # use __LCD__ or __SERIAL__
 #
 export COMMUNICATION_PATH=__SERIAL__
-
-#
-# led port for cylcon eyes
-#
-# -> __PORT_A__
-# -> __PORT_B__
-# -> __PORT_C__
-# -> __PORT_D__
-# -> __NONE__
-#
-export CYCLON_PORT=__PORT_B__
 
 #
 # lcd port
@@ -106,11 +78,5 @@ export USE_I2C=__YES__
 #
 #
 export USE_SPI=__NO__
-
-#
-# want to use CAN?
-#
-#
-export USE_CAN=__NO__
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

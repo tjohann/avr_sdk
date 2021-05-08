@@ -1,6 +1,6 @@
 /*
   GPL
-  (c) 2014-2016, thorsten.johannvorderbrueggen@t-online.de
+  (c) 2014-2021, thorsten.johannvorderbrueggen@t-online.de
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -200,18 +200,6 @@ __attribute__((OS_main)) main(void)
 	 */
 	// infrastructure is ready to use ... so my init is the next step
 	init_template();
-
-        /*
-	 * ---------- cyclon stuff ----------
-	 */
-#if USE_CYCLON == __YES__
-	cyclon_setup_port();
-	cyclon_run(5, 0, 200);
-	_delay_ms(2 * DELAYTIME);
-	cyclon_double_run(5, 200);
-	_delay_ms(2 * DELAYTIME);
-	cyclon_run(5, 7, 200);
-#endif
 
         /*
 	 * ---------- main stuff below ----------

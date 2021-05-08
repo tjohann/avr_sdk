@@ -32,13 +32,6 @@ export PROJECT_CONTROLLER="${AVR_HOME}/mk/defines_m328.mk"
 export USE_SERIAL=__YES__
 
 #
-# want to use CYCLON?
-#
-# Note: dont forget to define CYCLON_PORT
-#
-export USE_CYCLON=__NO__
-
-#
 # want to use LCD?
 #
 export USE_LCD=__NO__
@@ -52,17 +45,6 @@ export USE_ADC=__YES__
 # use __LCD__ or __SERIAL__
 #
 export COMMUNICATION_PATH=__SERIAL__
-
-#
-# led port for cylcon eyes
-#
-# -> __PORT_A__
-# -> __PORT_B__
-# -> __PORT_C__
-# -> __PORT_D__
-# -> __NONE__
-#
-export CYCLON_PORT=__NONE__
 
 #
 # lcd port
@@ -89,11 +71,5 @@ export USE_I2C=__YES__
 #
 #
 export USE_SPI=__NO__
-
-#
-# want to use CAN?
-#
-#
-export USE_CAN=__NO__
 
 echo "Setup env for target ${MCU} with ${F_CPU}Hz and ${BAUD}baud"

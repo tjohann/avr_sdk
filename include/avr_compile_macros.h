@@ -1,6 +1,6 @@
 /*
   GPL
-  (c) 2014-2016, thorsten.johannvorderbrueggen@t-online.de
+  (c) 2014-2021, thorsten.johannvorderbrueggen@t-online.de
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -36,25 +36,6 @@
 
 #ifndef __NO__
 #define __NO__ 0
-#endif
-
-/*
- * defines for port definitions -> see libavrcyclon
- */
-#ifndef __PORT_A__
-#define __PORT_A__ 1
-#endif
-
-#ifndef __PORT_B__
-#define __PORT_B__ 2
-#endif
-
-#ifndef __PORT_C__
-#define __PORT_C__ 3
-#endif
-
-#ifndef __PORT_D__
-#define __PORT_D__ 4
 #endif
 
 /*

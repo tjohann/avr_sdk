@@ -7,7 +7,7 @@ ifeq "${AVR_HOME}" ""
 endif
 
 MODULES = template
-AVR_LIBS = libhelper libserial libadc liblcd libi2c libspi libcan libcyclon
+AVR_LIBS = libhelper libserial libadc liblcd libi2c libspi
 
 all::
 	@echo " "

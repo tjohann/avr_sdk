@@ -5,6 +5,12 @@
 
 
 #
+# -------------- 2021-05-08 ----------------------------------------------------
+#
+## all
+- rework and cleanup
+
+#
 # -------------- 2019-01-14 ----------------------------------------------------
 #
 ## project && lib
@@ -14,13 +20,11 @@
   - define a project for every supported hardware (cyclon, lcd ...)
   - add simple schematic or breadboard for every supported hardware config
 
-
 #
 # -------------- 2014-08-05 ----------------------------------------------------
 #
 ## all
 - make shure, that every lib is build with my 2 example controllers
-
 
 #
 # -------------- 2014-07-29 ----------------------------------------------------
@@ -28,13 +32,11 @@
 ## libavrcyclon
 - rework for port handling needed -> similiar to lcd_port
 
-
 #
 # -------------- 2014-07-29 ----------------------------------------------------
 #
 ## libavrcyclon
 - use 74hc595 ... see http://www.mikrocontroller.net/articles/AVR-Tutorial:_Schieberegister
-
 
 #
 # -------------- 2014-07-02 ----------------------------------------------------

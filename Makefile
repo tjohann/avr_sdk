@@ -9,7 +9,7 @@ endif
 #include include/defines.mk
 
 MODULES = src
-MODULES_ADDITIONAL = include lib bin mk pics Documentation schematics projects
+MODULES_ADDITIONAL = include lib bin mk pics Documentation schematics pcb projects
 
 all::
 	@echo "+-----------------------------------------------+"

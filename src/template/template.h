@@ -1,6 +1,6 @@
 /*
   GPL
-  (c) 2014-2016, thorsten.johannvorderbrueggen@t-online.de
+  (c) 2014-2021, thorsten.johannvorderbrueggen@t-online.de
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,8 +32,6 @@
 #include <libadc.h>
 #include <liblcd.h>
 #include <libi2c.h>
-#include <libcan.h>
-#include <libcyclon.h>
 
 
 // make shure that COMMUNICATION_PATH is available
@@ -66,15 +64,7 @@ extern unsigned char i2c_errno;
 
 
 /*
- * -> use can_errno
- */
-extern unsigned char can_errno;
-
-
-/*
  * special pins for blinking ...
- *
- * Note: you could also use __PORT_B__ ... see libcyclon
  */
 #define LED_PIN PB0
 #define LED_DDR DDRB

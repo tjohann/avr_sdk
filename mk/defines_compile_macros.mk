@@ -38,10 +38,3 @@ I2C_ERROR = __ON__
 SPI_ERROR = __ON__
 
 
-# use can_errno to indicate can specific erros
-# -> ON  (use it)
-# -> OFF (no i can do it better)
-CAN_ERROR = __ON__
-
-
-
